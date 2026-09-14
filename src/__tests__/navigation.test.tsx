@@ -39,9 +39,9 @@ describe('route guards', () => {
     await renderRouter('./src/app', { initialUrl: '/' });
 
     expect(
-      await screen.findByRole('button', { name: 'Crear cuenta' }, ROUTER_TIMEOUT),
+      await screen.findByRole('heading', { name: /Tu camino/ }, ROUTER_TIMEOUT),
     ).toBeOnTheScreen();
-    expect(screen.getByRole('button', { name: 'Ya tengo cuenta' })).toBeOnTheScreen();
+    expect(screen.getAllByRole('button', { name: 'Empezar gratis' }).length).toBeGreaterThan(0);
   });
 
   it('sends signed-in users without onboarding to the onboarding flow', async () => {
@@ -71,7 +71,7 @@ describe('route guards', () => {
     await renderRouter('./src/app', { initialUrl: '/ejercicios' });
 
     expect(
-      await screen.findByRole('button', { name: 'Crear cuenta' }, ROUTER_TIMEOUT),
+      await screen.findByRole('heading', { name: /Tu camino/ }, ROUTER_TIMEOUT),
     ).toBeOnTheScreen();
     expect(screen.queryByRole('searchbox')).not.toBeOnTheScreen();
   });

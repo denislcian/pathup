@@ -16,14 +16,6 @@
     "showPassword": "Mostrar contraseña",
     "hidePassword": "Ocultar contraseña"
   },
-  "welcome": {
-    "tagline": "Tu camino, hacia arriba.",
-    "pointWorkout": "Registra tus entrenos en segundos",
-    "pointPrograms": "Sigue programas guiados, gratis",
-    "pointWellness": "Cuida tu sueño y tu energía",
-    "createAccount": "Crear cuenta",
-    "signIn": "Ya tengo cuenta"
-  },
   "auth": {
     "signUpTitle": "Crea tu cuenta",
     "signUpSubtitle": "Tardas menos de un minuto",
@@ -239,5 +231,137 @@
     "whereBody": "En servidores de Supabase en la Unión Europea (Frankfurt).",
     "rightsTitle": "Tus derechos",
     "rightsBody": "Podrás exportar todos tus datos y borrar tu cuenta desde la app. Menores de 16 años no pueden registrarse; de 16 a 17 años el perfil es siempre privado."
+  },
+  "landing": {
+    "metaTitle": "PathUp · Entrenos, programas guiados y bienestar gratis",
+    "metaDescription": "Registra tus entrenos, sigue un programa hecho para ti y cuida tu descanso. Gratis, en español y sin anuncios.",
+    "nav": {
+      "how": "Cómo funciona",
+      "features": "Funciones",
+      "faq": "Preguntas",
+      "signIn": "Entrar",
+      "start": "Empezar gratis"
+    },
+    "hero": {
+      "badge": "Beta abierta · Gratis",
+      "titleStart": "Tu camino,",
+      "titleAccent": "hacia arriba.",
+      "subtitle": "Registra tus entrenos, sigue un programa hecho para ti y cuida tu descanso. Todo en una sola app, en español y sin anuncios.",
+      "primary": "Empezar gratis",
+      "secondary": "Ya tengo cuenta",
+      "trustFree": "Gratis de verdad",
+      "trustNoAds": "Sin anuncios",
+      "trustEu": "Datos en la UE",
+      "trustAge": "Desde 16 años"
+    },
+    "mock": {
+      "day": "Martes",
+      "greeting": "Hola, Lucía",
+      "readinessLabel": "Preparación",
+      "readinessNote": "Has dormido bien: sesión normal",
+      "sessionTitle": "Torso · Semana 3 de 8",
+      "sets": "{{sets}} × {{reps}}",
+      "startSession": "Empezar sesión",
+      "streak": "12 días de racha",
+      "record": "Nuevo récord",
+      "recordDetail": "Press banca · 82,5 kg × 8",
+      "suggestion": "Próxima sesión: +2,5 kg",
+      "rest": "Descanso",
+      "previous": "Anterior",
+      "programWeek": "Semana 3 de 8",
+      "programName": "Torso / Pierna",
+      "today": "Hoy"
+    },
+    "how": {
+      "eyebrow": "Cómo funciona",
+      "title": "De cero a entrenar con plan, en 4 pasos",
+      "step1Title": "Cuéntanos de ti",
+      "step1Body": "Objetivo, experiencia, días libres y material. Dos minutos y un breve cuestionario de salud.",
+      "step2Title": "Recibe tu programa",
+      "step2Body": "Te recomendamos un programa según tus respuestas. Si faltas un día, se reajusta en vez de perder la semana.",
+      "step3Title": "Entrena y registra",
+      "step3Body": "Apunta cada serie en dos toques, con tus pesos de la última vez delante y el descanso cronometrado.",
+      "step4Title": "Ajusta y progresa",
+      "step4Body": "Un check-in de 20 segundos adapta la sesión a cómo has dormido, y te decimos cuándo subir peso."
+    },
+    "features": {
+      "eyebrow": "Todo en una app",
+      "title": "Lo mejor de cada app, en una sola",
+      "subtitle": "Lo que hoy necesita tres o cuatro apps distintas, junto y conectado.",
+      "workoutTitle": "Registro de entrenos",
+      "workoutBody": "Rutinas, series, descanso automático, superseries y récords. Funciona sin cobertura en el gimnasio.",
+      "programsTitle": "Programas guiados",
+      "programsBody": "Planes de varias semanas con la técnica explicada y el porqué de cada decisión.",
+      "wellnessTitle": "Bienestar",
+      "wellnessBody": "Sueño, energía, estrés y hábitos en un check-in que habla con tu entreno.",
+      "progressTitle": "Progreso",
+      "progressBody": "Gráficas por ejercicio, 1RM estimado, medidas y fotos privadas. Sin muros de pago.",
+      "nutritionTitle": "Nutrición",
+      "nutritionBody": "Proteína y calorías sin obsesiones, escáner de código de barras y un objetivo que se ajusta cada semana.",
+      "communityTitle": "Comunidad",
+      "communityBody": "Sigue a tus amigos, comparte récords y haz retos semanales. Privado por defecto."
+    },
+    "principles": {
+      "eyebrow": "Por qué PathUp",
+      "title": "Hecha para que la uses, no para venderte nada",
+      "freeTitle": "Gratis de verdad",
+      "freeBody": "Sin suscripción para ver tus gráficas y sin límite de rutinas.",
+      "beginnerTitle": "Explicada para principiantes",
+      "beginnerBody": "Un modo principiante que explica cada paso y desaparece cuando ya sabes lo que haces.",
+      "evidenceTitle": "Basada en evidencia",
+      "evidenceBody": "Programas y progresiones apoyados en estudios, no en modas.",
+      "privacyTitle": "Tus datos, protegidos",
+      "privacyBody": "Servidores en la UE, perfil privado por defecto y consentimiento explícito para tus datos de salud."
+    },
+    "audiences": {
+      "eyebrow": "Para todo el mundo",
+      "title": "Da igual desde dónde empieces",
+      "beginnerTitle": "Empiezas de cero",
+      "beginnerBody": "Te decimos qué hacer cada día y cómo hacerlo bien.",
+      "lifterTitle": "Ya entrenas",
+      "lifterBody": "Registro rápido, récords y progresión sin distracciones.",
+      "activeTitle": "Quieres moverte más",
+      "activeBody": "Programas suaves, en casa o en el gimnasio, a cualquier edad desde los 16."
+    },
+    "roadmap": {
+      "eyebrow": "Beta abierta",
+      "title": "Así avanza PathUp",
+      "subtitle": "Estamos construyendo la app en abierto. Esto es lo que ya puedes usar y lo que llega.",
+      "done": "Disponible",
+      "next": "Próximamente",
+      "sepTitle": "Septiembre",
+      "sepBody": "Cuenta, onboarding personalizado y biblioteca de ejercicios con técnica.",
+      "octTitle": "Octubre",
+      "octBody": "Registro de entrenos sin conexión, programas guiados, progreso y bienestar.",
+      "novTitle": "Noviembre",
+      "novBody": "Nutrición: calorías, proteína y escáner de código de barras.",
+      "decTitle": "Diciembre",
+      "decBody": "Comunidad: amigos, récords compartidos y retos."
+    },
+    "faq": {
+      "eyebrow": "Preguntas",
+      "title": "Preguntas frecuentes",
+      "freeQ": "¿Es gratis?",
+      "freeA": "Sí. PathUp es gratis y no tiene anuncios.",
+      "gymQ": "¿Necesito ir al gimnasio?",
+      "gymA": "No. Al empezar nos dices qué material tienes y te mostramos lo que puedes hacer: gimnasio, mancuernas, bandas o tu propio cuerpo.",
+      "beginnerQ": "Nunca he entrenado, ¿me sirve?",
+      "beginnerA": "Sí. Cada ejercicio explica cómo se hace, las claves de técnica y los errores más frecuentes.",
+      "ageQ": "¿Qué edad necesito?",
+      "ageA": "16 años o más. Entre los 16 y los 17 el perfil es siempre privado y no hay objetivos de pérdida de grasa.",
+      "dataQ": "¿Qué hacéis con mis datos?",
+      "dataA": "Solo los usamos para darte el servicio. Se guardan en la Unión Europea y los datos de salud necesitan tu consentimiento explícito.",
+      "devicesQ": "¿Funciona en iPhone y Android?",
+      "devicesA": "Sí, desde el navegador de cualquier móvil u ordenador. La app instalable para Android llegará durante la beta."
+    },
+    "cta": {
+      "title": "Tu primer paso hacia arriba empieza hoy",
+      "subtitle": "Crea tu cuenta en menos de un minuto."
+    },
+    "footer": {
+      "tagline": "Entrenos, programas y bienestar. Gratis.",
+      "rights": "© 2026 PathUp · Beta",
+      "privacy": "Privacidad"
+    }
   }
 }

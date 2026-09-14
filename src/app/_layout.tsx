@@ -13,6 +13,7 @@ import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Platform } from 'react-native';
 
 import { ProfileLoadError } from '@/components/profile-load-error';
 import { AuthProvider, useAuth } from '@/features/auth/auth-provider';
@@ -23,6 +24,10 @@ import { colors, fonts } from '@/theme/tokens';
 void SplashScreen.preventAutoHideAsync();
 // Paints the root view (and the web page body) so no light background shows during overscroll or transitions.
 void SystemUI.setBackgroundColorAsync(colors.bg);
+if (Platform.OS === 'web' && typeof document !== 'undefined') {
+  // Dark native form controls and scrollbars in the browser.
+  document.documentElement.style.colorScheme = 'dark';
+}
 
 const navigationTheme = {
   ...DarkTheme,

@@ -16,14 +16,6 @@
     "showPassword": "Show password",
     "hidePassword": "Hide password"
   },
-  "welcome": {
-    "tagline": "Your path, upwards.",
-    "pointWorkout": "Log your workouts in seconds",
-    "pointPrograms": "Follow guided programs for free",
-    "pointWellness": "Look after your sleep and energy",
-    "createAccount": "Create account",
-    "signIn": "I already have an account"
-  },
   "auth": {
     "signUpTitle": "Create your account",
     "signUpSubtitle": "It takes less than a minute",
@@ -239,5 +231,137 @@
     "whereBody": "On Supabase servers in the European Union (Frankfurt).",
     "rightsTitle": "Your rights",
     "rightsBody": "You'll be able to export all your data and delete your account from the app. People under 16 can't sign up; profiles of 16 and 17 year olds are always private."
+  },
+  "landing": {
+    "metaTitle": "PathUp · Free workouts, guided programs and wellness",
+    "metaDescription": "Log your workouts, follow a program made for you and look after your recovery. Free and ad-free.",
+    "nav": {
+      "how": "How it works",
+      "features": "Features",
+      "faq": "FAQ",
+      "signIn": "Sign in",
+      "start": "Start for free"
+    },
+    "hero": {
+      "badge": "Open beta · Free",
+      "titleStart": "Your path,",
+      "titleAccent": "upwards.",
+      "subtitle": "Log your workouts, follow a program made for you and look after your recovery. All in one app, with no ads.",
+      "primary": "Start for free",
+      "secondary": "I already have an account",
+      "trustFree": "Truly free",
+      "trustNoAds": "No ads",
+      "trustEu": "Data stored in the EU",
+      "trustAge": "Ages 16+"
+    },
+    "mock": {
+      "day": "Tuesday",
+      "greeting": "Hi, Lucía",
+      "readinessLabel": "Readiness",
+      "readinessNote": "You slept well: normal session",
+      "sessionTitle": "Upper · Week 3 of 8",
+      "sets": "{{sets}} × {{reps}}",
+      "startSession": "Start session",
+      "streak": "12-day streak",
+      "record": "New record",
+      "recordDetail": "Bench press · 82.5 kg × 8",
+      "suggestion": "Next session: +2.5 kg",
+      "rest": "Rest",
+      "previous": "Previous",
+      "programWeek": "Week 3 of 8",
+      "programName": "Upper / Lower",
+      "today": "Today"
+    },
+    "how": {
+      "eyebrow": "How it works",
+      "title": "From zero to training with a plan, in 4 steps",
+      "step1Title": "Tell us about you",
+      "step1Body": "Goal, experience, free days and equipment. Two minutes and a short health questionnaire.",
+      "step2Title": "Get your program",
+      "step2Body": "We recommend a program based on your answers. Miss a day and it adjusts instead of wasting the week.",
+      "step3Title": "Train and log",
+      "step3Body": "Log every set in two taps, with last time's weights in front of you and your rest timed.",
+      "step4Title": "Adjust and progress",
+      "step4Body": "A 20-second check-in adapts the session to how you slept, and we tell you when to add weight."
+    },
+    "features": {
+      "eyebrow": "All in one app",
+      "title": "The best of every app, in one",
+      "subtitle": "What takes three or four different apps today, together and connected.",
+      "workoutTitle": "Workout logging",
+      "workoutBody": "Routines, sets, automatic rest timer, supersets and records. Works with no signal at the gym.",
+      "programsTitle": "Guided programs",
+      "programsBody": "Multi-week plans with technique explained and the reasoning behind every choice.",
+      "wellnessTitle": "Wellness",
+      "wellnessBody": "Sleep, energy, stress and habits in a check-in that talks to your training.",
+      "progressTitle": "Progress",
+      "progressBody": "Charts per exercise, estimated 1RM, measurements and private photos. No paywalls.",
+      "nutritionTitle": "Nutrition",
+      "nutritionBody": "Protein and calories without obsession, barcode scanner and a target that adjusts every week.",
+      "communityTitle": "Community",
+      "communityBody": "Follow friends, share records and join weekly challenges. Private by default."
+    },
+    "principles": {
+      "eyebrow": "Why PathUp",
+      "title": "Built for you to use, not to sell you something",
+      "freeTitle": "Truly free",
+      "freeBody": "No subscription to see your charts and no routine limits.",
+      "beginnerTitle": "Explained for beginners",
+      "beginnerBody": "A beginner mode that explains every step and gets out of the way once you know what you're doing.",
+      "evidenceTitle": "Evidence based",
+      "evidenceBody": "Programs and progressions backed by research, not trends.",
+      "privacyTitle": "Your data, protected",
+      "privacyBody": "Servers in the EU, private profile by default and explicit consent for your health data."
+    },
+    "audiences": {
+      "eyebrow": "For everyone",
+      "title": "Wherever you're starting from",
+      "beginnerTitle": "Starting from zero",
+      "beginnerBody": "We tell you what to do each day and how to do it well.",
+      "lifterTitle": "Already training",
+      "lifterBody": "Fast logging, records and progression without distractions.",
+      "activeTitle": "Want to move more",
+      "activeBody": "Gentle programs at home or in the gym, at any age from 16."
+    },
+    "roadmap": {
+      "eyebrow": "Open beta",
+      "title": "How PathUp is progressing",
+      "subtitle": "We're building the app in the open. Here's what you can use now and what's coming.",
+      "done": "Available",
+      "next": "Coming soon",
+      "sepTitle": "September",
+      "sepBody": "Account, personalised onboarding and an exercise library with technique.",
+      "octTitle": "October",
+      "octBody": "Offline workout logging, guided programs, progress and wellness.",
+      "novTitle": "November",
+      "novBody": "Nutrition: calories, protein and barcode scanner.",
+      "decTitle": "December",
+      "decBody": "Community: friends, shared records and challenges."
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Frequently asked questions",
+      "freeQ": "Is it free?",
+      "freeA": "Yes. PathUp is free and has no ads.",
+      "gymQ": "Do I need a gym?",
+      "gymA": "No. When you start you tell us what equipment you have and we show you what you can do: gym, dumbbells, bands or just your body.",
+      "beginnerQ": "I've never trained. Is it for me?",
+      "beginnerA": "Yes. Every exercise explains how to do it, the key technique cues and the most common mistakes.",
+      "ageQ": "How old do I need to be?",
+      "ageA": "16 or older. Between 16 and 17 profiles are always private and fat-loss goals aren't available.",
+      "dataQ": "What do you do with my data?",
+      "dataA": "We only use it to provide the service. It's stored in the European Union and health data requires your explicit consent.",
+      "devicesQ": "Does it work on iPhone and Android?",
+      "devicesA": "Yes, from the browser on any phone or computer. The installable Android app arrives during the beta."
+    },
+    "cta": {
+      "title": "Your first step upwards starts today",
+      "subtitle": "Create your account in under a minute."
+    },
+    "footer": {
+      "tagline": "Workouts, programs and wellness. Free.",
+      "rights": "© 2026 PathUp · Beta",
+      "privacy": "Privacy"
+    }
   }
 }
