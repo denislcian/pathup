@@ -1,0 +1,108 @@
+# PathUp · Hoja de ruta
+
+Ritmo: **5-8 h por semana**. Objetivo: **MVP para enseñar en entrevistas el 2 de noviembre de 2026**. Después, nutrición y social mientras envías candidaturas: así el repositorio muestra actividad constante.
+
+Reparto: **tú** te encargas de las cuentas, las pruebas en el móvil, la generación de imágenes y las decisiones; **Claude** del código, los tests, las migraciones y la documentación.
+
+## Resumen
+
+| Semana | Fechas | Fase | Resultado |
+|---|---|---|---|
+| 1 | 14-20 sep | **0 · Cimientos** | La app abre en Android y en Safari con tema oscuro, 5 pestañas y CI en verde |
+| 2 | 21-27 sep | **1a · Cuenta y ejercicios** | Registro con consentimiento, onboarding, biblioteca de ejercicios en español |
+| 3 | 28 sep-4 oct | **1b · Registro de entreno** | Entreno completo sin red: series, descanso, valores anteriores, guardado |
+| 4 | 5-11 oct | **2a · Rutinas y progreso** | Rutinas, historial, calendario, récords, gráfica por ejercicio |
+| 5 | 12-18 oct | **2b · Programas y "Hoy"** | 4 programas propios, cuestionario, sugerencia de peso, pantalla Hoy |
+| 6 | 19-25 oct | **3 · Bienestar** | Check-in, preparación que ajusta la sesión, respiración, hábitos |
+| 7 | 26 oct-1 nov | **4 · Listo para el CV** | Cuenta demo, web publicada, APK, E2E, accesibilidad, README con GIF |
+| — | **2 nov** | **MVP enseñable** | Enlace en el CV y en LinkedIn |
+| 8-10 | 2-22 nov | **5 · Nutrición** | Objetivos, búsqueda, escáner, comidas guardadas, agua, peso |
+| 11-13 | 23 nov-13 dic | **6 · Social** | Seguir, feed, me gusta, comentarios, tarjetas compartibles, retos |
+| 14 | 14-21 dic | Colchón | Correcciones de los probadores |
+| 2027 | — | 7 · Opcional | Coach IA, Health Connect y HealthKit, publicar en Google Play |
+
+## Detalle por fase
+
+Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguiente: se recorta alcance.
+
+### Fase 0 · Cimientos (semana 1)
+- **Tú:** cuentas de GitHub, Supabase y Expo; Expo Go en Android. Paso a paso en [04-paso-a-paso-fase-0.md](04-paso-a-paso-fase-0.md).
+- **Claude:**
+  - Limpiar la plantilla y fijar TypeScript estricto, ESLint, Prettier y Jest.
+  - Tokens de diseño, fuentes y navegación con 5 pestañas.
+  - Cliente de Supabase, primera migración (`profiles` + RLS) y GitHub Actions.
+- **Puerta:** la app abre en tu Android y en Safari del iPhone, y el CI está en verde.
+
+### Fase 1a · Cuenta y ejercicios (semana 2)
+- Registro e inicio de sesión con email, con fecha de nacimiento, bloqueo de menores de 16 y consentimiento de salud.
+- Onboarding en 5 pantallas: objetivo, nivel, días, material y cuestionario PAR-Q+ simplificado.
+- Semilla de ejercicios: textos de free-exercise-db (dominio público) traducidos al español y **60 ejercicios curados** con claves de técnica.
+- Biblioteca: búsqueda, filtros por músculo y material, ficha del ejercicio con mapa muscular.
+- **Tú:** generas las imágenes de los primeros 20 ejercicios (ver [05-imagenes-y-video-ia.md](05-imagenes-y-video-ia.md)).
+- **Puerta:** te registras en el móvil, completas el onboarding y encuentras "press banca" en menos de 5 s.
+
+### Fase 1b · Registro de entreno (semana 3)
+- Empezar un entreno vacío, añadir ejercicios y series de peso × reps, con tipo de serie y RIR opcional.
+- Valores anteriores en gris, temporizador de descanso con vibración y superseries.
+- Persistencia local, cola de envío e idempotencia.
+- Resumen al terminar: duración, volumen y récords.
+- **Tú:** entrenas una sesión real en el gimnasio con la app, **con el modo avión puesto**.
+- **Puerta:** la sesión completa llega a Supabase al recuperar la red, sin series perdidas ni duplicadas.
+
+### Fase 2a · Rutinas y progreso (semana 4)
+- Rutinas en carpetas: crear desde cero o desde un entreno, reordenar y duplicar.
+- Historial, calendario y detalle de cada sesión.
+- Récords automáticos y gráfica por ejercicio (1RM estimado y volumen).
+- Medidas corporales.
+- **Puerta:** creas tu rutina real y ves tu progreso en press tras 2 sesiones.
+
+### Fase 2b · Programas y pantalla "Hoy" (semana 5)
+- Los 4 programas propios, con su explicación basada en evidencia.
+- Cuestionario que recomienda uno; seguir el programa semana a semana, con reajuste si faltas.
+- Sugerencia de peso para la siguiente sesión (doble progresión).
+- **Pantalla Hoy:** qué toca, el check-in y la racha.
+- **Tú:** portadas de los 4 programas y las imágenes de los ejercicios 21 a 60.
+- **Puerta:** un amigo o amiga sin experiencia elige programa y termina su primera sesión sin preguntarte nada.
+
+### Fase 3 · Bienestar (semana 6)
+- Check-in de 20 s y puntuación de preparación.
+- **Ajuste de la sesión de hoy** según la preparación, con explicación y opción de ignorarlo.
+- Respiración guiada (caja y 4-7-8) con animación y vibración.
+- Hábitos con rachas, podómetro y agua. Recordatorios locales.
+- **Puerta:** 7 días seguidos de check-in tuyos y un ajuste de sesión que tenga sentido.
+
+### Fase 4 · Listo para el CV (semana 7)
+- **Botón "Probar con cuenta demo"** con datos realistas de 8 semanas.
+- Web publicada con dominio gratuito; APK firmado descargable desde la sección Releases de GitHub.
+- Tarea keep-alive de Supabase.
+- Flujos E2E con Maestro: registro, entreno sin red y check-in.
+- Revisión de accesibilidad: lector de pantalla, contraste y tamaño de texto.
+- Pantallas de privacidad: exportar datos y borrar cuenta. Política de privacidad publicada.
+- README con GIF, capturas, diagrama, decisiones técnicas y enlace a la demo.
+- **Tú:** 10 probadores durante 2 semanas (amistades, gente del gimnasio).
+- **Puerta:** un reclutador abre el enlace y en 60 s está viendo un entreno registrado.
+
+### Fase 5 · Nutrición (semanas 8-10)
+- Objetivo calculado con salvaguardas y modo "solo proteína".
+- Búsqueda en una base de alimentos genéricos (USDA FoodData Central, dominio público, traducida) y escáner de código de barras con Open Food Facts.
+- Comidas del día, recientes y favoritos; comidas guardadas; agua; peso con tendencia y ajuste semanal.
+
+### Fase 6 · Social (semanas 11-13)
+- Perfil público o privado y seguir (con solicitud si el perfil es privado).
+- Feed, me gusta y comentarios.
+- Tarjeta compartible generada como imagen y retos semanales.
+- Reportar y bloquear.
+
+## Si vas tarde: qué recortar (en este orden)
+
+1. Superseries y calculadora de discos → pasan a la fase 5.
+2. Fotos de progreso → fase 5.
+3. El programa "Empezar suave" → fase 5 (se quedan 3 programas).
+4. Podómetro y agua → fase 5.
+5. **Nunca se recorta:** registro sin red, cuenta demo, tests y README. Es lo que se ve en una entrevista.
+
+## Ritual de cada sesión (5-8 h a la semana dan para 3-4 sesiones)
+
+1. Abrir la tarea de la fase (tablero de GitHub Projects).
+2. Trabajar en **una sola** tarea.
+3. Commit y una línea en `docs/diario.md`: qué avanzó y qué se ve ahora que antes no se veía.
