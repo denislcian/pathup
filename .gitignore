@@ -33,6 +33,9 @@ yarn-error.*
 # local env files
 .env*.local
 
+# AI-generated raw images (only optimized ones in assets/images are published)
+assets/raw/
+
 # typescript
 *.tsbuildinfo
 

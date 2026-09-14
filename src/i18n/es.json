@@ -1,0 +1,43 @@
+{
+  "tabs": {
+    "today": "Hoy",
+    "workout": "Entreno",
+    "progress": "Progreso",
+    "wellness": "Bienestar",
+    "profile": "Perfil"
+  },
+  "today": {
+    "title": "Hoy",
+    "workoutTitle": "Tu entreno de hoy",
+    "workoutEmpty": "Elige un programa y aquí verás qué te toca cada día.",
+    "checkinTitle": "Check-in de 20 segundos",
+    "checkinEmpty": "Cuéntanos cómo has dormido y cómo te sientes. Ajustaremos tu sesión."
+  },
+  "workout": {
+    "title": "Entreno",
+    "subtitle": "Rutinas y programas",
+    "empty": "Aún no hay entrenos",
+    "emptyDescription": "Pronto podrás empezar un entreno vacío, crear rutinas o seguir un programa guiado."
+  },
+  "progress": {
+    "title": "Progreso",
+    "subtitle": "Historial y récords",
+    "empty": "Tu progreso aparecerá aquí",
+    "emptyDescription": "Cada serie que registres sumará a tus gráficas y récords personales."
+  },
+  "wellness": {
+    "title": "Bienestar",
+    "subtitle": "Sueño, energía y hábitos",
+    "empty": "Empieza por un check-in",
+    "emptyDescription": "Sueño, energía, estrés y ánimo en 20 segundos. Con eso adaptamos tu día."
+  },
+  "profile": {
+    "title": "Perfil",
+    "subtitle": "Tu cuenta",
+    "empty": "Inicia sesión para guardar tu camino",
+    "emptyDescription": "Tu cuenta sincroniza entrenos, rutinas y progreso entre tus dispositivos."
+  },
+  "common": {
+    "comingSoon": "Próximamente"
+  }
+}

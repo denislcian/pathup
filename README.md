@@ -1,56 +1,44 @@
-# Welcome to your Expo app 👋
+# PathUp
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+> **Tu camino, hacia arriba.** Entreno, programas guiados y bienestar en una sola app gratuita, en español y sin anuncios.
 
-## Get started
+🚧 **En construcción** · MVP previsto: 2 de noviembre de 2026
 
-1. Install dependencies
+PathUp junta en una sola app:
+- el **registro de entreno** de Hevy y Strong,
+- los **programas guiados** de las apps de influencers,
+- un **check-in de bienestar** que ajusta la sesión del día.
 
-   ```bash
-   npm install
-   ```
+Nutrición y parte social llegan después del MVP.
 
-2. Start the app
+## Stack
 
-   ```bash
-   npx expo start
-   ```
+Expo SDK 57 (React Native 0.86) · TypeScript · Expo Router · TanStack Query · Zustand · Supabase (Postgres + RLS, Auth, Storage, Edge Functions) · Jest · pgTAP · Maestro · GitHub Actions · EAS
 
-In the output, you'll find options to open the app in a
+## Documentación
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+| Documento | Contenido |
+|---|---|
+| [Producto](docs/01-producto.md) | Qué copiamos de cada app y cómo lo mejoramos, público, salvaguardas |
+| [Arquitectura](docs/02-arquitectura.md) | Stack, modelo de datos, estrategia sin conexión, RGPD |
+| [Hoja de ruta](docs/03-hoja-de-ruta.md) | Fases con fechas, puertas y qué recortar |
+| [Paso a paso · Fase 0](docs/04-paso-a-paso-fase-0.md) | Cuentas, configuración y primera prueba en el móvil |
+| [Imágenes y vídeo con IA](docs/05-imagenes-y-video-ia.md) | Dirección de arte, lista de assets y flujo de generación |
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Desarrollo
 
 ```bash
-npm run reset-project
+npm install
+cp .env.example .env.local   # rellena la URL y la publishable key de Supabase
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- **Android:** Expo Go para SDK 57.
+- **iPhone y navegador:** versión web (pulsa `w`).
 
-### Other setup steps
+| Comando | Qué hace |
+|---|---|
+| `npm run check` | Lint, formato, tipos y tests (igual que el CI) |
+| `npm run db:start` / `npm run db:test` | Postgres local en Docker y tests pgTAP de RLS |
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Decisiones técnicas en [`docs/decisiones`](docs/decisiones) y diario en [`docs/diario.md`](docs/diario.md).

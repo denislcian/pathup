@@ -1,0 +1,43 @@
+{
+  "tabs": {
+    "today": "Today",
+    "workout": "Workout",
+    "progress": "Progress",
+    "wellness": "Wellness",
+    "profile": "Profile"
+  },
+  "today": {
+    "title": "Today",
+    "workoutTitle": "Today's workout",
+    "workoutEmpty": "Pick a program and you'll see what's next every day.",
+    "checkinTitle": "20-second check-in",
+    "checkinEmpty": "Tell us how you slept and how you feel. We'll adjust your session."
+  },
+  "workout": {
+    "title": "Workout",
+    "subtitle": "Routines and programs",
+    "empty": "No workouts yet",
+    "emptyDescription": "Soon you'll be able to start an empty workout, build routines or follow a guided program."
+  },
+  "progress": {
+    "title": "Progress",
+    "subtitle": "History and records",
+    "empty": "Your progress will show up here",
+    "emptyDescription": "Every set you log adds to your charts and personal records."
+  },
+  "wellness": {
+    "title": "Wellness",
+    "subtitle": "Sleep, energy and habits",
+    "empty": "Start with a check-in",
+    "emptyDescription": "Sleep, energy, stress and mood in 20 seconds. We use it to adapt your day."
+  },
+  "profile": {
+    "title": "Profile",
+    "subtitle": "Your account",
+    "empty": "Sign in to save your path",
+    "emptyDescription": "Your account syncs workouts, routines and progress across your devices."
+  },
+  "common": {
+    "comingSoon": "Coming soon"
+  }
+}
