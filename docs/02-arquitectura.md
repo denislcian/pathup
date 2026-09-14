@@ -11,7 +11,7 @@ Estado: borrador v1 · 2026-09-14. Todo el stack es gratuito en el volumen de un
 | Estilos | `StyleSheet` + **tokens de diseño propios** (tema oscuro) | Cero dependencias que se rompan con cada versión del SDK |
 | Datos del servidor | **TanStack Query** con caché persistida | Reintentos, caché y lectura sin conexión |
 | Estado local | **Zustand** persistido en `expo-sqlite` | El entreno en curso sobrevive a cierres y a la falta de red |
-| Validación y formularios | **Zod** + **react-hook-form** | Tipos compartidos entre formulario, API y tests |
+| Validación y formularios | **Zod** + estado de React | Tipos compartidos entre formulario, API y tests. Se descartó react-hook-form: su resolver declara `ajv@8` como peer y rompía `npm ci` junto a ESLint |
 | Traducciones | **i18next** + `expo-localization` | Español primero, inglés después |
 | Backend | **Supabase** (región UE): Postgres con RLS, Auth, Storage, Edge Functions | Gratis hasta 500 MB de base de datos, 1 GB de archivos y 50.000 usuarios activos al mes |
 | Esquema | Migraciones SQL versionadas con Supabase CLI + tipos TS generados | Base de datos reproducible y tipada |
