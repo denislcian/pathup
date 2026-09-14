@@ -6,8 +6,123 @@
     "wellness": "Bienestar",
     "profile": "Perfil"
   },
+  "common": {
+    "comingSoon": "Próximamente",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "yes": "Sí",
+    "no": "No",
+    "retry": "Reintentar",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña"
+  },
+  "welcome": {
+    "tagline": "Tu camino, hacia arriba.",
+    "pointWorkout": "Registra tus entrenos en segundos",
+    "pointPrograms": "Sigue programas guiados, gratis",
+    "pointWellness": "Cuida tu sueño y tu energía",
+    "createAccount": "Crear cuenta",
+    "signIn": "Ya tengo cuenta"
+  },
+  "auth": {
+    "signUpTitle": "Crea tu cuenta",
+    "signUpSubtitle": "Tardas menos de un minuto",
+    "signInTitle": "Hola de nuevo",
+    "signInSubtitle": "Entra para seguir tu camino",
+    "name": "Nombre",
+    "email": "Email",
+    "password": "Contraseña",
+    "passwordHint": "Mínimo 8 caracteres",
+    "birthDate": "Fecha de nacimiento",
+    "birthDateHint": "DD/MM/AAAA · PathUp es para mayores de 16 años",
+    "acceptTerms": "He leído y acepto la política de privacidad",
+    "privacyLink": "Leer la política de privacidad",
+    "healthConsent": "Doy mi consentimiento explícito para que PathUp trate mis datos de salud (entrenos, sueño, medidas) para ofrecerme el servicio.",
+    "submitSignUp": "Crear cuenta",
+    "submitSignIn": "Entrar",
+    "haveAccount": "¿Ya tienes cuenta? Entra",
+    "noAccount": "¿No tienes cuenta? Créala",
+    "checkEmailTitle": "Revisa tu email",
+    "checkEmailBody": "Te hemos enviado un enlace para confirmar tu cuenta. Después vuelve y entra.",
+    "signOut": "Cerrar sesión",
+    "errors": {
+      "nameRequired": "Escribe tu nombre",
+      "nameTooLong": "Máximo 50 caracteres",
+      "emailInvalid": "Escribe un email válido",
+      "passwordTooShort": "La contraseña necesita al menos 8 caracteres",
+      "birthDateInvalid": "Escribe una fecha real con el formato DD/MM/AAAA",
+      "tooYoung": "PathUp es para mayores de 16 años",
+      "termsRequired": "Necesitas aceptar la política de privacidad",
+      "healthConsentRequired": "Sin este consentimiento no podemos guardar tus entrenos",
+      "passwordRequired": "Escribe tu contraseña",
+      "emailInUse": "Ya existe una cuenta con ese email",
+      "weakPassword": "Esa contraseña es demasiado débil. Prueba con otra más larga",
+      "invalidCredentials": "Email o contraseña incorrectos",
+      "emailNotConfirmed": "Confirma tu email antes de entrar",
+      "rateLimited": "Demasiados intentos. Espera un momento y vuelve a probar",
+      "signUpRejected": "No hemos podido crear la cuenta. Revisa tu fecha de nacimiento",
+      "network": "Sin conexión. Comprueba tu internet y vuelve a probar",
+      "notConfigured": "La app no está conectada al servidor",
+      "generic": "Algo ha fallado. Vuelve a probar"
+    }
+  },
+  "onboarding": {
+    "step": "Paso {{current}} de {{total}}",
+    "goalTitle": "¿Qué quieres conseguir?",
+    "goalSubtitle": "Lo usaremos para recomendarte un programa",
+    "levelTitle": "¿Cuánta experiencia tienes?",
+    "levelSubtitle": "Con el modo principiante te explicamos cada paso",
+    "daysTitle": "¿Cuántos días puedes entrenar?",
+    "daysSubtitle": "Por semana. Mejor pocos días seguros que muchos a medias",
+    "daysOption": "{{count}} días",
+    "equipmentTitle": "¿Con qué puedes entrenar?",
+    "equipmentSubtitle": "Marca todo lo que tengas",
+    "healthTitle": "Antes de empezar",
+    "healthSubtitle": "7 preguntas rápidas sobre tu salud. Solo tú verás las respuestas",
+    "adviceTitle": "Consulta con tu médico",
+    "adviceBody": "Por alguna de tus respuestas, te recomendamos hablar con un profesional sanitario antes de aumentar tu actividad física. Puedes usar PathUp igualmente y empezar con programas suaves.",
+    "adviceAcknowledge": "Entendido",
+    "finish": "Empezar",
+    "saving": "Guardando…",
+    "saveError": "No hemos podido guardar tus respuestas. Vuelve a probar",
+    "goals": {
+      "muscle": "Ganar músculo",
+      "strength": "Ganar fuerza",
+      "fat_loss": "Perder grasa",
+      "health": "Salud y bienestar",
+      "endurance": "Mejorar resistencia"
+    },
+    "levels": {
+      "beginner": "Principiante",
+      "beginnerHint": "Nunca he entrenado o llevo menos de 6 meses",
+      "intermediate": "Intermedio",
+      "intermediateHint": "Entre 6 meses y 2 años entrenando con constancia",
+      "advanced": "Avanzado",
+      "advancedHint": "Más de 2 años entrenando con constancia"
+    },
+    "equipment": {
+      "gym": "Gimnasio completo",
+      "gymHint": "Máquinas, poleas, barras y mancuernas",
+      "dumbbells": "Mancuernas",
+      "dumbbellsHint": "En casa o en un gimnasio pequeño",
+      "bands": "Bandas elásticas",
+      "bandsHint": "Para entrenar en cualquier sitio",
+      "bodyweight": "Solo mi cuerpo",
+      "bodyweightHint": "Sin material"
+    },
+    "screening": {
+      "heartCondition": "¿Algún médico te ha dicho que tienes un problema de corazón o la tensión alta?",
+      "chestPain": "¿Sientes dolor en el pecho en reposo, en tu día a día o al hacer ejercicio?",
+      "dizziness": "¿Has perdido el equilibrio por mareos o el conocimiento en los últimos 12 meses?",
+      "chronicCondition": "¿Te han diagnosticado otra enfermedad crónica?",
+      "medication": "¿Tomas medicación con receta para alguna enfermedad crónica?",
+      "boneJointProblem": "¿Tienes algún problema de huesos, articulaciones o músculos que pueda empeorar con el ejercicio?",
+      "supervisedOnly": "¿Algún médico te ha dicho que solo hagas ejercicio bajo supervisión médica?"
+    }
+  },
   "today": {
     "title": "Hoy",
+    "greeting": "Hola, {{name}}",
     "workoutTitle": "Tu entreno de hoy",
     "workoutEmpty": "Elige un programa y aquí verás qué te toca cada día.",
     "checkinTitle": "Check-in de 20 segundos",
@@ -17,7 +132,76 @@
     "title": "Entreno",
     "subtitle": "Rutinas y programas",
     "empty": "Aún no hay entrenos",
-    "emptyDescription": "Pronto podrás empezar un entreno vacío, crear rutinas o seguir un programa guiado."
+    "emptyDescription": "Pronto podrás empezar un entreno vacío, crear rutinas o seguir un programa guiado.",
+    "libraryTitle": "Biblioteca de ejercicios",
+    "libraryDescription": "Técnica, músculos y errores frecuentes de cada ejercicio.",
+    "openLibrary": "Ver ejercicios"
+  },
+  "library": {
+    "title": "Ejercicios",
+    "searchLabel": "Buscar ejercicio",
+    "searchPlaceholder": "Busca por nombre o músculo",
+    "allGroups": "Todos",
+    "onlyMyEquipment": "Solo con mi material",
+    "results_one": "{{count}} ejercicio",
+    "results_other": "{{count}} ejercicios",
+    "emptyTitle": "No hay ejercicios con esos filtros",
+    "emptyDescription": "Prueba con otra búsqueda o quita algún filtro.",
+    "groups": {
+      "chest": "Pecho",
+      "back": "Espalda",
+      "shoulders": "Hombros",
+      "arms": "Brazos",
+      "legs": "Piernas",
+      "glutes": "Glúteos",
+      "core": "Core"
+    }
+  },
+  "exercise": {
+    "notFound": "No encontramos este ejercicio",
+    "imagePending": "Imagen en preparación",
+    "startPosition": "Posición inicial",
+    "endPosition": "Posición final",
+    "primaryMuscles": "Músculos principales",
+    "secondaryMuscles": "También trabaja",
+    "equipment": "Material",
+    "howTo": "Cómo se hace",
+    "cues": "Claves de técnica",
+    "mistakes": "Errores frecuentes",
+    "substitutes": "Alternativas",
+    "levels": {
+      "beginner": "Apto para principiantes",
+      "intermediate": "Nivel intermedio"
+    }
+  },
+  "muscles": {
+    "chest": "Pecho",
+    "front_delts": "Hombro frontal",
+    "side_delts": "Hombro lateral",
+    "rear_delts": "Hombro posterior",
+    "biceps": "Bíceps",
+    "triceps": "Tríceps",
+    "forearms": "Antebrazos",
+    "lats": "Dorsales",
+    "upper_back": "Espalda alta",
+    "traps": "Trapecio",
+    "lower_back": "Zona lumbar",
+    "abs": "Abdominales",
+    "obliques": "Oblicuos",
+    "glutes": "Glúteos",
+    "quads": "Cuádriceps",
+    "hamstrings": "Isquiotibiales",
+    "adductors": "Aductores",
+    "calves": "Gemelos"
+  },
+  "equipment": {
+    "barbell": "Barra",
+    "dumbbell": "Mancuernas",
+    "machine": "Máquina",
+    "cable": "Polea",
+    "bench": "Banco",
+    "band": "Banda elástica",
+    "bodyweight": "Peso corporal"
   },
   "progress": {
     "title": "Progreso",
@@ -34,10 +218,26 @@
   "profile": {
     "title": "Perfil",
     "subtitle": "Tu cuenta",
-    "empty": "Inicia sesión para guardar tu camino",
-    "emptyDescription": "Tu cuenta sincroniza entrenos, rutinas y progreso entre tus dispositivos."
+    "summaryTitle": "Tu plan",
+    "goal": "Objetivo",
+    "level": "Nivel",
+    "days": "Días por semana",
+    "equipment": "Material",
+    "privacy": "Política de privacidad",
+    "loadError": "No hemos podido cargar tu perfil"
   },
-  "common": {
-    "comingSoon": "Próximamente"
+  "privacy": {
+    "title": "Privacidad",
+    "intro": "Resumen de cómo trata PathUp tus datos. La política completa se publicará antes del lanzamiento.",
+    "whoTitle": "Qué datos guardamos",
+    "whoBody": "Tu nombre, email y fecha de nacimiento; tus respuestas del onboarding; y, cuando uses la app, tus entrenos, check-ins de bienestar y medidas. Sexo, altura y fotos son siempre opcionales.",
+    "whyTitle": "Para qué",
+    "whyBody": "Solo para darte el servicio: guardar tu progreso, recomendarte programas y adaptar tus sesiones. Sin anuncios y sin vender datos a nadie.",
+    "healthTitle": "Datos de salud",
+    "healthBody": "Son una categoría especial según el RGPD (art. 9). Los tratamos únicamente con tu consentimiento explícito, que puedes retirar borrando tu cuenta.",
+    "whereTitle": "Dónde",
+    "whereBody": "En servidores de Supabase en la Unión Europea (Frankfurt).",
+    "rightsTitle": "Tus derechos",
+    "rightsBody": "Podrás exportar todos tus datos y borrar tu cuenta desde la app. Menores de 16 años no pueden registrarse; de 16 a 17 años el perfil es siempre privado."
   }
 }

@@ -33,13 +33,13 @@ Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguient
   - Cliente de Supabase, primera migración (`profiles` + RLS) y GitHub Actions.
 - **Puerta:** la app abre en tu Android y en Safari del iPhone, y el CI está en verde.
 
-### Fase 1a · Cuenta y ejercicios (semana 2)
-- Registro e inicio de sesión con email, con fecha de nacimiento, bloqueo de menores de 16 y consentimiento de salud.
-- Onboarding en 5 pantallas: objetivo, nivel, días, material y cuestionario PAR-Q+ simplificado.
-- Semilla de ejercicios: textos de free-exercise-db (dominio público) traducidos al español y **60 ejercicios curados** con claves de técnica.
-- Biblioteca: búsqueda, filtros por músculo y material, ficha del ejercicio con mapa muscular.
-- **Tú:** generas las imágenes de los primeros 20 ejercicios (ver [05-imagenes-y-video-ia.md](05-imagenes-y-video-ia.md)).
-- **Puerta:** te registras en el móvil, completas el onboarding y encuentras "press banca" en menos de 5 s.
+### Fase 1a · Cuenta y ejercicios (semana 2) · código hecho el 14 sep
+- [x] Registro e inicio de sesión con email, con fecha de nacimiento, bloqueo de menores de 16 (en la app y en la base de datos) y consentimiento de salud. Sin confirmación por email hasta la fase 4 ([decisión 0003](decisiones/0003-registro-sin-confirmacion-email.md)).
+- [x] Onboarding en 5 pasos: objetivo (sin "perder grasa" para menores), nivel, días, material y cuestionario de salud basado en el PAR-Q+.
+- [x] **20 ejercicios curados**, escritos para PathUp, con instrucciones, claves de técnica, errores frecuentes y alternativas. Los 40 restantes llegan en la fase 2b, junto a los programas que los usan.
+- [x] Biblioteca: búsqueda sin tildes (también en inglés y por músculo), filtros por grupo muscular y "solo con mi material", ficha del ejercicio con chips de músculos. El mapa muscular SVG pasa a la fase 2a.
+- [ ] **Tú:** generas las imágenes de los 20 ejercicios con [los prompts ya preparados](prompts/ejercicios-01-20.md).
+- [ ] **Puerta:** te registras en el móvil, completas el onboarding y encuentras "press banca" en menos de 5 s.
 
 ### Fase 1b · Registro de entreno (semana 3)
 - Empezar un entreno vacío, añadir ejercicios y series de peso × reps, con tipo de serie y RIR opcional.

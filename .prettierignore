@@ -7,3 +7,4 @@ supabase/.temp
 supabase/.branches
 assets
 *.md
+src/lib/database.types.ts

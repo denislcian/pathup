@@ -3,17 +3,20 @@ import { useTranslation } from 'react-i18next';
 
 import { EmptyState } from '@/components/ui/empty-state';
 import { Screen } from '@/components/ui/screen';
+import { useProfile } from '@/features/profile/profile-api';
 
 export default function TodayScreen() {
   const { t, i18n } = useTranslation();
+  const profile = useProfile();
   const today = new Intl.DateTimeFormat(i18n.language, {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
   }).format(new Date());
+  const name = profile.data?.display_name;
 
   return (
-    <Screen title={t('today.title')} subtitle={today}>
+    <Screen title={name ? t('today.greeting', { name }) : t('today.title')} subtitle={today}>
       <EmptyState
         icon={Dumbbell}
         title={t('today.workoutTitle')}
