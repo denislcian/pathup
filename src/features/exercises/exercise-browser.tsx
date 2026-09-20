@@ -6,6 +6,7 @@ import { FlatList, Image, Pressable, ScrollView, StyleSheet, TextInput, View } f
 
 import { AppText } from '@/components/ui/app-text';
 import { Chip } from '@/components/ui/chip';
+import { useIsWide } from '@/components/ui/columns';
 import { EmptyState } from '@/components/ui/empty-state';
 import { EXERCISE_IMAGES } from '@/data/exercise-images';
 import { EXERCISES } from '@/data/exercises';
@@ -18,7 +19,7 @@ import {
 } from '@/domain/exercises';
 import { useHover } from '@/components/ui/use-hover';
 import { useProfile } from '@/features/profile/profile-api';
-import { colors, fonts, maxContentWidth, minTouchTarget, radius, spacing } from '@/theme/tokens';
+import { colors, fonts, maxWideWidth, minTouchTarget, radius, spacing } from '@/theme/tokens';
 
 const GROUPS = Object.keys(MUSCLE_GROUPS) as MuscleGroup[];
 
@@ -33,6 +34,8 @@ export function ExerciseBrowser({ onSelect }: { onSelect?: (slug: string) => voi
   const [group, setGroup] = useState<MuscleGroup | null>(null);
   const [onlyMine, setOnlyMine] = useState(false);
   const deferredQuery = useDeferredValue(query);
+  const isWide = useIsWide();
+  const columns = isWide ? 2 : 1;
 
   // The React Compiler memoizes this; no manual useMemo needed.
   const results = filterExercises(EXERCISES, {
@@ -97,6 +100,10 @@ export function ExerciseBrowser({ onSelect }: { onSelect?: (slug: string) => voi
 
   return (
     <FlatList
+      // Changing the number of columns needs a new list instance.
+      key={`columns-${columns}`}
+      numColumns={columns}
+      columnWrapperStyle={columns > 1 ? styles.columnWrapper : undefined}
       data={results}
       keyExtractor={(item) => item.slug}
       ListHeaderComponent={header}
@@ -200,9 +207,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.bg,
   },
+  columnWrapper: {
+    gap: spacing.sm,
+  },
   listContent: {
     width: '100%',
-    maxWidth: maxContentWidth,
+    maxWidth: maxWideWidth,
     alignSelf: 'center',
     paddingHorizontal: spacing.md,
     paddingBottom: spacing.xxl,
@@ -242,6 +252,7 @@ const styles = StyleSheet.create({
   },
   item: {
     cursor: 'pointer',
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.md,

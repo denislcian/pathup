@@ -147,7 +147,7 @@
     "discardTitle": "Discard this workout?",
     "discardBody": "The sets you logged will be lost.",
     "cancel": "Keep training",
-    "setColumn": "Set",
+    "setColumn": "#",
     "previousColumn": "Previous",
     "weightColumn": "Kg",
     "repsColumn": "Reps",

@@ -1,20 +1,25 @@
 /**
- * PathUp design tokens. Dark and energetic: near-black surfaces with a single electric-lime accent.
+ * PathUp design tokens. Calm and professional: slate surfaces with a muted mint accent.
  * Every text/background pair used in the UI must keep WCAG 2.2 AA contrast (4.5:1 body, 3:1 large text).
  */
 
 export const colors = {
-  bg: '#0B0D10',
-  surface: '#15181D',
-  surface2: '#1E2229',
-  border: '#2A2F37',
-  text: '#F2F4F7',
-  textMuted: '#9AA3AF',
-  accent: '#C8FF2E',
-  onAccent: '#0B0D10',
-  calm: '#38D9F5',
-  warning: '#FFB020',
-  danger: '#FF5C5C',
+  bg: '#0E1116',
+  surface: '#161A21',
+  surface2: '#1E242D',
+  surfaceRaised: '#131820',
+  border: '#2A313B',
+  text: '#E7ECF3',
+  textMuted: '#93A0B0',
+  accent: '#4CC38A',
+  accentHover: '#5ED69B',
+  /** Tinted background for the accent, e.g. a set that has been ticked off. */
+  accentSoft: 'rgba(76, 195, 138, 0.12)',
+  onAccent: '#08130D',
+  calm: '#6AA9FF',
+  warning: '#E0A45E',
+  danger: '#E5766F',
+  shadow: 'rgba(0, 0, 0, 0.45)',
 } as const;
 
 export const spacing = {
@@ -56,5 +61,9 @@ export type TypographyVariant = keyof typeof typography;
 /** Minimum touch target (WCAG 2.5.8 asks 24px; platform guidelines ask 44-48px). */
 export const minTouchTarget = 48;
 
-/** Content max width so the web version reads well on desktop. */
+/** Reading width for a single column (forms, long text). */
 export const maxContentWidth = 640;
+/** Width used by screens that lay their cards out in columns on a desktop browser. */
+export const maxWideWidth = 1080;
+/** From this width on, screens use the desktop layout: sidebar and multiple columns. */
+export const wideBreakpoint = 960;

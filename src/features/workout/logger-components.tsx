@@ -168,7 +168,7 @@ export function ExerciseCard({
       </View>
 
       <View style={styles.columns} aria-hidden>
-        <AppText variant="caption" tone="muted" style={styles.setNumber}>
+        <AppText variant="caption" tone="muted" style={styles.setNumber} numberOfLines={1}>
           {t('logger.setColumn')}
         </AppText>
         <AppText variant="caption" tone="muted" style={styles.previous}>
@@ -274,10 +274,10 @@ const styles = StyleSheet.create({
     borderRadius: radius.sm,
   },
   setRowDone: {
-    backgroundColor: 'rgba(200, 255, 46, 0.08)',
+    backgroundColor: colors.accentSoft,
   },
   setNumber: {
-    width: 28,
+    width: 34,
   },
   previous: {
     flex: 1,

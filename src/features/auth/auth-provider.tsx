@@ -1,6 +1,7 @@
 import type { Session } from '@supabase/supabase-js';
 import { createContext, use, useEffect, useState, type ReactNode } from 'react';
 
+import { DEMO_SESSION, isDemoMode } from '@/lib/demo-mode';
 import { supabase } from '@/lib/supabase';
 
 type AuthState = {
@@ -11,10 +12,14 @@ type AuthState = {
 const AuthContext = createContext<AuthState>({ session: null, isLoading: false });
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<AuthState>({ session: null, isLoading: supabase !== null });
+  const demo = isDemoMode();
+  const [state, setState] = useState<AuthState>({
+    session: demo ? (DEMO_SESSION as unknown as Session) : null,
+    isLoading: !demo && supabase !== null,
+  });
 
   useEffect(() => {
-    if (!supabase) return;
+    if (!supabase || demo) return;
     let active = true;
 
     void supabase.auth.getSession().then(({ data }) => {
@@ -29,7 +34,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       active = false;
       data.subscription.unsubscribe();
     };
-  }, []);
+  }, [demo]);
 
   return <AuthContext value={state}>{children}</AuthContext>;
 }

@@ -305,11 +305,11 @@ const styles = StyleSheet.create({
     aspectRatio: 9 / 18.5,
     borderRadius: 44,
     borderWidth: 10,
-    borderColor: '#1B1F25',
+    borderColor: colors.surface2,
     backgroundColor: colors.bg,
     overflow: 'hidden',
     // Lime glow behind the phone. boxShadow replaces the deprecated shadow* props.
-    boxShadow: `0 0 60px rgba(200, 255, 46, 0.15)`,
+    boxShadow: '0 0 60px rgba(76, 195, 138, 0.18)',
   },
   phoneScreen: {
     flex: 1,
@@ -324,7 +324,7 @@ const styles = StyleSheet.create({
     width: 84,
     height: 22,
     borderRadius: radius.pill,
-    backgroundColor: '#1B1F25',
+    backgroundColor: colors.surface2,
   },
   phoneTitle: {
     fontFamily: fonts.displayBold,
@@ -358,7 +358,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface2,
   },
   floating: {
-    boxShadow: '0 12px 24px rgba(0, 0, 0, 0.5)',
+    boxShadow: `0 12px 24px ${colors.shadow}`,
   },
   iconBadge: {
     width: 34,

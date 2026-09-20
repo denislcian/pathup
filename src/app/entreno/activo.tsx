@@ -7,6 +7,7 @@ import { StyleSheet, View } from 'react-native';
 import { AppText } from '@/components/ui/app-text';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Columns } from '@/components/ui/columns';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Screen } from '@/components/ui/screen';
 import { useEscapeKey } from '@/components/ui/use-escape-key';
@@ -90,6 +91,7 @@ export default function ActiveWorkoutScreen() {
   return (
     <View style={styles.page}>
       <Screen
+        wide
         insetTop={false}
         footer={
           askDiscard ? (
@@ -148,18 +150,20 @@ export default function ActiveWorkoutScreen() {
             description={t('logger.emptyDescription')}
           />
         ) : (
-          workout.exercises.map((exercise) => (
-            <ExerciseCard
-              key={exercise.id}
-              exercise={exercise}
-              previous={previous[exercise.slug]}
-              onAddSet={() => store.addSet(exercise.id)}
-              onRemove={() => store.removeExercise(exercise.id)}
-              onChangeSet={(setId, patch) => store.updateSet(exercise.id, setId, patch)}
-              onToggleSet={(setId) => store.toggleSetCompleted(exercise.id, setId)}
-              onRemoveSet={(setId) => store.removeSet(exercise.id, setId)}
-            />
-          ))
+          <Columns>
+            {workout.exercises.map((exercise) => (
+              <ExerciseCard
+                key={exercise.id}
+                exercise={exercise}
+                previous={previous[exercise.slug]}
+                onAddSet={() => store.addSet(exercise.id)}
+                onRemove={() => store.removeExercise(exercise.id)}
+                onChangeSet={(setId, patch) => store.updateSet(exercise.id, setId, patch)}
+                onToggleSet={(setId) => store.toggleSetCompleted(exercise.id, setId)}
+                onRemoveSet={(setId) => store.removeSet(exercise.id, setId)}
+              />
+            ))}
+          </Columns>
         )}
 
         <Button

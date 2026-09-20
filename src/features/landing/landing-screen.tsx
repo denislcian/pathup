@@ -599,7 +599,7 @@ const styles = StyleSheet.create({
     left: 0,
   },
   band: {
-    backgroundColor: '#0F1216',
+    backgroundColor: colors.surfaceRaised,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: colors.border,
@@ -761,7 +761,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     paddingHorizontal: spacing.md,
     paddingTop: spacing.sm,
-    backgroundColor: 'rgba(11, 13, 16, 0.94)',
+    backgroundColor: 'rgba(14, 17, 22, 0.94)',
     borderTopWidth: 1,
     borderTopColor: colors.border,
   },

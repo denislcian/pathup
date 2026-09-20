@@ -12,8 +12,8 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const BG = [0x0b, 0x0d, 0x10];
-const ACCENT = [0xc8, 0xff, 0x2e];
+const BG = [0x0e, 0x11, 0x16];
+const ACCENT = [0x4c, 0xc3, 0x8a];
 
 /** Normalised polyline of the logo: a path climbing to the right. */
 const PATH = [

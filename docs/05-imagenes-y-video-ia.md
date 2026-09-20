@@ -2,19 +2,19 @@
 
 Todas las imágenes de PathUp son **nuestras**, generadas con IA gratuita. Las imágenes de free-exercise-db tienen la licencia en duda (hay issues abiertos preguntándolo en su repositorio), así que de esa base solo usamos los textos.
 
-## 1. Dirección de arte · "oscuro y enérgico"
+## 1. Dirección de arte · "oscuro y sereno"
 
 | Token | Color | Uso |
 |---|---|---|
-| `bg` | `#0B0D10` | Fondo |
-| `surface` | `#15181D` | Tarjetas |
-| `surface-2` | `#1E2229` | Campos, filas de serie |
-| `text` | `#F2F4F7` | Texto principal |
-| `text-muted` | `#9AA3AF` | Secundario, valores anteriores |
-| `accent` | `#C8FF2E` | **Lima eléctrico**: botones, récords, progreso (texto encima en `#0B0D10`) |
-| `calm` | `#38D9F5` | Cian: bienestar y respiración |
-| `warning` | `#FFB020` | Preparación media |
-| `danger` | `#FF5C5C` | Errores, preparación baja |
+| `bg` | `#0E1116` | Fondo |
+| `surface` | `#161A21` | Tarjetas |
+| `surface-2` | `#1E242D` | Campos, filas de serie |
+| `text` | `#E7ECF3` | Texto principal |
+| `text-muted` | `#93A0B0` | Secundario, valores anteriores |
+| `accent` | `#4CC38A` | **Verde menta**: botones, récords, progreso (texto encima en `#08130D`) |
+| `calm` | `#6AA9FF` | Azul suave: bienestar y respiración |
+| `warning` | `#E0A45E` | Preparación media |
+| `danger` | `#E5766F` | Errores, preparación baja |
 
 **Tipografía** (Google Fonts, licencia OFL):
 - **Barlow Condensed SemiBold** para títulos y números grandes (estilo dorsal deportivo).
@@ -22,11 +22,11 @@ Todas las imágenes de PathUp son **nuestras**, generadas con IA gratuita. Las i
 
 **Iconos:** Lucide (licencia ISC).
 
-**Fotos e ilustraciones:** fondo oscuro, luz lateral dura, un solo toque de lima. Sin textos dentro de la imagen.
+**Fotos e ilustraciones:** fondo oscuro, luz lateral dura, un solo toque de menta. Sin textos dentro de la imagen.
 
 ## 2. Estilo de los ejercicios: maniquí 3D
 
-En lugar de personas realistas, **una figura 3D estilizada, gris grafito y sin rostro**, con los músculos trabajados iluminados en lima.
+En lugar de personas realistas, **una figura 3D estilizada, gris grafito y sin rostro**, con los músculos trabajados iluminados en menta.
 
 Por qué:
 - **Consistencia:** es mucho más fácil que la IA repita un maniquí que la misma persona 120 veces.
@@ -74,8 +74,8 @@ Cada ejercicio lleva **2 imágenes: posición inicial y final**. Para los más d
 ```text
 Stylized 3D faceless mannequin figure, matte graphite grey material, athletic neutral body,
 performing {EJERCICIO} in the {INICIAL|FINAL} position, {DETALLE DE POSTURA},
-target muscles {MÚSCULOS} glowing electric lime (#C8FF2E), all other muscles matte grey,
-full body visible, side three-quarter view, centered, dark studio background (#0B0D10),
+target muscles {MÚSCULOS} glowing soft mint green (#4CC38A), all other muscles matte grey,
+full body visible, side three-quarter view, centered, dark studio background (#0E1116),
 hard rim light from the left, soft floor shadow, clean minimal, no text, no logos, no gym clutter,
 square 1:1, high detail, consistent character design
 ```

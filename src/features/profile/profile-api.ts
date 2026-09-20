@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { useAuth } from '@/features/auth/auth-provider';
+import { DEMO_PROFILE, isDemoMode } from '@/lib/demo-mode';
 import type { Database } from '@/lib/database.types';
 import { requireSupabase } from '@/lib/supabase';
 
@@ -38,7 +39,7 @@ export function useProfile() {
 
   return useQuery({
     queryKey: profileKeys.detail(userId),
-    queryFn: () => fetchProfile(userId!),
+    queryFn: () => (isDemoMode() ? DEMO_PROFILE : fetchProfile(userId!)),
     enabled: Boolean(userId),
   });
 }

@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.accent,
   },
   primaryHovered: {
-    backgroundColor: '#D6FF5C',
+    backgroundColor: colors.accentHover,
   },
   secondary: {
     backgroundColor: colors.surface2,

@@ -6,6 +6,7 @@ import { StyleSheet, View } from 'react-native';
 import { AppText } from '@/components/ui/app-text';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Columns } from '@/components/ui/columns';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Screen } from '@/components/ui/screen';
 import { countCompletedSets } from '@/domain/workout';
@@ -20,7 +21,7 @@ export default function WorkoutScreen() {
   const { pending, sync } = useWorkoutSync();
 
   return (
-    <Screen title={t('workout.title')} subtitle={t('workout.subtitle')}>
+    <Screen wide title={t('workout.title')} subtitle={t('workout.subtitle')}>
       {active ? (
         <Card>
           <AppText variant="heading" role="heading" tone="accent">
@@ -57,21 +58,26 @@ export default function WorkoutScreen() {
         </Card>
       ) : null}
 
-      <EmptyState
-        icon={BookOpen}
-        title={t('workout.libraryTitle')}
-        description={t('workout.libraryDescription')}
-        actionLabel={t('workout.openLibrary')}
-        onAction={() => router.push('/ejercicios')}
-      />
-
-      {!active ? (
-        <EmptyState
-          icon={Dumbbell}
-          title={t('workout.empty')}
-          description={t('workout.emptyDescription')}
-        />
-      ) : null}
+      <Columns>
+        {[
+          <EmptyState
+            key="library"
+            icon={BookOpen}
+            title={t('workout.libraryTitle')}
+            description={t('workout.libraryDescription')}
+            actionLabel={t('workout.openLibrary')}
+            onAction={() => router.push('/ejercicios')}
+          />,
+          !active ? (
+            <EmptyState
+              key="empty"
+              icon={Dumbbell}
+              title={t('workout.empty')}
+              description={t('workout.emptyDescription')}
+            />
+          ) : null,
+        ]}
+      </Columns>
     </Screen>
   );
 }

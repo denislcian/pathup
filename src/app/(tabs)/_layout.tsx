@@ -23,14 +23,19 @@ export default function TabsLayout() {
       screenOptions={{
         headerShown: false,
         tabBarPosition: sidebar ? 'left' : 'bottom',
+        // Without this the sidebar paints the active item with the theme's primary colour and
+        // swallows its icon and label.
+        tabBarVariant: 'uikit',
         tabBarActiveTintColor: colors.accent,
         tabBarInactiveTintColor: colors.textMuted,
+        tabBarActiveBackgroundColor: sidebar ? colors.surface2 : undefined,
         tabBarStyle: sidebar
           ? {
               backgroundColor: colors.surface,
               borderRightColor: colors.border,
               borderRightWidth: 1,
               width: SIDEBAR_WIDTH,
+              height: '100%',
               paddingTop: insets.top + spacing.md,
               paddingBottom: insets.bottom + spacing.md,
             }

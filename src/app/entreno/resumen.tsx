@@ -6,6 +6,7 @@ import { StyleSheet, View } from 'react-native';
 import { AppText } from '@/components/ui/app-text';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Columns } from '@/components/ui/columns';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Screen } from '@/components/ui/screen';
 import { getExercise } from '@/data/exercises';
@@ -53,6 +54,7 @@ export default function WorkoutSummaryScreen() {
 
   return (
     <Screen
+      wide
       insetTop={false}
       title={t('summary.title')}
       subtitle={date}
@@ -77,27 +79,29 @@ export default function WorkoutSummaryScreen() {
         </AppText>
       </View>
 
-      {workout.exercises.map((exercise) => {
-        const best = bestSet(exercise.sets);
-        return (
-          <Card key={exercise.id}>
-            <AppText variant="heading" role="heading">
-              {getExercise(exercise.slug)?.name ?? exercise.slug}
-            </AppText>
-            <AppText tone="muted">
-              {t('summary.setsCount', { count: exercise.sets.length })}
-            </AppText>
-            {best ? (
-              <View style={styles.best}>
-                <Trophy color={colors.accent} size={16} aria-hidden />
-                <AppText variant="label">
-                  {t('summary.best')}: {best.weightKg} kg × {best.reps}
-                </AppText>
-              </View>
-            ) : null}
-          </Card>
-        );
-      })}
+      <Columns>
+        {workout.exercises.map((exercise) => {
+          const best = bestSet(exercise.sets);
+          return (
+            <Card key={exercise.id}>
+              <AppText variant="heading" role="heading">
+                {getExercise(exercise.slug)?.name ?? exercise.slug}
+              </AppText>
+              <AppText tone="muted">
+                {t('summary.setsCount', { count: exercise.sets.length })}
+              </AppText>
+              {best ? (
+                <View style={styles.best}>
+                  <Trophy color={colors.accent} size={16} aria-hidden />
+                  <AppText variant="label">
+                    {t('summary.best')}: {best.weightKg} kg × {best.reps}
+                  </AppText>
+                </View>
+              ) : null}
+            </Card>
+          );
+        })}
+      </Columns>
     </Screen>
   );
 }

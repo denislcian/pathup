@@ -147,7 +147,7 @@
     "discardTitle": "¿Descartar el entreno?",
     "discardBody": "Se perderán las series que hayas apuntado.",
     "cancel": "Seguir entrenando",
-    "setColumn": "Serie",
+    "setColumn": "#",
     "previousColumn": "Anterior",
     "weightColumn": "Kg",
     "repsColumn": "Reps",
