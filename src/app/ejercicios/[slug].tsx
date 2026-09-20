@@ -1,5 +1,5 @@
 import { Link, Stack, useLocalSearchParams } from 'expo-router';
-import { ImageOff } from 'lucide-react-native';
+import { ImageOff } from '@/components/icons';
 import { useTranslation } from 'react-i18next';
 import type { ReactNode } from 'react';
 import { Image, StyleSheet, View, type ImageSourcePropType } from 'react-native';

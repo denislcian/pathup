@@ -21,12 +21,13 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "output": "single",
+      "output": "static",
       "favicon": "./assets/images/favicon.png",
       "name": "PathUp",
       "shortName": "PathUp",
       "backgroundColor": "#0B0D10",
-      "themeColor": "#0B0D10"
+      "themeColor": "#0B0D10",
+      "lang": "es"
     },
     "plugins": [
       "expo-router",

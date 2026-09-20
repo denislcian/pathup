@@ -1,8 +1,8 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { AppState, Platform } from 'react-native';
 
 import type { Database } from '@/lib/database.types';
+import { appStorage, isServerRender } from '@/lib/storage';
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.EXPO_PUBLIC_SUPABASE_KEY;
@@ -15,10 +15,10 @@ export type PathUpSupabase = SupabaseClient<Database>;
 export const supabase: PathUpSupabase | null = isSupabaseConfigured
   ? createClient<Database>(supabaseUrl!, supabaseKey!, {
       auth: {
-        storage: AsyncStorage,
+        storage: appStorage,
         autoRefreshToken: true,
         persistSession: true,
-        detectSessionInUrl: Platform.OS === 'web',
+        detectSessionInUrl: Platform.OS === 'web' && !isServerRender,
       },
     })
   : null;

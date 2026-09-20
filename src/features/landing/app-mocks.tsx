@@ -1,4 +1,4 @@
-import { Check, Flame, Timer, Trophy, TrendingUp } from 'lucide-react-native';
+import { Check, Flame, Timer, Trophy, TrendingUp } from '@/components/icons';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
@@ -308,9 +308,8 @@ const styles = StyleSheet.create({
     borderColor: '#1B1F25',
     backgroundColor: colors.bg,
     overflow: 'hidden',
-    shadowColor: colors.accent,
-    shadowOpacity: 0.15,
-    shadowRadius: 60,
+    // Lime glow behind the phone. boxShadow replaces the deprecated shadow* props.
+    boxShadow: `0 0 60px rgba(200, 255, 46, 0.15)`,
   },
   phoneScreen: {
     flex: 1,
@@ -359,10 +358,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface2,
   },
   floating: {
-    shadowColor: '#000',
-    shadowOpacity: 0.5,
-    shadowRadius: 24,
-    shadowOffset: { width: 0, height: 12 },
+    boxShadow: '0 12px 24px rgba(0, 0, 0, 0.5)',
   },
   iconBadge: {
     width: 34,

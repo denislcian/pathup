@@ -1,6 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
+
+import { appStorage } from '@/lib/storage';
 
 import type { Workout } from '@/domain/workout';
 
@@ -22,7 +23,7 @@ export const useFinishedWorkout = create<FinishedWorkoutState>()(
     }),
     {
       name: 'pathup.workouts.finished.v1',
-      storage: createJSONStorage(() => AsyncStorage),
+      storage: createJSONStorage(() => appStorage),
     },
   ),
 );

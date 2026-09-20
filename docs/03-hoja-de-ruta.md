@@ -53,6 +53,15 @@ Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguient
 - [ ] **Tú:** entrenas una sesión real en el gimnasio con la app, **con el modo avión puesto**.
 - [ ] **Puerta:** la sesión completa llega a Supabase al recuperar la red, sin series perdidas ni duplicadas.
 
+### Ronda web (20 sep) · la web como app de primera clase
+- [x] Paquete de JavaScript de 4,2 MB a 2,4 MB (560 KB transferidos): iconos importados uno a uno y eliminación de código muerto forzada.
+- [x] Fuentes en woff2 solo para web: 96 KB en vez de cerca de 1 MB.
+- [x] Landing generada como HTML (se ve sin esperar al JavaScript) y con metadatos para buscadores y enlaces compartidos.
+- [x] Instalable como app (PWA) con manifiesto, iconos propios y service worker que guarda el armazón para abrir sin conexión.
+- [x] Menú lateral en pantallas de 960 px o más, en vez de la barra de pestañas de móvil.
+- [x] Ratón y teclado: estados al pasar por encima, cursor, Enter para completar serie y enviar formularios, Escape para cerrar.
+- [ ] Pendiente: aviso de hidratación en la landing compilada y comprobar el service worker en Chrome ([decisión 0004](decisiones/0004-web-primero.md)).
+
 ### Fase 2a · Rutinas y progreso (semana 4)
 - Rutinas en carpetas: crear desde cero o desde un entreno, reordenar y duplicar.
 - Historial, calendario y detalle de cada sesión.

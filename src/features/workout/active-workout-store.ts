@@ -1,6 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
+
+import { appStorage } from '@/lib/storage';
 
 import {
   DEFAULT_REST_SECONDS,
@@ -176,7 +177,7 @@ export const useActiveWorkout = create<ActiveWorkoutState>()(
     }),
     {
       name: 'pathup.workouts.active.v1',
-      storage: createJSONStorage(() => AsyncStorage),
+      storage: createJSONStorage(() => appStorage),
       partialize: ({ workout, restEndsAt, restSeconds }) => ({ workout, restEndsAt, restSeconds }),
     },
   ),

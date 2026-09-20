@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet } from 'react-native';
 
 import { AppText } from '@/components/ui/app-text';
+import { useHover } from '@/components/ui/use-hover';
 import { colors, radius, spacing } from '@/theme/tokens';
 
 export type ChipProps = {
@@ -13,6 +14,7 @@ export type ChipProps = {
 };
 
 export function Chip({ label, selected = false, onPress, role, variant = 'filled' }: ChipProps) {
+  const { hovered, hoverProps } = useHover();
   const interactive = Boolean(onPress);
   const highlighted = selected || (!interactive && variant === 'filled');
 
@@ -23,10 +25,13 @@ export function Chip({ label, selected = false, onPress, role, variant = 'filled
       aria-label={label}
       disabled={!interactive}
       onPress={onPress}
+      {...hoverProps}
       style={({ pressed }) => [
         styles.chip,
         highlighted ? styles.selected : styles.idle,
         !interactive && variant === 'outline' && styles.outline,
+        interactive && styles.interactive,
+        interactive && hovered && !highlighted && styles.hovered,
         pressed && styles.pressed,
       ]}>
       <AppText
@@ -51,6 +56,12 @@ const styles = StyleSheet.create({
   idle: {
     backgroundColor: colors.surface2,
     borderColor: colors.border,
+  },
+  interactive: {
+    cursor: 'pointer',
+  },
+  hovered: {
+    borderColor: colors.textMuted,
   },
   selected: {
     backgroundColor: colors.accent,

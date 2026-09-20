@@ -1,4 +1,4 @@
-import { Eye, EyeOff } from 'lucide-react-native';
+import { Eye, EyeOff } from '@/components/icons';
 import { useState } from 'react';
 import { Pressable, StyleSheet, TextInput, View, type TextInputProps } from 'react-native';
 import { useTranslation } from 'react-i18next';

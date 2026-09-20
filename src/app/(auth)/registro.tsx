@@ -1,5 +1,5 @@
 import { Link } from 'expo-router';
-import { MailCheck } from 'lucide-react-native';
+import { MailCheck } from '@/components/icons';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
@@ -139,6 +139,8 @@ export default function SignUpScreen() {
         placeholder="DD/MM/AAAA"
         keyboardType="number-pad"
         autoComplete="birthdate-full"
+        returnKeyType="done"
+        onSubmitEditing={handleSubmit}
         maxLength={10}
         hint={t('auth.birthDateHint')}
         error={fieldError('birthDate')}

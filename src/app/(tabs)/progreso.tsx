@@ -1,4 +1,4 @@
-import { TrendingUp } from 'lucide-react-native';
+import { TrendingUp } from '@/components/icons';
 import { useTranslation } from 'react-i18next';
 
 import { EmptyState } from '@/components/ui/empty-state';

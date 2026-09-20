@@ -1,5 +1,5 @@
 import { Link } from 'expo-router';
-import { ChevronRight, Dumbbell, Plus, Search } from 'lucide-react-native';
+import { ChevronRight, Dumbbell, Plus, Search } from '@/components/icons';
 import { useDeferredValue, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, Image, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
@@ -16,6 +16,7 @@ import {
   type Exercise,
   type MuscleGroup,
 } from '@/domain/exercises';
+import { useHover } from '@/components/ui/use-hover';
 import { useProfile } from '@/features/profile/profile-api';
 import { colors, fonts, maxContentWidth, minTouchTarget, radius, spacing } from '@/theme/tokens';
 
@@ -181,12 +182,14 @@ function Row({
   onPress?: () => void;
   children: ReactNode;
 }) {
+  const { hovered, hoverProps } = useHover();
   return (
     <Pressable
       role={role}
       aria-label={label}
       onPress={onPress}
-      style={({ pressed }) => [styles.item, pressed && styles.itemPressed]}>
+      {...hoverProps}
+      style={({ pressed }) => [styles.item, (pressed || hovered) && styles.itemPressed]}>
       {children}
     </Pressable>
   );
@@ -238,6 +241,7 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   item: {
+    cursor: 'pointer',
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.md,

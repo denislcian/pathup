@@ -1,31 +1,52 @@
 import { Tabs } from 'expo-router';
-import { CircleUser, Dumbbell, HeartPulse, House, TrendingUp } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
+import { useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { CircleUser, Dumbbell, HeartPulse, House, TrendingUp } from '@/components/icons';
 import { colors, fonts, spacing } from '@/theme/tokens';
 
 // Icon (28) + label line (16) + item padding (10) + bar padding and border (9), with a little air.
 const TAB_BAR_CONTENT_HEIGHT = 66;
+const SIDEBAR_WIDTH = 240;
+/** Above this width the tab bar becomes a sidebar, which is what a desktop browser expects. */
+const SIDEBAR_BREAKPOINT = 960;
 
 export default function TabsLayout() {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
+  const { width } = useWindowDimensions();
+  const sidebar = width >= SIDEBAR_BREAKPOINT;
 
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
+        tabBarPosition: sidebar ? 'left' : 'bottom',
         tabBarActiveTintColor: colors.accent,
         tabBarInactiveTintColor: colors.textMuted,
-        tabBarStyle: {
-          backgroundColor: colors.surface,
-          borderTopColor: colors.border,
-          height: TAB_BAR_CONTENT_HEIGHT + insets.bottom,
-          paddingTop: spacing.xs,
-          paddingBottom: insets.bottom + spacing.xs,
-        },
-        tabBarLabelStyle: { fontFamily: fonts.bodyMedium, fontSize: 12, lineHeight: 16 },
+        tabBarStyle: sidebar
+          ? {
+              backgroundColor: colors.surface,
+              borderRightColor: colors.border,
+              borderRightWidth: 1,
+              width: SIDEBAR_WIDTH,
+              paddingTop: insets.top + spacing.md,
+              paddingBottom: insets.bottom + spacing.md,
+            }
+          : {
+              backgroundColor: colors.surface,
+              borderTopColor: colors.border,
+              height: TAB_BAR_CONTENT_HEIGHT + insets.bottom,
+              paddingTop: spacing.xs,
+              paddingBottom: insets.bottom + spacing.xs,
+            },
+        tabBarItemStyle: sidebar
+          ? { borderRadius: 12, marginHorizontal: spacing.sm, marginVertical: 2 }
+          : undefined,
+        tabBarLabelStyle: sidebar
+          ? { fontFamily: fonts.bodyMedium, fontSize: 15 }
+          : { fontFamily: fonts.bodyMedium, fontSize: 12, lineHeight: 16 },
       }}>
       <Tabs.Screen
         name="index"

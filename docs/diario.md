@@ -10,3 +10,4 @@ Una línea por sesión: qué avanzó y qué se ve ahora que antes no se veía.
 | 2026-09-14 | 1a | Registro con edad y consentimiento, rutas protegidas, onboarding con cuestionario de salud, biblioteca de 20 ejercicios con búsqueda y filtros, 101 tests, prompts de las 20 imágenes |
 | 2026-09-14 | 1a | Landing que explica cómo funciona la app (portada con móvil de muestra, 4 pasos, funciones, principios, hoja de ruta de la beta, preguntas frecuentes), adaptable a ordenador y móvil, 105 tests |
 | 2026-09-20 | 1b | Registro de entreno: series con los valores anteriores en gris, descanso automático, sesión que sobrevive al cierre de la app, cola offline con subida idempotente y resumen al terminar · 150 tests |
+| 2026-09-20 | web | La web pasa a app de primera clase: la mitad de JavaScript, fuentes ligeras, landing en HTML, instalable con modo offline, menú lateral en escritorio y soporte de teclado |

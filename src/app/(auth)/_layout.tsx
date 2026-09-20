@@ -3,7 +3,7 @@ import { Stack } from 'expo-router';
 import { colors } from '@/theme/tokens';
 
 export const unstable_settings = {
-  initialRouteName: 'bienvenida',
+  initialRouteName: 'entrar',
 };
 
 export default function AuthLayout() {

@@ -1,5 +1,5 @@
 import { Redirect, router } from 'expo-router';
-import { Dumbbell } from 'lucide-react-native';
+import { Dumbbell } from '@/components/icons';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Screen } from '@/components/ui/screen';
+import { useEscapeKey } from '@/components/ui/use-escape-key';
 import {
   countCompletedSets,
   formatDuration,
@@ -43,6 +44,8 @@ export default function ActiveWorkoutScreen() {
   useEffect(() => {
     void readPreviousPerformance().then(setPrevious);
   }, []);
+
+  useEscapeKey(() => setAskDiscard(false), askDiscard);
 
   const startedAt = workout?.startedAt;
   useEffect(() => {

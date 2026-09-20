@@ -1,4 +1,4 @@
-import { Activity, Dumbbell } from 'lucide-react-native';
+import { Activity, Dumbbell } from '@/components/icons';
 import { useTranslation } from 'react-i18next';
 
 import { EmptyState } from '@/components/ui/empty-state';

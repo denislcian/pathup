@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { Stethoscope } from 'lucide-react-native';
+import { Stethoscope } from '@/components/icons';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';

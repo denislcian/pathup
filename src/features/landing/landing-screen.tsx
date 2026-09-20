@@ -15,7 +15,7 @@ import {
   TrendingUp,
   Users,
   type LucideIcon,
-} from 'lucide-react-native';
+} from '@/components/icons';
 import { useRef, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, StyleSheet, View, type LayoutChangeEvent } from 'react-native';

@@ -7,7 +7,7 @@ import {
 import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold } from '@expo-google-fonts/inter';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
-import { DarkTheme, Stack, ThemeProvider } from 'expo-router';
+import { DarkTheme, Stack, ThemeProvider, usePathname } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
@@ -19,9 +19,12 @@ import { ProfileLoadError } from '@/components/profile-load-error';
 import { AuthProvider, useAuth } from '@/features/auth/auth-provider';
 import { useProfile } from '@/features/profile/profile-api';
 import { createQueryClient } from '@/lib/query-client';
+import { isServerRender } from '@/lib/storage';
 import { colors, fonts } from '@/theme/tokens';
 
-void SplashScreen.preventAutoHideAsync();
+// The web build has its own dark HTML shell, and the splash overlay would only show up in the
+// pre-rendered HTML and break hydration.
+if (Platform.OS !== 'web') void SplashScreen.preventAutoHideAsync();
 // Paints the root view (and the web page body) so no light background shows during overscroll or transitions.
 void SystemUI.setBackgroundColorAsync(colors.bg);
 if (Platform.OS === 'web' && typeof document !== 'undefined') {
@@ -44,13 +47,19 @@ const navigationTheme = {
 
 export default function RootLayout() {
   const [queryClient] = useState(createQueryClient);
-  const [fontsLoaded, fontError] = useFonts({
-    BarlowCondensed_600SemiBold,
-    BarlowCondensed_700Bold,
-    Inter_400Regular,
-    Inter_500Medium,
-    Inter_600SemiBold,
-  });
+  // On web the same families are served as woff2 from the HTML shell (src/app/+html.tsx),
+  // which is a tenth of the weight of the TTF files used on native.
+  const [fontsLoaded, fontError] = useFonts(
+    Platform.OS === 'web'
+      ? {}
+      : {
+          BarlowCondensed_600SemiBold,
+          BarlowCondensed_700Bold,
+          Inter_400Regular,
+          Inter_500Medium,
+          Inter_600SemiBold,
+        },
+  );
 
   if (!fontsLoaded && !fontError) {
     return null;
@@ -75,10 +84,15 @@ function RootNavigator() {
 
   const signedIn = Boolean(session);
   const onboarded = Boolean(profile.data?.onboarding_completed_at);
-  const ready = !isLoading && (!signedIn || !profile.isPending);
+  // While pre-rendering the web build there is no session to read. Only the public landing is
+  // rendered to HTML (for search engines and link previews); the rest ships as an empty shell
+  // so nobody sees the wrong screen before the session is known.
+  const pathname = usePathname();
+  const prerenderingLanding = isServerRender && pathname === '/bienvenida';
+  const ready = prerenderingLanding || (!isLoading && (!signedIn || !profile.isPending));
 
   useEffect(() => {
-    if (ready) void SplashScreen.hideAsync();
+    if (ready && Platform.OS !== 'web') void SplashScreen.hideAsync();
   }, [ready]);
 
   if (!ready) return null;
@@ -95,6 +109,9 @@ function RootNavigator() {
         headerShadowVisible: false,
       }}>
       <Stack.Protected guard={!signedIn}>
+        {/* Pre-rendered as HTML (there is no session while building), so search engines and
+            link previews get the real landing instead of an empty shell. */}
+        <Stack.Screen name="bienvenida" />
         <Stack.Screen name="(auth)" />
       </Stack.Protected>
 

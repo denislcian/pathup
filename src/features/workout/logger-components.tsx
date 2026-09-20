@@ -1,4 +1,4 @@
-import { Check, Timer, Trash2 } from 'lucide-react-native';
+import { Check, Timer, Trash2 } from '@/components/icons';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
@@ -93,6 +93,10 @@ export function SetRow({
           onChange({ reps: Math.round(parseDecimal(text)) });
         }}
         keyboardType="number-pad"
+        returnKeyType="done"
+        onSubmitEditing={() => {
+          if (!done) onToggle();
+        }}
         placeholder={t('logger.repsColumn')}
         placeholderTextColor={colors.textMuted}
         selectionColor={colors.accent}
@@ -242,6 +246,7 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   removeExercise: {
+    cursor: 'pointer',
     minHeight: minTouchTarget,
     minWidth: minTouchTarget,
     alignItems: 'center',
@@ -291,6 +296,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   check: {
+    cursor: 'pointer',
     width: 40,
     height: minTouchTarget,
     borderRadius: radius.sm,
@@ -305,6 +311,7 @@ const styles = StyleSheet.create({
     borderColor: colors.accent,
   },
   removeSet: {
+    cursor: 'pointer',
     width: minTouchTarget - 8,
     height: minTouchTarget,
     alignItems: 'center',

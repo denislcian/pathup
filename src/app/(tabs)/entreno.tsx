@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { BookOpen, CloudOff, Dumbbell } from 'lucide-react-native';
+import { BookOpen, CloudOff, Dumbbell } from '@/components/icons';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 

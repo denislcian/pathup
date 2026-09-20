@@ -1,5 +1,5 @@
 import { Redirect, router } from 'expo-router';
-import { CloudOff, CloudUpload, Trophy } from 'lucide-react-native';
+import { CloudOff, CloudUpload, Trophy } from '@/components/icons';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 

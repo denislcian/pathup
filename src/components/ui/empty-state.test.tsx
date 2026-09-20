@@ -1,5 +1,5 @@
 import { render, screen, userEvent } from '@testing-library/react-native';
-import { Dumbbell } from 'lucide-react-native';
+import { Dumbbell } from '@/components/icons';
 
 import { EmptyState } from '@/components/ui/empty-state';
 

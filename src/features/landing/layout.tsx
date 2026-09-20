@@ -2,16 +2,18 @@ import type { ReactNode } from 'react';
 import { StyleSheet, useWindowDimensions, View, type LayoutChangeEvent } from 'react-native';
 
 import { AppText } from '@/components/ui/app-text';
+import { useHydrated } from '@/components/ui/use-hydrated';
 import { colors, fonts, spacing } from '@/theme/tokens';
 
 export const LANDING_MAX_WIDTH = 1120;
 
 export function useLandingLayout() {
   const { width } = useWindowDimensions();
+  const hydrated = useHydrated();
   return {
     width,
-    isWide: width >= 960,
-    isMedium: width >= 640,
+    isWide: hydrated && width >= 960,
+    isMedium: hydrated && width >= 640,
   };
 }
 
