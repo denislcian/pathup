@@ -1,0 +1,147 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { userEvent } from '@testing-library/react-native';
+import { renderRouter, screen } from 'expo-router/testing-library';
+
+import { DEFAULT_REST_SECONDS } from '@/domain/workout';
+import { useActiveWorkout } from '@/features/workout/active-workout-store';
+import { useFinishedWorkout } from '@/features/workout/finished-workout-store';
+import { buildProfile, ROUTER_TIMEOUT } from '@/test/test-utils';
+
+const mockUpsert = jest.fn();
+
+jest.mock('@/features/auth/auth-provider', () => ({
+  AuthProvider: ({ children }: { children: unknown }) => children,
+  useAuth: () => ({ session: { user: { id: 'user-1', email: 'ana@test.dev' } }, isLoading: false }),
+}));
+
+jest.mock('@/features/profile/profile-api', () => ({
+  useProfile: () => ({
+    data: mockProfileData,
+    isPending: false,
+    isError: false,
+    refetch: jest.fn(),
+  }),
+  useUpdateProfile: () => ({ mutate: jest.fn(), isPending: false, isError: false }),
+}));
+
+jest.mock('@/lib/supabase', () => ({
+  isSupabaseConfigured: true,
+  requireSupabase: () => ({
+    from: (table: string) => ({ upsert: (rows: unknown) => mockUpsert(table, rows) }),
+  }),
+}));
+
+const mockProfileData = buildProfile();
+
+jest.setTimeout(60_000);
+
+type User = ReturnType<typeof userEvent.setup>;
+
+async function logOneSet(user: User) {
+  await renderRouter('./src/app', { initialUrl: '/entreno' });
+
+  await user.press(
+    await screen.findByRole('button', { name: 'Empezar entreno vacío' }, ROUTER_TIMEOUT),
+  );
+  await user.press(await screen.findByRole('button', { name: 'Añadir ejercicio' }, ROUTER_TIMEOUT));
+
+  const search = await screen.findByRole('searchbox', { name: 'Buscar ejercicio' }, ROUTER_TIMEOUT);
+  await user.type(search, 'banca');
+  await user.press(await screen.findByRole('button', { name: /^Press banca con barra/ }));
+
+  const weight = await screen.findByLabelText(
+    'Peso en kilos, serie 1 de Press banca con barra',
+    {},
+    ROUTER_TIMEOUT,
+  );
+  await user.type(weight, '82,5');
+  await user.type(screen.getByLabelText('Repeticiones, serie 1 de Press banca con barra'), '8');
+  await user.press(
+    screen.getByRole('checkbox', { name: 'Marcar como hecha la serie 1 de Press banca con barra' }),
+  );
+}
+
+beforeEach(async () => {
+  mockUpsert.mockReset();
+  mockUpsert.mockResolvedValue({ error: null });
+  await AsyncStorage.clear();
+  useActiveWorkout.setState({ workout: null, restEndsAt: null, restSeconds: DEFAULT_REST_SECONDS });
+  useFinishedWorkout.setState({ workout: null, synced: false });
+});
+
+describe('logging a workout', () => {
+  it('logs a set, rests and saves the session to the account', async () => {
+    const user = userEvent.setup();
+    await logOneSet(user);
+
+    // The rest timer starts on its own once a working set is ticked off.
+    expect(await screen.findByLabelText('Descanso')).toBeOnTheScreen();
+
+    await user.press(screen.getByRole('button', { name: 'Terminar' }));
+
+    expect(
+      await screen.findByRole('heading', { name: 'Entreno guardado' }, ROUTER_TIMEOUT),
+    ).toBeOnTheScreen();
+    expect(screen.getByText('660 kg')).toBeOnTheScreen();
+    expect(screen.getByText('1 serie')).toBeOnTheScreen();
+    expect(screen.getByText('Guardado en tu cuenta')).toBeOnTheScreen();
+    expect(mockUpsert).toHaveBeenCalledWith('workout_sets', [
+      expect.objectContaining({ weight_kg: 82.5, reps: 8, set_type: 'normal' }),
+    ]);
+  });
+
+  it('keeps the workout on the phone when there is no connection', async () => {
+    const user = userEvent.setup();
+    mockUpsert.mockRejectedValue(new Error('offline'));
+    await logOneSet(user);
+
+    await user.press(screen.getByRole('button', { name: 'Terminar' }));
+
+    expect(
+      await screen.findByText(
+        'Guardado en el móvil. Se subirá solo cuando haya conexión',
+        {},
+        ROUTER_TIMEOUT,
+      ),
+    ).toBeOnTheScreen();
+
+    const outbox = await AsyncStorage.getItem('pathup.workouts.outbox.v1');
+    expect(JSON.parse(outbox!)).toHaveLength(1);
+  });
+
+  it('survives closing the app and shows the session as still running', async () => {
+    const user = userEvent.setup();
+    await logOneSet(user);
+
+    // The session is on disk, so a fresh start of the app finds it again.
+    const stored = await AsyncStorage.getItem('pathup.workouts.active.v1');
+    expect(JSON.parse(stored!).state.workout.exercises[0].sets[0]).toMatchObject({
+      weightKg: 82.5,
+      reps: 8,
+    });
+
+    await renderRouter('./src/app', { initialUrl: '/entreno' });
+
+    expect(
+      await screen.findByRole('heading', { name: 'Entreno en curso' }, ROUTER_TIMEOUT),
+    ).toBeOnTheScreen();
+    expect(screen.getByText(/1 serie/)).toBeOnTheScreen();
+  });
+
+  it('discards a session without saving anything', async () => {
+    const user = userEvent.setup();
+    await logOneSet(user);
+
+    await user.press(screen.getByRole('button', { name: 'Descartar' }));
+    expect(
+      await screen.findByRole('heading', { name: '¿Descartar el entreno?' }),
+    ).toBeOnTheScreen();
+    await user.press(screen.getByRole('button', { name: 'Descartar' }));
+
+    expect(
+      await screen.findByRole('button', { name: 'Empezar entreno vacío' }, ROUTER_TIMEOUT),
+    ).toBeOnTheScreen();
+    expect(mockUpsert).not.toHaveBeenCalled();
+    await expect(AsyncStorage.getItem('pathup.workouts.outbox.v1')).resolves.toBeNull();
+  });
+});

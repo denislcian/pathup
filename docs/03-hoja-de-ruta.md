@@ -41,13 +41,17 @@ Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguient
 - [ ] **Tú:** generas las imágenes de los 20 ejercicios con [los prompts ya preparados](prompts/ejercicios-01-20.md).
 - [ ] **Puerta:** te registras en el móvil, completas el onboarding y encuentras "press banca" en menos de 5 s.
 
-### Fase 1b · Registro de entreno (semana 3)
-- Empezar un entreno vacío, añadir ejercicios y series de peso × reps, con tipo de serie y RIR opcional.
-- Valores anteriores en gris, temporizador de descanso con vibración y superseries.
-- Persistencia local, cola de envío e idempotencia.
-- Resumen al terminar: duración, volumen y récords.
-- **Tú:** entrenas una sesión real en el gimnasio con la app, **con el modo avión puesto**.
-- **Puerta:** la sesión completa llega a Supabase al recuperar la red, sin series perdidas ni duplicadas.
+### Fase 1b · Registro de entreno (semana 3) · código hecho el 20 sep
+- [x] Empezar un entreno vacío, añadir ejercicios y apuntar series de peso × repeticiones.
+- [x] Valores de la sesión anterior en gris (guardados en el móvil, sin depender del servidor).
+- [x] Temporizador de descanso automático al marcar una serie, con +15 s y saltar.
+- [x] La sesión sobrevive a cerrar la app; al terminar se guarda en el móvil y se sube sola.
+- [x] Subida idempotente: reintentar no duplica nada, porque los identificadores se generan en el móvil.
+- [x] Resumen al terminar: duración, volumen, series y mejor serie por ejercicio.
+- [ ] Pendiente para la fase 2a: elegir tipo de serie (calentamiento, drop, al fallo) y RIR desde la app, y vibración al acabar el descanso.
+- [ ] Superseries: fuera de alcance según la lista de recortes.
+- [ ] **Tú:** entrenas una sesión real en el gimnasio con la app, **con el modo avión puesto**.
+- [ ] **Puerta:** la sesión completa llega a Supabase al recuperar la red, sin series perdidas ni duplicadas.
 
 ### Fase 2a · Rutinas y progreso (semana 4)
 - Rutinas en carpetas: crear desde cero o desde un entreno, reordenar y duplicar.

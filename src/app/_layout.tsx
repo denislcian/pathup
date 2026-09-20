@@ -109,6 +109,18 @@ function RootNavigator() {
           options={{ headerShown: true, title: t('library.title') }}
         />
         <Stack.Screen name="ejercicios/[slug]" options={{ headerShown: true, title: '' }} />
+        <Stack.Screen
+          name="entreno/activo"
+          options={{ headerShown: true, title: t('logger.title') }}
+        />
+        <Stack.Screen
+          name="entreno/elegir-ejercicio"
+          options={{ headerShown: true, title: t('logger.pickerTitle') }}
+        />
+        <Stack.Screen
+          name="entreno/resumen"
+          options={{ headerShown: true, title: t('summary.title'), headerBackVisible: false }}
+        />
       </Stack.Protected>
 
       <Stack.Screen name="privacidad" options={{ headerShown: true, title: t('privacy.title') }} />
