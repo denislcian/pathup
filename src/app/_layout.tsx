@@ -19,7 +19,6 @@ import { ProfileLoadError } from '@/components/profile-load-error';
 import { AuthProvider, useAuth } from '@/features/auth/auth-provider';
 import { useProfile } from '@/features/profile/profile-api';
 import { createQueryClient } from '@/lib/query-client';
-import { isServerRender } from '@/lib/storage';
 import { colors, fonts } from '@/theme/tokens';
 
 // The web build has its own dark HTML shell, and the splash overlay would only show up in the
@@ -84,12 +83,14 @@ function RootNavigator() {
 
   const signedIn = Boolean(session);
   const onboarded = Boolean(profile.data?.onboarding_completed_at);
-  // While pre-rendering the web build there is no session to read. Only the public landing is
-  // rendered to HTML (for search engines and link previews); the rest ships as an empty shell
-  // so nobody sees the wrong screen before the session is known.
+  // Only the public landing is rendered to HTML (for search engines and link previews); the rest
+  // ships as an empty shell so nobody sees the wrong screen before the session is known. The
+  // landing has nothing private, so it also shows while the session loads: that way the first
+  // render in the browser matches the pre-rendered HTML and React can hydrate it instead of
+  // throwing it away (React error #418).
   const pathname = usePathname();
-  const prerenderingLanding = isServerRender && pathname === '/bienvenida';
-  const ready = prerenderingLanding || (!isLoading && (!signedIn || !profile.isPending));
+  const onPublicLanding = Platform.OS === 'web' && pathname === '/bienvenida' && !signedIn;
+  const ready = onPublicLanding || (!isLoading && (!signedIn || !profile.isPending));
 
   useEffect(() => {
     if (ready && Platform.OS !== 'web') void SplashScreen.hideAsync();

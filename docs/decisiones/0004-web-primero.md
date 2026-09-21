@@ -28,6 +28,6 @@ La web no es un extra: es el enlace que verá un reclutador y, en iPhone, la ún
 
 ## Pendiente
 
-- **Aviso de hidratación (error 418 de React)** en la landing compilada: React vuelve a pintar el bloque y la página queda bien, pero conviene encontrarlo. Descartados: rutas asíncronas, la etiqueta `Head`, la capa de la pantalla de carga (esta sí era un fallo y ya está corregida) y el diseño adaptable, que ahora parte siempre del layout estrecho y se ajusta tras hidratar.
+- ~~**Aviso de hidratación (error 418 de React)** en la landing compilada.~~ Resuelto el 21 sep: al generar el HTML la landing se pintaba sin sesión, pero en el navegador el primer render esperaba a leer la sesión y devolvía `null`, así que React tiraba el HTML y lo volvía a pintar. Ahora la landing (pública) se muestra también mientras carga la sesión. Truco para depurarlo: `npx expo export -p web --dev` da el diff completo de hidratación; ojo, el bundle de desarrollo siempre se llama igual y el navegador lo cachea.
 - **Service worker sin verificar**: el navegador integrado de Claude no permite registrarlos. Hay que comprobarlo en Chrome (Application → Service Workers) y probar el modo sin conexión.
 - Medir con Lighthouse en Chrome cuando la web esté publicada (fase 4).

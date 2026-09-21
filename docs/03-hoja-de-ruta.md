@@ -61,7 +61,8 @@ Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguient
 - [x] Instalable como app (PWA) con manifiesto, iconos propios y service worker que guarda el armazón para abrir sin conexión.
 - [x] Menú lateral en pantallas de 960 px o más, en vez de la barra de pestañas de móvil.
 - [x] Ratón y teclado: estados al pasar por encima, cursor, Enter para completar serie y enviar formularios, Escape para cerrar.
-- [ ] Pendiente: aviso de hidratación en la landing compilada y comprobar el service worker en Chrome ([decisión 0004](decisiones/0004-web-primero.md)).
+- [x] Aviso de hidratación en la landing compilada, resuelto (21 sep).
+- [ ] **Tú:** comprobar el service worker en Chrome ([decisión 0004](decisiones/0004-web-primero.md)).
 
 ### Fase 2a · Rutinas y progreso (semana 4)
 - [x] Rutinas en carpetas: crear desde cero o desde un entreno, reordenar y duplicar; al empezarlas se rellenan con tus pesos de la última vez ([decisión 0007](decisiones/0007-rutinas-sin-pesos.md), 21 sep).
