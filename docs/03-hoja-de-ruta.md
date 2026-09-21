@@ -64,10 +64,11 @@ Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguient
 - [ ] Pendiente: aviso de hidratación en la landing compilada y comprobar el service worker en Chrome ([decisión 0004](decisiones/0004-web-primero.md)).
 
 ### Fase 2a · Rutinas y progreso (semana 4)
-- Rutinas en carpetas: crear desde cero o desde un entreno, reordenar y duplicar.
-- Historial, calendario y detalle de cada sesión.
-- Récords automáticos y gráfica por ejercicio (1RM estimado y volumen).
-- Medidas corporales.
+- [ ] Rutinas en carpetas: crear desde cero o desde un entreno, reordenar y duplicar.
+- [x] Historial, calendario y detalle de cada sesión, con "Repetir entreno" y borrar (21 sep). Funciona sin conexión con una copia en el móvil ([decisión 0006](decisiones/0006-historial-y-records-en-el-movil.md)).
+- [x] Racha semanal, entrenos y volumen de la semana (21 sep).
+- [x] Récords automáticos (1RM estimado, peso máximo, mejor serie y repeticiones) que salen en el resumen aunque no haya red, y gráfica por ejercicio con 1RM estimado, peso máximo y volumen (21 sep).
+- [ ] Medidas corporales.
 - **Puerta:** creas tu rutina real y ves tu progreso en press tras 2 sesiones.
 
 ### Fase 2b · Programas y pantalla "Hoy" (semana 5)

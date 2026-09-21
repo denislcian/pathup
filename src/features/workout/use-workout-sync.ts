@@ -1,8 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { AppState } from 'react-native';
 
 import { useAuth } from '@/features/auth/auth-provider';
+import { historyKeys } from '@/features/history/history-api';
 import { readOutbox } from '@/features/workout/workout-storage';
 import { flushOutbox } from '@/features/workout/workout-sync';
 import { isSupabaseConfigured } from '@/lib/supabase';
@@ -14,12 +15,16 @@ import { isSupabaseConfigured } from '@/lib/supabase';
 export function useWorkoutSync() {
   const { session } = useAuth();
   const userId = session?.user.id;
+  const queryClient = useQueryClient();
 
   const query = useQuery({
     queryKey: ['workout-outbox', userId],
     queryFn: async () => {
       if (userId && isSupabaseConfigured) {
         const result = await flushOutbox(userId);
+        if (result.uploaded > 0) {
+          await queryClient.invalidateQueries({ queryKey: historyKeys.all(userId) });
+        }
         return result.pending;
       }
       return (await readOutbox()).length;

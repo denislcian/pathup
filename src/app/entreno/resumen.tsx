@@ -17,6 +17,7 @@ import {
   workoutDurationSeconds,
   workoutVolumeKg,
 } from '@/domain/workout';
+import { RecordList } from '@/features/history/record-list';
 import { useFinishedWorkout } from '@/features/workout/finished-workout-store';
 import { colors, spacing } from '@/theme/tokens';
 
@@ -24,6 +25,7 @@ export default function WorkoutSummaryScreen() {
   const { t, i18n } = useTranslation();
   const workout = useFinishedWorkout((state) => state.workout);
   const synced = useFinishedWorkout((state) => state.synced);
+  const records = useFinishedWorkout((state) => state.records);
   const clear = useFinishedWorkout((state) => state.clear);
 
   if (!workout) return <Redirect href="/entreno" />;
@@ -79,6 +81,18 @@ export default function WorkoutSummaryScreen() {
         </AppText>
       </View>
 
+      {records.length > 0 ? (
+        <Card style={styles.records}>
+          <View style={styles.best}>
+            <Trophy color={colors.accent} size={20} aria-hidden />
+            <AppText variant="heading" role="heading" tone="accent">
+              {t('records.title', { count: records.length })}
+            </AppText>
+          </View>
+          <RecordList records={records} />
+        </Card>
+      ) : null}
+
       <Columns>
         {workout.exercises.map((exercise) => {
           const best = bestSet(exercise.sets);
@@ -133,6 +147,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
+  },
+  records: {
+    borderColor: colors.accent,
   },
   best: {
     flexDirection: 'row',

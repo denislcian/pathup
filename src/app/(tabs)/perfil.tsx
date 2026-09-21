@@ -1,5 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { Link } from 'expo-router';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
@@ -9,8 +10,12 @@ import { Card } from '@/components/ui/card';
 import { Screen } from '@/components/ui/screen';
 import { useAuth } from '@/features/auth/auth-provider';
 import { useProfile } from '@/features/profile/profile-api';
+import { useActiveWorkout } from '@/features/workout/active-workout-store';
+import { useFinishedWorkout } from '@/features/workout/finished-workout-store';
+import { useWorkoutSync } from '@/features/workout/use-workout-sync';
+import { clearLocalWorkouts } from '@/features/workout/workout-storage';
 import { supabase } from '@/lib/supabase';
-import { spacing } from '@/theme/tokens';
+import { colors, spacing } from '@/theme/tokens';
 
 export default function ProfileScreen() {
   const { t } = useTranslation();
@@ -18,9 +23,17 @@ export default function ProfileScreen() {
   const profile = useProfile();
   const queryClient = useQueryClient();
   const data = profile.data;
+  const { pending } = useWorkoutSync();
+  const active = useActiveWorkout((state) => state.workout);
+  const [confirmSignOut, setConfirmSignOut] = useState(false);
+  const unsaved = pending > 0 || active !== null;
 
   async function signOut() {
     await supabase?.auth.signOut();
+    // Nothing of this account stays on the device for the next person who signs in.
+    await clearLocalWorkouts();
+    useActiveWorkout.getState().discard();
+    useFinishedWorkout.getState().clear();
     queryClient.clear();
   }
 
@@ -67,7 +80,33 @@ export default function ProfileScreen() {
         </AppText>
       </Link>
 
-      <Button label={t('auth.signOut')} variant="secondary" onPress={signOut} />
+      {confirmSignOut ? (
+        <Card style={styles.warning}>
+          <AppText variant="heading" role="heading">
+            {t('profile.signOutTitle')}
+          </AppText>
+          <AppText tone="muted">
+            {pending > 0
+              ? t('profile.signOutPending', { count: pending })
+              : t('profile.signOutActive')}
+          </AppText>
+          <View style={styles.actions}>
+            <Button
+              label={t('profile.signOutCancel')}
+              variant="secondary"
+              onPress={() => setConfirmSignOut(false)}
+              style={styles.flex}
+            />
+            <Button label={t('profile.signOutAnyway')} onPress={signOut} style={styles.flex} />
+          </View>
+        </Card>
+      ) : (
+        <Button
+          label={t('auth.signOut')}
+          variant="secondary"
+          onPress={() => (unsaved ? setConfirmSignOut(true) : void signOut())}
+        />
+      )}
     </Screen>
   );
 }
@@ -86,5 +125,15 @@ const styles = StyleSheet.create({
   link: {
     alignSelf: 'flex-start',
     paddingVertical: spacing.sm,
+  },
+  flex: {
+    flex: 1,
+  },
+  warning: {
+    borderColor: colors.warning,
+  },
+  actions: {
+    flexDirection: 'row',
+    gap: spacing.sm,
   },
 });

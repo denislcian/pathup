@@ -90,6 +90,47 @@ describe('logging a workout', () => {
     ]);
   });
 
+  it('celebrates the records the session beats, even offline', async () => {
+    const user = userEvent.setup();
+    mockUpsert.mockRejectedValue(new Error('offline'));
+    // Last week's bench press, as downloaded to the phone the last time there was signal.
+    await AsyncStorage.setItem(
+      'pathup.workouts.history.v1',
+      JSON.stringify([
+        {
+          id: 'last-week',
+          name: 'Torso',
+          startedAt: '2026-01-05T18:00:00.000Z',
+          endedAt: '2026-01-05T19:00:00.000Z',
+          exercises: [
+            {
+              id: 'e1',
+              slug: 'press-banca-barra',
+              sets: [
+                {
+                  id: 's1',
+                  type: 'normal',
+                  weightKg: 80,
+                  reps: 8,
+                  rir: null,
+                  completedAt: '2026-01-05T18:10:00.000Z',
+                },
+              ],
+            },
+          ],
+        },
+      ]),
+    );
+    await logOneSet(user);
+
+    await user.press(screen.getByRole('button', { name: 'Terminar' }));
+
+    expect(
+      await screen.findByRole('heading', { name: '¡3 récords nuevos!' }, ROUTER_TIMEOUT),
+    ).toBeOnTheScreen();
+    expect(screen.getByText('82,5 kg × 8 · antes 80 kg')).toBeOnTheScreen();
+  });
+
   it('keeps the workout on the phone when there is no connection', async () => {
     const user = userEvent.setup();
     mockUpsert.mockRejectedValue(new Error('offline'));

@@ -22,6 +22,17 @@ export const colors = {
   shadow: 'rgba(0, 0, 0, 0.45)',
 } as const;
 
+/**
+ * Chart colours. The series mint is one step darker than `accent`: it passes the data-viz
+ * lightness band and 3:1 contrast on the card surface (checked with the palette validator).
+ */
+export const chartColors = {
+  series: '#36A873',
+  seriesWash: 'rgba(54, 168, 115, 0.10)',
+  grid: colors.border,
+  crosshair: colors.textMuted,
+} as const;
+
 export const spacing = {
   xs: 4,
   sm: 8,

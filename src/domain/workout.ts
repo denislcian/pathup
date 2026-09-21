@@ -27,6 +27,23 @@ export type Workout = {
   exercises: LoggedExercise[];
 };
 
+/** A plan to start from: a past workout you repeat, or a routine. */
+export type WorkoutTemplate = {
+  name: string;
+  exercises: { slug: string; sets: Pick<LoggedSet, 'type' | 'weightKg' | 'reps' | 'rir'>[] }[];
+};
+
+/** Repeating a workout plans the same exercises and sets, ready to tick off again. */
+export function workoutToTemplate(workout: Workout): WorkoutTemplate {
+  return {
+    name: workout.name,
+    exercises: workout.exercises.map((exercise) => ({
+      slug: exercise.slug,
+      sets: exercise.sets.map(({ type, weightKg, reps, rir }) => ({ type, weightKg, reps, rir })),
+    })),
+  };
+}
+
 export const DEFAULT_REST_SECONDS = 120;
 
 export function completedSets(workout: Workout): LoggedSet[] {

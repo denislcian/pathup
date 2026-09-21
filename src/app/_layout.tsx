@@ -138,6 +138,10 @@ function RootNavigator() {
           name="entreno/resumen"
           options={{ headerShown: true, title: t('summary.title'), headerBackVisible: false }}
         />
+        <Stack.Screen
+          name="historial/[id]"
+          options={{ headerShown: true, title: t('history.detailTitle') }}
+        />
       </Stack.Protected>
 
       <Stack.Screen name="privacidad" options={{ headerShown: true, title: t('privacy.title') }} />

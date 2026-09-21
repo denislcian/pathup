@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { Redirect, router } from 'expo-router';
 import { Dumbbell } from '@/components/icons';
 import { useEffect, useState } from 'react';
@@ -11,6 +12,7 @@ import { Columns } from '@/components/ui/columns';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Screen } from '@/components/ui/screen';
 import { useEscapeKey } from '@/components/ui/use-escape-key';
+import { detectRecords, type RecordHit } from '@/domain/progress';
 import {
   countCompletedSets,
   formatDuration,
@@ -19,11 +21,13 @@ import {
   workoutVolumeKg,
 } from '@/domain/workout';
 import { useAuth } from '@/features/auth/auth-provider';
+import { historyKeys } from '@/features/history/history-api';
 import { useActiveWorkout } from '@/features/workout/active-workout-store';
 import { useFinishedWorkout } from '@/features/workout/finished-workout-store';
 import { ExerciseCard, RestBar } from '@/features/workout/logger-components';
 import {
   enqueueWorkout,
+  readKnownWorkouts,
   readPreviousPerformance,
   removeFromOutbox,
   savePreviousPerformance,
@@ -36,6 +40,7 @@ import { colors, minTouchTarget, radius, spacing } from '@/theme/tokens';
 export default function ActiveWorkoutScreen() {
   const { t } = useTranslation();
   const { session } = useAuth();
+  const queryClient = useQueryClient();
   const workout = useActiveWorkout((state) => state.workout);
   const restEndsAt = useActiveWorkout((state) => state.restEndsAt);
   const restSeconds = useActiveWorkout((state) => state.restSeconds);
@@ -67,7 +72,10 @@ export default function ActiveWorkoutScreen() {
     if (!finished) return;
 
     let synced = false;
+    let records: RecordHit[] = [];
     if (countCompletedSets(finished) > 0) {
+      // Compared with what the phone knows, so records show up even without signal.
+      records = detectRecords(await readKnownWorkouts(), finished);
       await savePreviousPerformance(toPreviousPerformance(finished));
       await enqueueWorkout(finished);
 
@@ -82,7 +90,8 @@ export default function ActiveWorkoutScreen() {
       }
     }
 
-    useFinishedWorkout.getState().setFinished(finished, synced);
+    useFinishedWorkout.getState().setFinished(finished, synced, records);
+    void queryClient.invalidateQueries({ queryKey: historyKeys.all(session?.user.id) });
     router.replace('/entreno/resumen');
   }
 

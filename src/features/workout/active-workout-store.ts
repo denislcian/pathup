@@ -10,6 +10,7 @@ import {
   sanitizeWorkout,
   type LoggedSet,
   type Workout,
+  type WorkoutTemplate,
 } from '@/domain/workout';
 import { createId } from '@/features/workout/ids';
 
@@ -21,6 +22,8 @@ type ActiveWorkoutState = {
   restEndsAt: number | null;
   restSeconds: number;
   start: (name: string) => void;
+  /** Starts a session with its exercises and sets already planned, none of them ticked. */
+  startFrom: (template: WorkoutTemplate) => void;
   discard: () => void;
   addExercise: (slug: string) => void;
   removeExercise: (exerciseId: string) => void;
@@ -71,6 +74,25 @@ export const useActiveWorkout = create<ActiveWorkoutState>()(
             startedAt: new Date().toISOString(),
             endedAt: null,
             exercises: [],
+          },
+          restEndsAt: null,
+        }),
+
+      startFrom: (template) =>
+        set({
+          workout: {
+            id: createId(),
+            name: template.name,
+            startedAt: new Date().toISOString(),
+            endedAt: null,
+            exercises: template.exercises.map((exercise) => ({
+              id: createId(),
+              slug: exercise.slug,
+              sets: (exercise.sets.length > 0
+                ? exercise.sets
+                : [{ type: 'normal' as const, weightKg: 0, reps: 0, rir: null }]
+              ).map((planned) => ({ ...planned, id: createId(), completedAt: null })),
+            })),
           },
           restEndsAt: null,
         }),

@@ -1,5 +1,11 @@
 import { sanitizeWorkout, type Workout } from '@/domain/workout';
-import { readOutbox, removeFromOutbox } from '@/features/workout/workout-storage';
+import {
+  addToHistorySnapshot,
+  readOutbox,
+  removeFromOutbox,
+} from '@/features/workout/workout-storage';
+import { demoBackend } from '@/lib/demo-backend';
+import { isDemoMode } from '@/lib/demo-mode';
 import { requireSupabase } from '@/lib/supabase';
 
 /**
@@ -7,10 +13,15 @@ import { requireSupabase } from '@/lib/supabase';
  * updates the same rows instead of duplicating the session.
  */
 export async function uploadWorkout(userId: string, original: Workout): Promise<void> {
-  const supabase = requireSupabase();
   // Workouts queued by older versions of the app may carry sets the database rejects.
   const workout = sanitizeWorkout(original);
   if (workout.exercises.length === 0) return;
+  if (isDemoMode()) {
+    demoBackend.saveWorkout(workout);
+    return;
+  }
+
+  const supabase = requireSupabase();
 
   const { error: workoutError } = await supabase.from('workouts').upsert({
     id: workout.id,
@@ -50,6 +61,8 @@ export async function uploadWorkout(userId: string, original: Workout): Promise<
     const { error } = await supabase.from('workout_sets').upsert(sets);
     if (error) throw error;
   }
+
+  await addToHistorySnapshot(workout);
 }
 
 export type FlushResult = { uploaded: number; pending: number };

@@ -267,7 +267,28 @@
     "title": "Progreso",
     "subtitle": "Historial y récords",
     "empty": "Tu progreso aparecerá aquí",
-    "emptyDescription": "Cada serie que registres sumará a tus gráficas y récords personales."
+    "emptyDescription": "Cada serie que registres sumará a tus gráficas y récords personales.",
+    "loading": "Cargando tu historial…",
+    "startWorkout": "Empezar un entreno",
+    "offline": "Sin conexión: ves lo último que se guardó en este dispositivo.",
+    "thisWeek": "Esta semana",
+    "workoutsCount_one": "{{count}} entreno",
+    "workoutsCount_other": "{{count}} entrenos",
+    "streak": "Racha",
+    "weeksCount_one": "{{count}} semana",
+    "weeksCount_other": "{{count}} semanas",
+    "streakHint": "Semanas seguidas entrenando",
+    "total": "En total",
+    "recordsTitle": "Tus récords",
+    "showAllRecords": "Ver todos los récords",
+    "showLess": "Ver menos",
+    "historyTitle": "Historial",
+    "historyForDay": "Entrenos del {{date}}",
+    "showAll": "Ver todos",
+    "showMore": "Ver más entrenos",
+    "recordE1rm": "1RM estimado {{value}}",
+    "recordWeight": "Máximo {{value}} × {{reps}}",
+    "recordReps": "Máximo {{value}} repeticiones"
   },
   "wellness": {
     "title": "Bienestar",
@@ -284,7 +305,13 @@
     "days": "Días por semana",
     "equipment": "Material",
     "privacy": "Política de privacidad",
-    "loadError": "No hemos podido cargar tu perfil"
+    "loadError": "No hemos podido cargar tu perfil",
+    "signOutTitle": "¿Cerrar sesión ahora?",
+    "signOutPending_one": "Tienes {{count}} entreno sin subir. Si cierras sesión se borrará de este dispositivo y no llegará a tu cuenta.",
+    "signOutPending_other": "Tienes {{count}} entrenos sin subir. Si cierras sesión se borrarán de este dispositivo y no llegarán a tu cuenta.",
+    "signOutActive": "Tienes un entreno en curso. Si cierras sesión se perderá.",
+    "signOutCancel": "Cancelar",
+    "signOutAnyway": "Cerrar sesión igualmente"
   },
   "privacy": {
     "title": "Privacidad",
@@ -431,5 +458,61 @@
       "rights": "© 2026 PathUp · Beta",
       "privacy": "Privacidad"
     }
+  },
+  "history": {
+    "detailTitle": "Entreno",
+    "openWorkout": "Abrir {{name}} del {{date}}",
+    "more_one": "y {{count}} más",
+    "more_other": "y {{count}} más",
+    "pending": "Pendiente de subir",
+    "previousMonth": "Mes anterior",
+    "nextMonth": "Mes siguiente",
+    "daysTrained_one": "{{count}} día entrenado",
+    "daysTrained_other": "{{count}} días entrenados",
+    "trainedDay": "entrenaste",
+    "notFound": "No encontramos este entreno",
+    "notFoundDescription": "Puede que lo hayas borrado desde otro dispositivo.",
+    "backToProgress": "Volver a Progreso",
+    "repeat": "Repetir entreno",
+    "delete": "Borrar",
+    "keep": "No, conservarlo",
+    "deleteTitle": "¿Borrar este entreno?",
+    "deleteBody": "Se borrarán sus series de tu cuenta y dejarán de contar para tus récords y gráficas. No se puede deshacer.",
+    "deleteError": "No hemos podido borrarlo. Comprueba tu conexión y vuelve a probar.",
+    "activeHint": "Tienes un entreno en curso: termínalo antes de repetir este.",
+    "rir": "RIR {{rir}}",
+    "e1rm": "1RM est. {{value}}"
+  },
+  "records": {
+    "title_one": "¡Nuevo récord!",
+    "title_other": "¡{{count}} récords nuevos!",
+    "detail": "{{value}} · antes {{previous}}",
+    "repsValue_one": "{{count}} repetición",
+    "repsValue_other": "{{count}} repeticiones",
+    "kinds": {
+      "e1rm": "1RM estimado",
+      "weight": "Peso máximo",
+      "setVolume": "Mejor serie (peso × reps)",
+      "reps": "Más repeticiones"
+    }
+  },
+  "exerciseProgress": {
+    "title": "Tu progreso",
+    "metric": "Qué medir",
+    "metrics": {
+      "e1rm": "1RM estimado",
+      "weight": "Peso máximo",
+      "volume": "Volumen",
+      "reps": "Repeticiones"
+    },
+    "best": "Mejor marca",
+    "change_one": "Cambio",
+    "change_other": "Cambio en {{count}} sesiones",
+    "sessions": "Sesiones",
+    "chartTitle": "{{metric}} de {{name}} por sesión",
+    "needTwo": "Con una sesión más verás aquí tu gráfica.",
+    "e1rmHint": "El 1RM estimado calcula tu máximo a una repetición a partir de tus series de hasta 12 repeticiones (fórmula de Epley). Sirve para comparar sesiones con pesos y repeticiones distintos, sin probar nunca tu máximo real.",
+    "history": "Sesiones anteriores",
+    "allSessions": "Ver todas las sesiones"
   }
 }

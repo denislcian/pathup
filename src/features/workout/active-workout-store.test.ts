@@ -126,6 +126,31 @@ describe('active workout', () => {
     expect(store().workout!.exercises[0].sets[0]).toMatchObject({ weightKg: 85, reps: 8 });
   });
 
+  it('starts from a template with every set planned and none ticked', () => {
+    store().startFrom({
+      name: 'Torso A',
+      exercises: [
+        {
+          slug: 'press-banca-barra',
+          sets: [
+            { type: 'warmup', weightKg: 40, reps: 10, rir: null },
+            { type: 'normal', weightKg: 80, reps: 8, rir: 2 },
+          ],
+        },
+        { slug: 'remo-barra', sets: [] },
+      ],
+    });
+
+    const workout = store().workout!;
+    expect(workout.name).toBe('Torso A');
+    expect(workout.exercises[0].sets).toEqual([
+      expect.objectContaining({ type: 'warmup', weightKg: 40, completedAt: null }),
+      expect.objectContaining({ type: 'normal', weightKg: 80, reps: 8, completedAt: null }),
+    ]);
+    // An exercise without planned sets still gets one row to fill in.
+    expect(workout.exercises[1].sets).toHaveLength(1);
+  });
+
   it('discarding throws the session away', () => {
     startWithOneSet();
     store().discard();

@@ -11,6 +11,7 @@ import { EmptyState } from '@/components/ui/empty-state';
 import { Screen } from '@/components/ui/screen';
 import { EXERCISE_IMAGES } from '@/data/exercise-images';
 import { getExercise } from '@/data/exercises';
+import { ExerciseProgress } from '@/features/history/exercise-progress';
 import { colors, radius, spacing } from '@/theme/tokens';
 
 export default function ExerciseDetailScreen() {
@@ -37,6 +38,8 @@ export default function ExerciseDetailScreen() {
       title={exercise.name}
       subtitle={t(`exercise.levels.${exercise.level}`)}>
       <Stack.Screen options={{ title: exercise.name }} />
+
+      <ExerciseProgress slug={exercise.slug} name={exercise.name} />
 
       {images ? (
         <View style={styles.images}>
