@@ -287,7 +287,10 @@
     "showMore": "Show more workouts",
     "recordE1rm": "Estimated 1RM {{value}}",
     "recordWeight": "Heaviest {{value}} × {{reps}}",
-    "recordReps": "Most reps {{value}}"
+    "recordReps": "Most reps {{value}}",
+    "measurementsLink": "Open body measurements",
+    "latestWeight": "Latest weight: {{value}}",
+    "measurementsHint": "Weight, body fat and girths"
   },
   "wellness": {
     "title": "Wellness",
@@ -569,6 +572,57 @@
       "save": "We couldn't save the routine. Saving needs a connection.",
       "delete": "We couldn't delete it. Check your connection.",
       "change": "We couldn't save the change. Check your connection and try again."
+    }
+  },
+  "measurements": {
+    "title": "Body measurements",
+    "subtitle": "Weight, body fat and girths",
+    "offline": "Offline: showing what was last saved on this device. Logging measurements needs a connection.",
+    "formTitle": "Log measurements",
+    "editTitle": "Edit this day",
+    "date": "Date",
+    "dateHint": "DD/MM/YYYY · One entry per day: saving the same day again replaces it",
+    "fields": {
+      "weightKg": "Weight",
+      "bodyFatPct": "Body fat",
+      "waistCm": "Waist",
+      "hipsCm": "Hips",
+      "chestCm": "Chest",
+      "armCm": "Arm",
+      "thighCm": "Thigh",
+      "neckCm": "Neck"
+    },
+    "short": {
+      "weightKg": "Weight",
+      "bodyFatPct": "Fat",
+      "waistCm": "Waist",
+      "hipsCm": "Hips",
+      "chestCm": "Chest",
+      "armCm": "Arm",
+      "thighCm": "Thigh",
+      "neckCm": "Neck"
+    },
+    "tip": "Fill in only what you measure. To compare fairly: in the morning, fasted and after using the toilet. Waist at the height of the navel.",
+    "save": "Save measurements",
+    "saving": "Saving…",
+    "saved": "Measurements saved",
+    "deleteDay": "Delete this day",
+    "show": "Measurement to show",
+    "latest": "Latest ({{date}})",
+    "trend": "Change over 4 weeks",
+    "chartTitle": "{{field}} over time",
+    "needTwo": "One more measurement and your chart shows up here.",
+    "weightHint": "The line is the 7-day average: your weight moves 1-2 kg from one day to the next with water and food, and the average shows the real trend.",
+    "trendHint": "The change compares your average for the last week with the one from 4 weeks before.",
+    "emptyTitle": "No measurements yet",
+    "emptyDescription": "Log your weight or waist and see how they change here. Weighing in 2 or 3 times a week is enough.",
+    "history": "Latest entries",
+    "editDay": "Edit {{date}}",
+    "errors": {
+      "date": "Enter a real date, not in the future, as DD/MM/YYYY",
+      "range": "Between {{min}} and {{max}}. Missing a decimal point?",
+      "empty": "Fill in at least one measurement",
+      "save": "We couldn't save. Logging measurements needs a connection."
     }
   }
 }

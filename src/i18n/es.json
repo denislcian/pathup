@@ -287,7 +287,10 @@
     "showMore": "Ver más entrenos",
     "recordE1rm": "1RM estimado {{value}}",
     "recordWeight": "Máximo {{value}} × {{reps}}",
-    "recordReps": "Máximo {{value}} repeticiones"
+    "recordReps": "Máximo {{value}} repeticiones",
+    "measurementsLink": "Abrir medidas corporales",
+    "latestWeight": "Último peso: {{value}}",
+    "measurementsHint": "Peso, % de grasa y perímetros"
   },
   "wellness": {
     "title": "Bienestar",
@@ -569,6 +572,57 @@
       "save": "No hemos podido guardar la rutina. Necesitas conexión para guardarla.",
       "delete": "No hemos podido borrarla. Comprueba tu conexión.",
       "change": "No hemos podido guardar el cambio. Comprueba tu conexión y vuelve a probar."
+    }
+  },
+  "measurements": {
+    "title": "Medidas corporales",
+    "subtitle": "Peso, grasa y perímetros",
+    "offline": "Sin conexión: ves lo último guardado en este dispositivo. Para registrar medidas necesitas red.",
+    "formTitle": "Registrar medidas",
+    "editTitle": "Editar este día",
+    "date": "Fecha",
+    "dateHint": "DD/MM/AAAA · Una entrada por día: guardar otra vez el mismo día la sustituye",
+    "fields": {
+      "weightKg": "Peso",
+      "bodyFatPct": "Grasa corporal",
+      "waistCm": "Cintura",
+      "hipsCm": "Cadera",
+      "chestCm": "Pecho",
+      "armCm": "Brazo",
+      "thighCm": "Muslo",
+      "neckCm": "Cuello"
+    },
+    "short": {
+      "weightKg": "Peso",
+      "bodyFatPct": "Grasa",
+      "waistCm": "Cintura",
+      "hipsCm": "Cadera",
+      "chestCm": "Pecho",
+      "armCm": "Brazo",
+      "thighCm": "Muslo",
+      "neckCm": "Cuello"
+    },
+    "tip": "Rellena solo lo que midas. Para comparar bien: por la mañana, en ayunas y después de ir al baño. La cintura, a la altura del ombligo.",
+    "save": "Guardar medidas",
+    "saving": "Guardando…",
+    "saved": "Medidas guardadas",
+    "deleteDay": "Borrar este día",
+    "show": "Qué medida ver",
+    "latest": "Última ({{date}})",
+    "trend": "Cambio en 4 semanas",
+    "chartTitle": "{{field}} a lo largo del tiempo",
+    "needTwo": "Con otra medida más verás aquí tu gráfica.",
+    "weightHint": "La línea es la media de 7 días: tu peso sube y baja 1-2 kg de un día a otro por el agua y la comida, y la media enseña la tendencia real.",
+    "trendHint": "El cambio compara tu media de la última semana con la de hace 4 semanas.",
+    "emptyTitle": "Aún no hay medidas",
+    "emptyDescription": "Registra tu peso o tu cintura y verás aquí cómo cambian. Con pesarte 2 o 3 veces por semana es suficiente.",
+    "history": "Últimos registros",
+    "editDay": "Editar {{date}}",
+    "errors": {
+      "date": "Escribe una fecha real, que no sea futura, con el formato DD/MM/AAAA",
+      "range": "Entre {{min}} y {{max}}. ¿Falta una coma?",
+      "empty": "Rellena al menos una medida",
+      "save": "No hemos podido guardar. Necesitas conexión para registrar medidas."
     }
   }
 }

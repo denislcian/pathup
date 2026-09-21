@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View } from 'react-native';
 
-import { ChevronRight, CloudOff, TrendingUp, Trophy } from '@/components/icons';
+import { ChevronRight, CloudOff, Ruler, TrendingUp, Trophy } from '@/components/icons';
 import { AppText } from '@/components/ui/app-text';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -20,6 +20,7 @@ import {
   weeklyStreak,
   type ExerciseRecords,
 } from '@/domain/progress';
+import { measurementSeries } from '@/domain/measurements';
 import { useWorkoutHistory } from '@/features/history/history-api';
 import {
   StatRow,
@@ -27,6 +28,7 @@ import {
   TrainingCalendar,
   WorkoutCard,
 } from '@/features/history/history-components';
+import { useMeasurements } from '@/features/measurements/measurements-api';
 import { formatKg, formatNumber } from '@/lib/format';
 import { colors, minTouchTarget, radius, spacing } from '@/theme/tokens';
 
@@ -36,6 +38,7 @@ const RECORDS_SHOWN = 6;
 export default function ProgressScreen() {
   const { t, i18n } = useTranslation();
   const history = useWorkoutHistory();
+  const measurements = useMeasurements();
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
   const [visible, setVisible] = useState(PAGE);
   const [allRecords, setAllRecords] = useState(false);
@@ -61,6 +64,7 @@ export default function ProgressScreen() {
           actionLabel={t('progress.startWorkout')}
           onAction={() => router.push('/entreno')}
         />
+        <MeasurementsLink />
       </Screen>
     );
   }
@@ -78,6 +82,7 @@ export default function ProgressScreen() {
     ...new Set(workouts.flatMap((workout) => workout.exercises.map((exercise) => exercise.slug))),
   ].filter((slug) => records[slug]);
   const shownSlugs = allRecords ? recentSlugs : recentSlugs.slice(0, RECORDS_SHOWN);
+  const latestWeight = measurementSeries(measurements.data?.measurements ?? [], 'weightKg').at(-1);
 
   return (
     <Screen wide title={t('progress.title')} subtitle={t('progress.subtitle')}>
@@ -113,6 +118,8 @@ export default function ProgressScreen() {
         {[
           <View key="side" style={styles.stack}>
             <TrainingCalendar days={days} selected={selectedDay} onSelect={setSelectedDay} />
+
+            <MeasurementsLink latestWeight={latestWeight} />
 
             <Card style={styles.records}>
               <View style={styles.row}>
@@ -172,6 +179,30 @@ export default function ProgressScreen() {
         ]}
       </Columns>
     </Screen>
+  );
+}
+
+function MeasurementsLink({ latestWeight }: { latestWeight?: { value: number } }) {
+  const { t, i18n } = useTranslation();
+  const { hovered, hoverProps } = useHover();
+  return (
+    <Pressable
+      role="link"
+      aria-label={t('progress.measurementsLink')}
+      onPress={() => router.push('/medidas')}
+      {...hoverProps}
+      style={[styles.linkCard, hovered && styles.linkCardHovered]}>
+      <Ruler color={colors.calm} size={20} aria-hidden />
+      <View style={styles.flex}>
+        <AppText variant="heading">{t('measurements.title')}</AppText>
+        <AppText variant="caption" tone="muted">
+          {latestWeight
+            ? t('progress.latestWeight', { value: formatKg(latestWeight.value, i18n.language) })
+            : t('progress.measurementsHint')}
+        </AppText>
+      </View>
+      <ChevronRight color={colors.textMuted} size={18} aria-hidden />
+    </Pressable>
   );
 }
 
@@ -247,5 +278,19 @@ const styles = StyleSheet.create({
   },
   recordRowHovered: {
     backgroundColor: colors.surface2,
+  },
+  linkCard: {
+    cursor: 'pointer',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+    padding: spacing.md,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.surface,
+  },
+  linkCardHovered: {
+    borderColor: colors.textMuted,
   },
 });

@@ -68,7 +68,8 @@ Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguient
 - [x] Historial, calendario y detalle de cada sesión, con "Repetir entreno" y borrar (21 sep). Funciona sin conexión con una copia en el móvil ([decisión 0006](decisiones/0006-historial-y-records-en-el-movil.md)).
 - [x] Racha semanal, entrenos y volumen de la semana (21 sep).
 - [x] Récords automáticos (1RM estimado, peso máximo, mejor serie y repeticiones) que salen en el resumen aunque no haya red, y gráfica por ejercicio con 1RM estimado, peso máximo y volumen (21 sep).
-- [ ] Medidas corporales.
+- [x] Medidas corporales: peso, % de grasa y seis perímetros, una entrada por día, gráfica (el peso con media de 7 días) y cambio en 4 semanas (21 sep).
+- [ ] **Tú:** creas tus rutinas reales (PPLUL) y entrenas con ellas.
 - **Puerta:** creas tu rutina real y ves tu progreso en press tras 2 sesiones.
 
 ### Fase 2b · Programas y pantalla "Hoy" (semana 5)

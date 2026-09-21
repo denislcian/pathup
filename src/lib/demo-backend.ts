@@ -1,3 +1,4 @@
+import type { Measurement } from '@/domain/measurements';
 import type { Routine } from '@/domain/routines';
 import type { LoggedSet, SetType, Workout } from '@/domain/workout';
 
@@ -131,8 +132,31 @@ export function buildDemoRoutines(): Routine[] {
   }));
 }
 
+/**
+ * Eight weeks of a slow cut: weigh-ins every two or three days with the usual day-to-day noise,
+ * waist once a week and body fat every two weeks.
+ */
+export function buildDemoMeasurements(now: Date): Measurement[] {
+  const noise = [0.4, -0.3, 0.1, 0.5, -0.2, 0, 0.3, -0.4, 0.2, -0.1];
+  const entries: Measurement[] = [];
+  const pad = (value: number) => String(value).padStart(2, '0');
+  for (let daysAgo = 56, index = 0; daysAgo >= 0; daysAgo -= index % 2 === 0 ? 2 : 3, index += 1) {
+    const day = new Date(now.getFullYear(), now.getMonth(), now.getDate() - daysAgo);
+    const progress = (56 - daysAgo) / 56;
+    const entry: Measurement = {
+      date: `${day.getFullYear()}-${pad(day.getMonth() + 1)}-${pad(day.getDate())}`,
+      weightKg: Math.round((94 - 2.4 * progress + noise[index % noise.length]) * 10) / 10,
+    };
+    if (index % 3 === 0) entry.waistCm = Math.round((96 - 2.5 * progress) * 10) / 10;
+    if (index % 6 === 0) entry.bodyFatPct = Math.round((22 - 1.3 * progress) * 10) / 10;
+    entries.push(entry);
+  }
+  return entries.reverse();
+}
+
 let workouts: Workout[] | null = null;
 let routines: Routine[] | null = null;
+let measurements: Measurement[] | null = null;
 
 export const demoBackend = {
   listWorkouts(): Workout[] {
@@ -154,5 +178,18 @@ export const demoBackend = {
   },
   deleteRoutine(id: string): void {
     routines = demoBackend.listRoutines().filter((item) => item.id !== id);
+  },
+  listMeasurements(): Measurement[] {
+    measurements ??= buildDemoMeasurements(new Date());
+    return measurements;
+  },
+  saveMeasurement(entry: Measurement): void {
+    measurements = [
+      entry,
+      ...demoBackend.listMeasurements().filter((item) => item.date !== entry.date),
+    ].sort((a, b) => b.date.localeCompare(a.date));
+  },
+  deleteMeasurement(date: string): void {
+    measurements = demoBackend.listMeasurements().filter((item) => item.date !== date);
   },
 };

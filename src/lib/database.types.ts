@@ -14,6 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
+      body_measurements: {
+        Row: {
+          arm_cm: number | null
+          body_fat_pct: number | null
+          chest_cm: number | null
+          created_at: string
+          hips_cm: number | null
+          id: string
+          measured_on: string
+          neck_cm: number | null
+          notes: string | null
+          thigh_cm: number | null
+          updated_at: string
+          user_id: string
+          waist_cm: number | null
+          weight_kg: number | null
+        }
+        Insert: {
+          arm_cm?: number | null
+          body_fat_pct?: number | null
+          chest_cm?: number | null
+          created_at?: string
+          hips_cm?: number | null
+          id?: string
+          measured_on: string
+          neck_cm?: number | null
+          notes?: string | null
+          thigh_cm?: number | null
+          updated_at?: string
+          user_id: string
+          waist_cm?: number | null
+          weight_kg?: number | null
+        }
+        Update: {
+          arm_cm?: number | null
+          body_fat_pct?: number | null
+          chest_cm?: number | null
+          created_at?: string
+          hips_cm?: number | null
+          id?: string
+          measured_on?: string
+          neck_cm?: number | null
+          notes?: string | null
+          thigh_cm?: number | null
+          updated_at?: string
+          user_id?: string
+          waist_cm?: number | null
+          weight_kg?: number | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           beginner_mode: boolean

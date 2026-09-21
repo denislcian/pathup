@@ -10,6 +10,7 @@ import { Card } from '@/components/ui/card';
 import { Screen } from '@/components/ui/screen';
 import { useAuth } from '@/features/auth/auth-provider';
 import { useProfile } from '@/features/profile/profile-api';
+import { clearLocalMeasurements } from '@/features/measurements/measurements-api';
 import { clearLocalRoutines } from '@/features/routines/routines-api';
 import { useActiveWorkout } from '@/features/workout/active-workout-store';
 import { useFinishedWorkout } from '@/features/workout/finished-workout-store';
@@ -34,6 +35,7 @@ export default function ProfileScreen() {
     // Nothing of this account stays on the device for the next person who signs in.
     await clearLocalWorkouts();
     await clearLocalRoutines();
+    await clearLocalMeasurements();
     useActiveWorkout.getState().discard();
     useFinishedWorkout.getState().clear();
     queryClient.clear();

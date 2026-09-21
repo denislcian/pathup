@@ -143,6 +143,10 @@ function RootNavigator() {
           options={{ headerShown: true, title: t('history.detailTitle') }}
         />
         <Stack.Screen
+          name="medidas"
+          options={{ headerShown: true, title: t('measurements.title') }}
+        />
+        <Stack.Screen
           name="rutinas/editar"
           options={{ headerShown: true, title: t('routines.editorHeader') }}
         />
