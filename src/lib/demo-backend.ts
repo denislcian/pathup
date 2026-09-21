@@ -1,3 +1,4 @@
+import type { Routine } from '@/domain/routines';
 import type { LoggedSet, SetType, Workout } from '@/domain/workout';
 
 /**
@@ -113,7 +114,25 @@ export function buildDemoWorkouts(now: Date): Workout[] {
   return workouts;
 }
 
+/** The four sessions above, saved as routines in a "Torso / Pierna" folder. */
+export function buildDemoRoutines(): Routine[] {
+  return DAYS.map((day, index) => ({
+    id: `demo-r${index}`,
+    name: day.name,
+    folder: 'Torso / Pierna',
+    position: index,
+    exercises: day.plan.map((plan, position) => ({
+      id: `demo-r${index}-${position}`,
+      slug: plan.slug,
+      sets: plan.sets,
+      repMin: plan.reps,
+      repMax: plan.reps + 2,
+    })),
+  }));
+}
+
 let workouts: Workout[] | null = null;
+let routines: Routine[] | null = null;
 
 export const demoBackend = {
   listWorkouts(): Workout[] {
@@ -125,5 +144,15 @@ export const demoBackend = {
   },
   deleteWorkout(id: string): void {
     workouts = demoBackend.listWorkouts().filter((item) => item.id !== id);
+  },
+  listRoutines(): Routine[] {
+    routines ??= buildDemoRoutines();
+    return [...routines].sort((a, b) => a.position - b.position);
+  },
+  saveRoutine(routine: Routine): void {
+    routines = [...demoBackend.listRoutines().filter((item) => item.id !== routine.id), routine];
+  },
+  deleteRoutine(id: string): void {
+    routines = demoBackend.listRoutines().filter((item) => item.id !== id);
   },
 };

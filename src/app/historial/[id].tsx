@@ -14,6 +14,7 @@ import { useEscapeKey } from '@/components/ui/use-escape-key';
 import { getExercise } from '@/data/exercises';
 import { estimateOneRepMax } from '@/domain/one-rep-max';
 import { detectRecords } from '@/domain/progress';
+import { routineFromWorkout } from '@/domain/routines';
 import {
   countCompletedSets,
   formatDuration,
@@ -24,7 +25,11 @@ import {
 } from '@/domain/workout';
 import { useDeleteWorkout, useWorkoutHistory } from '@/features/history/history-api';
 import { RecordList } from '@/features/history/record-list';
+import { useRoutineDraft } from '@/features/routines/routine-draft-store';
+import { nextRoutinePosition } from '@/features/routines/routine-list';
+import { useRoutines } from '@/features/routines/routines-api';
 import { useActiveWorkout } from '@/features/workout/active-workout-store';
+import { createId } from '@/features/workout/ids';
 import { formatKg, formatLongDate } from '@/lib/format';
 import { colors, spacing } from '@/theme/tokens';
 
@@ -33,6 +38,7 @@ export default function WorkoutDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const history = useWorkoutHistory();
   const remove = useDeleteWorkout();
+  const routines = useRoutines();
   const active = useActiveWorkout((state) => state.workout);
   const [confirmDelete, setConfirmDelete] = useState(false);
   useEscapeKey(() => setConfirmDelete(false), confirmDelete);
@@ -72,6 +78,13 @@ export default function WorkoutDetailScreen() {
     if (!workout) return;
     useActiveWorkout.getState().startFrom(workoutToTemplate(workout));
     router.push('/entreno/activo');
+  }
+
+  function saveAsRoutine() {
+    if (!workout) return;
+    const position = nextRoutinePosition(routines.data?.routines ?? []);
+    useRoutineDraft.getState().open(routineFromWorkout(workout, createId, position), false);
+    router.push('/rutinas/editar');
   }
 
   const footer = confirmDelete ? (
@@ -162,6 +175,13 @@ export default function WorkoutDetailScreen() {
           <RecordList records={records} />
         </Card>
       ) : null}
+
+      <Button
+        label={t('history.saveAsRoutine')}
+        variant="secondary"
+        onPress={saveAsRoutine}
+        style={styles.saveRoutine}
+      />
 
       <Columns>
         {workout.exercises.map((exercise) => {
@@ -256,5 +276,8 @@ const styles = StyleSheet.create({
   },
   footerButton: {
     flex: 1,
+  },
+  saveRoutine: {
+    alignSelf: 'flex-start',
   },
 });

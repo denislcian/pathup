@@ -142,6 +142,14 @@ function RootNavigator() {
           name="historial/[id]"
           options={{ headerShown: true, title: t('history.detailTitle') }}
         />
+        <Stack.Screen
+          name="rutinas/editar"
+          options={{ headerShown: true, title: t('routines.editorHeader') }}
+        />
+        <Stack.Screen
+          name="rutinas/elegir-ejercicio"
+          options={{ headerShown: true, title: t('logger.pickerTitle') }}
+        />
       </Stack.Protected>
 
       <Stack.Screen name="privacidad" options={{ headerShown: true, title: t('privacy.title') }} />

@@ -80,6 +80,83 @@ export type Database = {
         }
         Relationships: []
       }
+      routine_exercises: {
+        Row: {
+          exercise_slug: string
+          id: string
+          notes: string | null
+          position: number
+          rep_max: number
+          rep_min: number
+          routine_id: string
+          target_sets: number
+          user_id: string
+        }
+        Insert: {
+          exercise_slug: string
+          id: string
+          notes?: string | null
+          position: number
+          rep_max?: number
+          rep_min?: number
+          routine_id: string
+          target_sets?: number
+          user_id: string
+        }
+        Update: {
+          exercise_slug?: string
+          id?: string
+          notes?: string | null
+          position?: number
+          rep_max?: number
+          rep_min?: number
+          routine_id?: string
+          target_sets?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "routine_exercises_routine_id_user_id_fkey"
+            columns: ["routine_id", "user_id"]
+            isOneToOne: false
+            referencedRelation: "routines"
+            referencedColumns: ["id", "user_id"]
+          },
+        ]
+      }
+      routines: {
+        Row: {
+          created_at: string
+          folder: string | null
+          id: string
+          name: string
+          notes: string | null
+          position: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          folder?: string | null
+          id: string
+          name: string
+          notes?: string | null
+          position?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          folder?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          position?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       workout_exercises: {
         Row: {
           exercise_slug: string
