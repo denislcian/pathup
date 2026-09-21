@@ -163,7 +163,24 @@
     "restSkip": "Saltar",
     "elapsed": "Tiempo",
     "pickerTitle": "Elegir ejercicio",
-    "offlineHint": "Puedes entrenar sin cobertura: se guarda en el móvil y se sube al recuperar la red."
+    "offlineHint": "Puedes entrenar sin cobertura: se guarda en el móvil y se sube al recuperar la red.",
+    "setOptions": "Serie {{number}}: {{type}}. Cambiar tipo y RIR",
+    "setTypeTitle": "Tipo de serie",
+    "setTypes": {
+      "warmup": "Calentamiento",
+      "normal": "Normal",
+      "drop": "Drop set",
+      "failure": "Al fallo"
+    },
+    "rirTitle": "RIR · repeticiones en reserva",
+    "rirNone": "Sin anotar",
+    "rirHint": "Cuántas repeticiones más podrías haber hecho con buena técnica. Es opcional.",
+    "rirShort": "R{{rir}}",
+    "usePrevious": "Usar lo de la última vez: {{weight}} kg × {{reps}}",
+    "invalidSet": "Escribe las repeticiones antes de marcar la serie",
+    "restDone": "¡Descanso terminado!",
+    "restClose": "Cerrar",
+    "restSetting": "Descanso entre series: {{time}}. Pulsa para cambiarlo"
   },
   "summary": {
     "title": "Entreno guardado",

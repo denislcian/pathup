@@ -4,7 +4,10 @@ import {
   formatDuration,
   isSetLoggable,
   isWorkoutEmpty,
+  nextRestPreset,
   nextSetTemplate,
+  sanitizeWorkout,
+  setLabel,
   toPreviousPerformance,
   workoutDurationSeconds,
   workoutVolumeKg,
@@ -166,5 +169,63 @@ describe('isSetLoggable', () => {
     [{ weightKg: Number.NaN, reps: 8 }, false],
   ])('%p -> %p', (candidate, expected) => {
     expect(isSetLoggable(candidate)).toBe(expected);
+  });
+});
+
+describe('setLabel', () => {
+  it('numbers normal sets among themselves and marks the special ones with a letter', () => {
+    const sets = [
+      set({ type: 'warmup' }),
+      set({ type: 'warmup' }),
+      set(),
+      set(),
+      set({ type: 'failure' }),
+      set({ type: 'drop' }),
+    ];
+    expect(sets.map((_, index) => setLabel(sets, index))).toEqual(['C', 'C', '1', '2', 'F', 'D']);
+  });
+});
+
+describe('nextRestPreset', () => {
+  it('cycles through the presets and wraps around', () => {
+    expect(nextRestPreset(60)).toBe(90);
+    expect(nextRestPreset(120)).toBe(150);
+    expect(nextRestPreset(240)).toBe(60);
+    // A custom value moves on to the next preset above it.
+    expect(nextRestPreset(100)).toBe(120);
+  });
+});
+
+describe('sanitizeWorkout', () => {
+  it('keeps only ticked sets the database accepts, so a bad row cannot block the queue', () => {
+    const session = workout({
+      name: '   ',
+      exercises: [
+        {
+          id: 'e1',
+          slug: 'press-banca-barra',
+          sets: [
+            set({ weightKg: 82.456, rir: 7.4 }),
+            set({ reps: 0 }),
+            set({ completedAt: null }),
+            set({ weightKg: 1200 }),
+          ],
+        },
+        { id: 'e2', slug: 'remo-barra', sets: [set({ reps: 0 })] },
+      ],
+    });
+
+    const clean = sanitizeWorkout(session);
+
+    expect(clean.name).toBe('Entreno');
+    expect(clean.exercises).toHaveLength(1);
+    expect(clean.exercises[0].sets).toEqual([
+      expect.objectContaining({ weightKg: 82.46, reps: 8, rir: 7 }),
+    ]);
+  });
+
+  it('leaves a valid workout as it was', () => {
+    const session = workout();
+    expect(sanitizeWorkout(session)).toEqual(session);
   });
 });

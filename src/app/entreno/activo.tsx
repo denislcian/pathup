@@ -2,7 +2,7 @@ import { Redirect, router } from 'expo-router';
 import { Dumbbell } from '@/components/icons';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/ui/app-text';
 import { Button } from '@/components/ui/button';
@@ -14,6 +14,7 @@ import { useEscapeKey } from '@/components/ui/use-escape-key';
 import {
   countCompletedSets,
   formatDuration,
+  nextRestPreset,
   toPreviousPerformance,
   workoutVolumeKg,
 } from '@/domain/workout';
@@ -30,13 +31,14 @@ import {
 } from '@/features/workout/workout-storage';
 import { uploadWorkout } from '@/features/workout/workout-sync';
 import { isSupabaseConfigured } from '@/lib/supabase';
-import { colors, spacing } from '@/theme/tokens';
+import { colors, minTouchTarget, radius, spacing } from '@/theme/tokens';
 
 export default function ActiveWorkoutScreen() {
   const { t } = useTranslation();
   const { session } = useAuth();
   const workout = useActiveWorkout((state) => state.workout);
   const restEndsAt = useActiveWorkout((state) => state.restEndsAt);
+  const restSeconds = useActiveWorkout((state) => state.restSeconds);
   const [previous, setPrevious] = useState<PreviousByExercise>({});
   const [askDiscard, setAskDiscard] = useState(false);
   const [elapsed, setElapsed] = useState(0);
@@ -132,6 +134,18 @@ export default function ActiveWorkoutScreen() {
           <Stat label={t('logger.elapsed')} value={formatDuration(elapsed)} />
           <Stat label={t('summary.volume')} value={`${volume} kg`} />
           <Stat label={t('summary.sets')} value={String(sets)} />
+          <Pressable
+            role="button"
+            aria-label={t('logger.restSetting', { time: formatDuration(restSeconds) })}
+            onPress={() => store.setRestSeconds(nextRestPreset(restSeconds))}
+            style={styles.restSetting}>
+            <AppText variant="caption" tone="muted">
+              {t('logger.rest')}
+            </AppText>
+            <AppText variant="title" tone="calm">
+              {formatDuration(restSeconds)}
+            </AppText>
+          </Pressable>
         </Card>
 
         {askDiscard ? (
@@ -159,7 +173,9 @@ export default function ActiveWorkoutScreen() {
                 onAddSet={() => store.addSet(exercise.id)}
                 onRemove={() => store.removeExercise(exercise.id)}
                 onChangeSet={(setId, patch) => store.updateSet(exercise.id, setId, patch)}
-                onToggleSet={(setId) => store.toggleSetCompleted(exercise.id, setId)}
+                onToggleSet={(setId, fallback) =>
+                  store.toggleSetCompleted(exercise.id, setId, fallback)
+                }
                 onRemoveSet={(setId) => store.removeSet(exercise.id, setId)}
               />
             ))}
@@ -212,6 +228,14 @@ const styles = StyleSheet.create({
   },
   stat: {
     gap: 2,
+  },
+  restSetting: {
+    cursor: 'pointer',
+    gap: 2,
+    paddingHorizontal: spacing.sm,
+    marginHorizontal: -spacing.sm,
+    minHeight: minTouchTarget,
+    borderRadius: radius.sm,
   },
   warning: {
     borderColor: colors.warning,

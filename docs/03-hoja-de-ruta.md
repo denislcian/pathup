@@ -48,7 +48,8 @@ Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguient
 - [x] La sesión sobrevive a cerrar la app; al terminar se guarda en el móvil y se sube sola.
 - [x] Subida idempotente: reintentar no duplica nada, porque los identificadores se generan en el móvil.
 - [x] Resumen al terminar: duración, volumen, series y mejor serie por ejercicio.
-- [ ] Pendiente para la fase 2a: elegir tipo de serie (calentamiento, drop, al fallo) y RIR desde la app, y vibración al acabar el descanso.
+- [x] Tipo de serie (calentamiento, drop, al fallo) y RIR desde la app, descanso configurable y vibración al acabar (21 sep).
+- [x] Una serie sin repeticiones ya no se puede marcar: antes llegaba a la cola, la base de datos la rechazaba y atascaba la subida del resto (21 sep).
 - [ ] Superseries: fuera de alcance según la lista de recortes.
 - [ ] **Tú:** entrenas una sesión real en el gimnasio con la app, **con el modo avión puesto**.
 - [ ] **Puerta:** la sesión completa llega a Supabase al recuperar la red, sin series perdidas ni duplicadas.

@@ -100,6 +100,32 @@ describe('active workout', () => {
     expect(finished!.exercises).toEqual([]);
   });
 
+  it('refuses to tick a set without reps, so nothing invalid reaches the queue', () => {
+    store().start('Torso');
+    store().addExercise('press-banca-barra');
+    const exercise = store().workout!.exercises[0];
+
+    expect(store().toggleSetCompleted(exercise.id, exercise.sets[0].id)).toBe(false);
+    expect(store().workout!.exercises[0].sets[0].completedAt).toBeNull();
+    expect(store().restEndsAt).toBeNull();
+  });
+
+  it('fills empty fields with last session when a set is ticked', () => {
+    store().start('Torso');
+    store().addExercise('press-banca-barra');
+    const exercise = store().workout!.exercises[0];
+    store().updateSet(exercise.id, exercise.sets[0].id, { weightKg: 85 });
+
+    const ticked = store().toggleSetCompleted(exercise.id, exercise.sets[0].id, {
+      weightKg: 80,
+      reps: 8,
+    });
+
+    expect(ticked).toBe(true);
+    // The weight you typed wins; the reps you left empty come from last time.
+    expect(store().workout!.exercises[0].sets[0]).toMatchObject({ weightKg: 85, reps: 8 });
+  });
+
   it('discarding throws the session away', () => {
     startWithOneSet();
     store().discard();

@@ -163,7 +163,24 @@
     "restSkip": "Skip",
     "elapsed": "Time",
     "pickerTitle": "Choose an exercise",
-    "offlineHint": "You can train with no signal: it is saved on your phone and uploaded later."
+    "offlineHint": "You can train with no signal: it is saved on your phone and uploaded later.",
+    "setOptions": "Set {{number}}: {{type}}. Change type and RIR",
+    "setTypeTitle": "Set type",
+    "setTypes": {
+      "warmup": "Warm-up",
+      "normal": "Normal",
+      "drop": "Drop set",
+      "failure": "To failure"
+    },
+    "rirTitle": "RIR · reps in reserve",
+    "rirNone": "Not logged",
+    "rirHint": "How many more reps you could have done with good form. Optional.",
+    "rirShort": "R{{rir}}",
+    "usePrevious": "Use last time's values: {{weight}} kg × {{reps}}",
+    "invalidSet": "Enter the reps before ticking the set",
+    "restDone": "Rest is over!",
+    "restClose": "Close",
+    "restSetting": "Rest between sets: {{time}}. Press to change it"
   },
   "summary": {
     "title": "Workout saved",

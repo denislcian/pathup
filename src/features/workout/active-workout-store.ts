@@ -5,7 +5,9 @@ import { appStorage } from '@/lib/storage';
 
 import {
   DEFAULT_REST_SECONDS,
+  isSetLoggable,
   nextSetTemplate,
+  sanitizeWorkout,
   type LoggedSet,
   type Workout,
 } from '@/domain/workout';
@@ -24,7 +26,15 @@ type ActiveWorkoutState = {
   removeExercise: (exerciseId: string) => void;
   addSet: (exerciseId: string) => void;
   updateSet: (exerciseId: string, setId: string, patch: SetPatch) => void;
-  toggleSetCompleted: (exerciseId: string, setId: string) => void;
+  /**
+   * Ticks a set off, or unticks it. A set without valid weight and reps can't be ticked: it takes
+   * `fallback` (last session's values) when given, and otherwise nothing changes and it returns false.
+   */
+  toggleSetCompleted: (
+    exerciseId: string,
+    setId: string,
+    fallback?: Pick<LoggedSet, 'weightKg' | 'reps'>,
+  ) => boolean;
   removeSet: (exerciseId: string, setId: string) => void;
   setRestSeconds: (seconds: number) => void;
   extendRest: (seconds: number) => void;
@@ -119,22 +129,39 @@ export const useActiveWorkout = create<ActiveWorkoutState>()(
         });
       },
 
-      toggleSetCompleted: (exerciseId, setId) => {
+      toggleSetCompleted: (exerciseId, setId, fallback) => {
         const { workout, restSeconds, restEndsAt } = get();
-        if (!workout) return;
-        let startRest = false;
+        if (!workout) return false;
+        const target = workout.exercises
+          .find((exercise) => exercise.id === exerciseId)
+          ?.sets.find((item) => item.id === setId);
+        if (!target) return false;
+
+        const completing = target.completedAt === null;
+        // Empty fields take last session's value, like the grey hint they show.
+        const values = {
+          weightKg: target.weightKg > 0 || !fallback ? target.weightKg : fallback.weightKg,
+          reps: target.reps > 0 || !fallback ? target.reps : fallback.reps,
+        };
+        if (completing && !isSetLoggable(values)) return false;
+
         const updated = mapExercise(workout, exerciseId, (sets) =>
-          sets.map((item) => {
-            if (item.id !== setId) return item;
-            const completing = item.completedAt === null;
-            startRest = completing && item.type !== 'warmup';
-            return { ...item, completedAt: completing ? new Date().toISOString() : null };
-          }),
+          sets.map((item) =>
+            item.id === setId
+              ? {
+                  ...item,
+                  ...(completing ? values : {}),
+                  completedAt: completing ? new Date().toISOString() : null,
+                }
+              : item,
+          ),
         );
+        const startRest = completing && target.type !== 'warmup';
         set({
           workout: updated,
           restEndsAt: startRest ? Date.now() + restSeconds * 1000 : restEndsAt,
         });
+        return true;
       },
 
       removeSet: (exerciseId, setId) => {
@@ -160,17 +187,9 @@ export const useActiveWorkout = create<ActiveWorkoutState>()(
       finish: () => {
         const { workout } = get();
         if (!workout) return null;
-        const finished: Workout = {
-          ...workout,
-          endedAt: new Date().toISOString(),
-          // Sets that were never ticked off are plans, not training: they are dropped.
-          exercises: workout.exercises
-            .map((exercise) => ({
-              ...exercise,
-              sets: exercise.sets.filter((item) => item.completedAt !== null),
-            }))
-            .filter((exercise) => exercise.sets.length > 0),
-        };
+        // Sets that were never ticked off are plans, not training: they are dropped, and so is
+        // anything the database would reject.
+        const finished = sanitizeWorkout({ ...workout, endedAt: new Date().toISOString() });
         set({ workout: null, restEndsAt: null });
         return finished;
       },

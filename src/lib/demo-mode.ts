@@ -6,8 +6,12 @@ import { Platform } from 'react-native';
  */
 export function isDemoMode(): boolean {
   if (!__DEV__ || Platform.OS !== 'web' || typeof window === 'undefined') return false;
-  return new URLSearchParams(window.location.search).has('demo');
+  // Read once: the query string is gone as soon as you navigate inside the app.
+  demoFlag ??= new URLSearchParams(window.location.search).has('demo');
+  return demoFlag;
 }
+
+let demoFlag: boolean | undefined;
 
 export const DEMO_SESSION = {
   user: { id: 'demo-user', email: 'demo@pathup.app' },

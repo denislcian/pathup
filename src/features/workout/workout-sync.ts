@@ -1,4 +1,4 @@
-import type { Workout } from '@/domain/workout';
+import { sanitizeWorkout, type Workout } from '@/domain/workout';
 import { readOutbox, removeFromOutbox } from '@/features/workout/workout-storage';
 import { requireSupabase } from '@/lib/supabase';
 
@@ -6,8 +6,11 @@ import { requireSupabase } from '@/lib/supabase';
  * Uploads one workout. Every row carries an id generated on the device, so repeating an upload
  * updates the same rows instead of duplicating the session.
  */
-export async function uploadWorkout(userId: string, workout: Workout): Promise<void> {
+export async function uploadWorkout(userId: string, original: Workout): Promise<void> {
   const supabase = requireSupabase();
+  // Workouts queued by older versions of the app may carry sets the database rejects.
+  const workout = sanitizeWorkout(original);
+  if (workout.exercises.length === 0) return;
 
   const { error: workoutError } = await supabase.from('workouts').upsert({
     id: workout.id,

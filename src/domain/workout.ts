@@ -119,3 +119,52 @@ export function isSetLoggable(set: Pick<LoggedSet, 'weightKg' | 'reps'>): boolea
     set.reps <= 999
   );
 }
+
+/**
+ * What the set column shows: warm-ups, drops and sets to failure get a letter, normal sets are
+ * numbered among themselves (so two warm-ups don't turn your first working set into "3").
+ */
+export function setLabel(sets: readonly Pick<LoggedSet, 'type'>[], index: number): string {
+  const type = sets[index]?.type;
+  if (type === 'warmup') return 'C';
+  if (type === 'drop') return 'D';
+  if (type === 'failure') return 'F';
+  return String(sets.slice(0, index + 1).filter((item) => item.type === 'normal').length);
+}
+
+export const RIR_OPTIONS = [0, 1, 2, 3, 4, 5] as const;
+
+/** Rest presets offered while logging, in seconds. */
+export const REST_PRESETS = [60, 90, 120, 150, 180, 240] as const;
+
+/** The next preset after `current`, wrapping around to the shortest one. */
+export function nextRestPreset(current: number): number {
+  return REST_PRESETS.find((preset) => preset > current) ?? REST_PRESETS[0];
+}
+
+/**
+ * The copy of a finished workout that is safe to store and upload: only ticked sets the database
+ * accepts, and only exercises that kept at least one of them. A single bad row would otherwise be
+ * rejected on every retry and block the offline queue behind it.
+ */
+export function sanitizeWorkout(workout: Workout): Workout {
+  const name = workout.name.trim().slice(0, 80) || 'Entreno';
+  return {
+    ...workout,
+    name,
+    exercises: workout.exercises
+      .slice(0, 100)
+      .map((exercise) => ({
+        ...exercise,
+        sets: exercise.sets
+          .filter((set) => set.completedAt !== null && isSetLoggable(set))
+          .slice(0, 100)
+          .map((set) => ({
+            ...set,
+            weightKg: Math.round(set.weightKg * 100) / 100,
+            rir: set.rir === null ? null : Math.min(Math.max(Math.round(set.rir), 0), 10),
+          })),
+      }))
+      .filter((exercise) => exercise.sets.length > 0),
+  };
+}

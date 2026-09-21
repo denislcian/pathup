@@ -128,6 +128,29 @@ describe('logging a workout', () => {
     expect(screen.getByText(/1 serie/)).toBeOnTheScreen();
   });
 
+  it('warns instead of ticking a set with no reps, and lets you mark a warm-up', async () => {
+    const user = userEvent.setup();
+    await logOneSet(user);
+
+    await user.press(screen.getByRole('button', { name: 'Añadir serie' }));
+    await user.clear(screen.getByLabelText('Repeticiones, serie 2 de Press banca con barra'));
+    await user.press(
+      screen.getByRole('checkbox', {
+        name: 'Marcar como hecha la serie 2 de Press banca con barra',
+      }),
+    );
+    expect(
+      await screen.findByText('Escribe las repeticiones antes de marcar la serie'),
+    ).toBeOnTheScreen();
+
+    await user.press(screen.getByRole('button', { name: /^Serie 1: Normal/ }));
+    await user.press(screen.getByRole('radio', { name: 'Calentamiento' }));
+    expect(
+      await screen.findByRole('button', { name: /^Serie 1: Calentamiento/ }),
+    ).toBeOnTheScreen();
+    expect(useActiveWorkout.getState().workout!.exercises[0].sets[0].type).toBe('warmup');
+  });
+
   it('discards a session without saving anything', async () => {
     const user = userEvent.setup();
     await logOneSet(user);
