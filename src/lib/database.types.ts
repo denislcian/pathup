@@ -65,36 +65,6 @@ export type Database = {
         }
         Relationships: []
       }
-      program_enrollments: {
-        Row: {
-          created_at: string
-          id: string
-          program_slug: string
-          started_on: string
-          status: string
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          id: string
-          program_slug: string
-          started_on?: string
-          status?: string
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          program_slug?: string
-          started_on?: string
-          status?: string
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
       profiles: {
         Row: {
           beginner_mode: boolean
@@ -158,6 +128,36 @@ export type Database = {
           units?: string
           updated_at?: string
           username?: string | null
+        }
+        Relationships: []
+      }
+      program_enrollments: {
+        Row: {
+          created_at: string
+          id: string
+          program_slug: string
+          started_on: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          program_slug: string
+          started_on?: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          program_slug?: string
+          started_on?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
