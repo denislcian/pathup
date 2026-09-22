@@ -85,6 +85,8 @@ export const useActiveWorkout = create<ActiveWorkoutState>()(
             name: template.name,
             startedAt: new Date().toISOString(),
             endedAt: null,
+            programSlug: template.programSlug ?? null,
+            programSession: template.programSession ?? null,
             exercises: template.exercises.map((exercise) => ({
               id: createId(),
               slug: exercise.slug,

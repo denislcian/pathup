@@ -22,7 +22,7 @@ export const historyKeys = {
 };
 
 const WORKOUT_SELECT = `
-  id, name, started_at, ended_at,
+  id, name, started_at, ended_at, program_slug, program_session,
   workout_exercises (
     id, exercise_slug, position,
     workout_sets ( id, position, set_type, weight_kg, reps, rir, completed_at )
@@ -34,6 +34,8 @@ type WorkoutRow = {
   name: string;
   started_at: string;
   ended_at: string | null;
+  program_slug: string | null;
+  program_session: string | null;
   workout_exercises: {
     id: string;
     exercise_slug: string;
@@ -60,6 +62,8 @@ export function toWorkout(row: WorkoutRow): Workout {
     name: row.name,
     startedAt: row.started_at,
     endedAt: row.ended_at,
+    programSlug: row.program_slug,
+    programSession: row.program_session,
     exercises: [...row.workout_exercises]
       .sort((a, b) => a.position - b.position)
       .map((exercise) => ({

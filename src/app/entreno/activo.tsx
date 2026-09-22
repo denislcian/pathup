@@ -12,7 +12,9 @@ import { Columns } from '@/components/ui/columns';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Screen } from '@/components/ui/screen';
 import { useEscapeKey } from '@/components/ui/use-escape-key';
+import { getProgram } from '@/data/programs';
 import { detectRecords, type RecordHit } from '@/domain/progress';
+
 import {
   countCompletedSets,
   formatDuration,
@@ -36,6 +38,14 @@ import {
 import { uploadWorkout } from '@/features/workout/workout-sync';
 import { isSupabaseConfigured } from '@/lib/supabase';
 import { colors, minTouchTarget, radius, spacing } from '@/theme/tokens';
+
+/** The programme week a session belongs to, read from its key (w3-b). */
+function programWeekOf(slug: string | null | undefined, sessionKey: string | null | undefined) {
+  const program = slug ? getProgram(slug) : undefined;
+  const number = Number(sessionKey?.match(/^w(\d+)-/)?.[1]);
+  const week = program?.weeks.find((item) => item.number === number);
+  return program && week ? { program, week } : null;
+}
 
 export default function ActiveWorkoutScreen() {
   const { t } = useTranslation();
@@ -96,6 +106,7 @@ export default function ActiveWorkoutScreen() {
   }
 
   const store = useActiveWorkout.getState();
+  const programWeek = programWeekOf(workout.programSlug, workout.programSession);
   const volume = workoutVolumeKg({ ...workout, endedAt: null });
   const sets = countCompletedSets(workout);
 
@@ -156,6 +167,18 @@ export default function ActiveWorkoutScreen() {
             </AppText>
           </Pressable>
         </Card>
+
+        {programWeek ? (
+          <Card style={styles.program}>
+            <AppText variant="label" tone="accent">
+              {programWeek.program.name} · {t('programs.week', { week: programWeek.week.number })} ·{' '}
+              {t(`programs.phases.${programWeek.week.phase}`)}
+            </AppText>
+            <AppText variant="caption" tone="muted">
+              {t('programs.rirHint', { rir: programWeek.week.rir })} {programWeek.week.note}
+            </AppText>
+          </Card>
+        ) : null}
 
         {askDiscard ? (
           <Card style={styles.warning}>
@@ -248,6 +271,11 @@ const styles = StyleSheet.create({
   },
   warning: {
     borderColor: colors.warning,
+  },
+  program: {
+    borderColor: colors.accent,
+    padding: spacing.md,
+    gap: spacing.xs,
   },
   footer: {
     flexDirection: 'row',

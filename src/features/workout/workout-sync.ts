@@ -29,6 +29,8 @@ export async function uploadWorkout(userId: string, original: Workout): Promise<
     name: workout.name,
     started_at: workout.startedAt,
     ended_at: workout.endedAt,
+    program_slug: workout.programSlug ?? null,
+    program_session: workout.programSession ?? null,
   });
   if (workoutError) throw workoutError;
 

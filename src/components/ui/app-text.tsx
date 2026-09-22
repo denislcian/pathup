@@ -2,7 +2,7 @@ import { StyleSheet, Text, type TextProps } from 'react-native';
 
 import { colors, typography, type TypographyVariant } from '@/theme/tokens';
 
-type Tone = 'default' | 'muted' | 'accent' | 'calm' | 'danger';
+type Tone = 'default' | 'muted' | 'accent' | 'calm' | 'warning' | 'danger';
 
 export type AppTextProps = TextProps & {
   variant?: TypographyVariant;
@@ -14,6 +14,7 @@ const toneColor: Record<Tone, string> = {
   muted: colors.textMuted,
   accent: colors.accent,
   calm: colors.calm,
+  warning: colors.warning,
   danger: colors.danger,
 };
 

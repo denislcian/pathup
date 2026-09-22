@@ -109,8 +109,10 @@ describe('exercise library', () => {
       await screen.findByRole('checkbox', { name: 'Solo con mi material' }, ROUTER_TIMEOUT),
     );
 
-    expect(await screen.findByText('2 ejercicios')).toBeOnTheScreen();
-    expect(screen.getByRole('link', { name: /^Flexiones/ })).toBeOnTheScreen();
-    expect(screen.getByRole('link', { name: /^Plancha/ })).toBeOnTheScreen();
+    expect(await screen.findByText('7 ejercicios')).toBeOnTheScreen();
+    expect(screen.getByRole('link', { name: /^Flexiones\./ })).toBeOnTheScreen();
+    expect(screen.getByRole('link', { name: /^Puente de glúteo/ })).toBeOnTheScreen();
+    // Anything that needs a gym or dumbbells is gone.
+    expect(screen.queryByRole('link', { name: /^Press banca con barra/ })).not.toBeOnTheScreen();
   });
 });

@@ -25,6 +25,8 @@ function row(id: string, startedAt: string, weight: number) {
     name: 'Torso',
     started_at: startedAt,
     ended_at: startedAt,
+    program_slug: null,
+    program_session: null,
     workout_exercises: [
       {
         id: `${id}-e2`,

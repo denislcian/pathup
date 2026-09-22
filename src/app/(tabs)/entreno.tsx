@@ -2,13 +2,16 @@ import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
-import { BookOpen, CloudOff } from '@/components/icons';
+import { BookOpen, CloudOff, Sprout } from '@/components/icons';
 import { AppText } from '@/components/ui/app-text';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Screen } from '@/components/ui/screen';
 import { countCompletedSets } from '@/domain/workout';
+import { NextSessionCard } from '@/features/programs/program-components';
+import { useProgramState } from '@/features/programs/programs-api';
+import { startProgramSession } from '@/features/programs/start-session';
 import { RoutineSection } from '@/features/routines/routine-list';
 import { useActiveWorkout } from '@/features/workout/active-workout-store';
 import { useWorkoutSync } from '@/features/workout/use-workout-sync';
@@ -19,6 +22,7 @@ export default function WorkoutScreen() {
   const active = useActiveWorkout((state) => state.workout);
   const start = useActiveWorkout((state) => state.start);
   const { pending, sync } = useWorkoutSync();
+  const program = useProgramState();
 
   return (
     <Screen wide title={t('workout.title')} subtitle={t('workout.subtitle')}>
@@ -61,6 +65,24 @@ export default function WorkoutScreen() {
           <Button label={t('workout.syncNow')} variant="secondary" onPress={() => void sync()} />
         </Card>
       ) : null}
+
+      {program.program && program.next && program.progress ? (
+        <NextSessionCard
+          program={program.program}
+          planned={program.next}
+          progress={program.progress}
+          disabled={active !== null}
+          onStart={() => void startProgramSession(program.program!, program.next!)}
+        />
+      ) : (
+        <EmptyState
+          icon={Sprout}
+          title={t('workout.programTitle')}
+          description={t('workout.programDescription')}
+          actionLabel={t('workout.seePrograms')}
+          onAction={() => router.push('/programas')}
+        />
+      )}
 
       <RoutineSection hasActiveWorkout={active !== null} />
 

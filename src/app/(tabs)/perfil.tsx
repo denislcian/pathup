@@ -11,6 +11,7 @@ import { Screen } from '@/components/ui/screen';
 import { useAuth } from '@/features/auth/auth-provider';
 import { useProfile } from '@/features/profile/profile-api';
 import { clearLocalMeasurements } from '@/features/measurements/measurements-api';
+import { clearLocalProgram } from '@/features/programs/programs-api';
 import { clearLocalRoutines } from '@/features/routines/routines-api';
 import { useActiveWorkout } from '@/features/workout/active-workout-store';
 import { useFinishedWorkout } from '@/features/workout/finished-workout-store';
@@ -36,6 +37,7 @@ export default function ProfileScreen() {
     await clearLocalWorkouts();
     await clearLocalRoutines();
     await clearLocalMeasurements();
+    await clearLocalProgram();
     useActiveWorkout.getState().discard();
     useFinishedWorkout.getState().clear();
     queryClient.clear();

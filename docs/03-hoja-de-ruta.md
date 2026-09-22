@@ -74,12 +74,14 @@ Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguient
 - **Puerta:** creas tu rutina real y ves tu progreso en press tras 2 sesiones.
 
 ### Fase 2b · Programas y pantalla "Hoy" (semana 5)
-- Los 4 programas propios, con su explicación basada en evidencia.
-- Cuestionario que recomienda uno; seguir el programa semana a semana, con reajuste si faltas.
-- Sugerencia de peso para la siguiente sesión (doble progresión).
-- **Pantalla Hoy:** qué toca, el check-in y la racha.
-- **Tú:** portadas de los 4 programas y las imágenes de los ejercicios 21 a 60.
-- **Puerta:** un amigo o amiga sin experiencia elige programa y termina su primera sesión sin preguntarte nada.
+- [x] Los 4 programas propios, con su explicación basada en evidencia y enlaces a los estudios (22 sep).
+- [x] 23 ejercicios más (21-43) para que los programas de gimnasio y de casa tengan de dónde tirar (22 sep).
+- [x] La lista de programas se ordena con tus respuestas del onboarding más el tiempo por sesión; el primero es la recomendación.
+- [x] Seguir el programa sesión a sesión, con reajuste si faltas ([decisión 0008](decisiones/0008-programas-guiados.md)).
+- [x] Sugerencia de peso para la siguiente sesión (doble progresión), aplicada al empezar la sesión.
+- [x] **Pantalla Hoy:** qué toca hoy, semana del programa, racha y último entreno. El check-in llega en la fase 3.
+- [ ] **Tú:** portadas de los 4 programas y las imágenes de los ejercicios 21 a 43.
+- [ ] **Puerta:** un amigo o amiga sin experiencia elige programa y termina su primera sesión sin preguntarte nada.
 
 ### Fase 3 · Bienestar (semana 6)
 - Check-in de 20 s y puntuación de preparación.

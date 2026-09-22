@@ -1,4 +1,5 @@
 import type { Measurement } from '@/domain/measurements';
+import { sessionKey } from '@/domain/programs';
 import type { Routine } from '@/domain/routines';
 import type { LoggedSet, SetType, Workout } from '@/domain/workout';
 
@@ -54,6 +55,7 @@ const DAYS: { weekday: number; name: string; plan: Plan[] }[] = [
 ];
 
 const WEEKS = 8;
+const DEMO_PROGRAM = 'torso-pierna';
 
 function buildSet(id: string, type: SetType, weightKg: number, reps: number, at: Date): LoggedSet {
   return {
@@ -73,8 +75,9 @@ export function buildDemoWorkouts(now: Date): Workout[] {
 
   for (let week = 0; week < WEEKS; week += 1) {
     for (const [dayIndex, day] of DAYS.entries()) {
-      // One missed session in week 4, like real life.
-      if (week === 3 && dayIndex === 3) continue;
+      // One missed session this week, like real life: the programme offers it again instead of
+      // losing the week.
+      if (week === WEEKS - 1 && dayIndex === 1) continue;
       const started = new Date(monday);
       started.setDate(started.getDate() + week * 7 + (day.weekday - 1));
       started.setHours(18, 30, 0, 0);
@@ -109,6 +112,9 @@ export function buildDemoWorkouts(now: Date): Workout[] {
         startedAt: started.toISOString(),
         endedAt: new Date(clock.getTime() + 4 * 60 * 1000).toISOString(),
         exercises,
+        // The demo history is the Torso / Pierna programme, one missed session included.
+        programSlug: DEMO_PROGRAM,
+        programSession: sessionKey(week + 1, ['a', 'b', 'c', 'd'][dayIndex]),
       });
     }
   }
@@ -157,6 +163,13 @@ export function buildDemoMeasurements(now: Date): Measurement[] {
 let workouts: Workout[] | null = null;
 let routines: Routine[] | null = null;
 let measurements: Measurement[] | null = null;
+let enrollment: {
+  id: string;
+  programSlug: string;
+  startedOn: string;
+  status: 'active' | 'finished' | 'abandoned';
+} | null = null;
+let enrollmentReady = false;
 
 export const demoBackend = {
   listWorkouts(): Workout[] {
@@ -191,5 +204,26 @@ export const demoBackend = {
   },
   deleteMeasurement(date: string): void {
     measurements = demoBackend.listMeasurements().filter((item) => item.date !== date);
+  },
+  getEnrollment() {
+    if (!enrollmentReady) {
+      const first = demoBackend.listWorkouts().at(-1);
+      enrollment = {
+        id: 'demo-enrollment',
+        programSlug: DEMO_PROGRAM,
+        startedOn: (first?.startedAt ?? new Date().toISOString()).slice(0, 10),
+        status: 'active' as const,
+      };
+      enrollmentReady = true;
+    }
+    return enrollment?.status === 'active' ? enrollment : null;
+  },
+  saveEnrollment(next: NonNullable<typeof enrollment>): void {
+    enrollment = next;
+    enrollmentReady = true;
+  },
+  setEnrollmentStatus(id: string, status: 'active' | 'finished' | 'abandoned'): void {
+    demoBackend.getEnrollment();
+    if (enrollment && enrollment.id === id) enrollment = { ...enrollment, status };
   },
 };

@@ -25,12 +25,18 @@ export type Workout = {
   startedAt: string;
   endedAt: string | null;
   exercises: LoggedExercise[];
+  /** Set when the session comes from a guided programme, e.g. "torso-pierna" and "w3-b". */
+  programSlug?: string | null;
+  programSession?: string | null;
 };
 
-/** A plan to start from: a past workout you repeat, or a routine. */
+/** A plan to start from: a past workout you repeat, a routine or a session of a programme. */
 export type WorkoutTemplate = {
   name: string;
   exercises: { slug: string; sets: Pick<LoggedSet, 'type' | 'weightKg' | 'reps' | 'rir'>[] }[];
+  /** Filled in when the plan is a session of a programme. */
+  programSlug?: string;
+  programSession?: string;
 };
 
 /** Repeating a workout plans the same exercises and sets, ready to tick off again. */

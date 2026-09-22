@@ -1,0 +1,255 @@
+import { router } from 'expo-router';
+import { useTranslation } from 'react-i18next';
+import { Pressable, StyleSheet, View } from 'react-native';
+
+import { ChevronRight, Sprout } from '@/components/icons';
+import { AppText } from '@/components/ui/app-text';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Chip } from '@/components/ui/chip';
+import { useHover } from '@/components/ui/use-hover';
+import { getExercise } from '@/data/exercises';
+import { describePrescription } from '@/domain/routines';
+import type { PlannedSession, Program, ProgramProgress } from '@/domain/programs';
+import { colors, radius, spacing } from '@/theme/tokens';
+
+/** Progress bar of a programme: sessions done out of the total. */
+export function ProgramProgressBar({ progress }: { progress: ProgramProgress }) {
+  const { t } = useTranslation();
+  const percent = progress.total === 0 ? 0 : Math.round((progress.done / progress.total) * 100);
+
+  return (
+    <View style={styles.progress}>
+      <View
+        style={styles.track}
+        role="progressbar"
+        aria-label={t('programs.progressLabel', { done: progress.done, total: progress.total })}
+        aria-valuenow={percent}
+        aria-valuemin={0}
+        aria-valuemax={100}>
+        <View style={[styles.fill, { width: `${percent}%` }]} />
+      </View>
+      <AppText variant="caption" tone="muted">
+        {t('programs.progressText', {
+          done: progress.done,
+          total: progress.total,
+          week: progress.week,
+        })}
+      </AppText>
+    </View>
+  );
+}
+
+/** A programme in the catalogue: what it is and who it is for. */
+export function ProgramCard({
+  program,
+  reasons,
+  missingEquipment,
+  recommended = false,
+}: {
+  program: Program;
+  reasons?: string[];
+  missingEquipment?: boolean;
+  recommended?: boolean;
+}) {
+  const { t } = useTranslation();
+  const { hovered, hoverProps } = useHover();
+
+  return (
+    <Pressable
+      role="link"
+      aria-label={t('programs.open', { name: program.name })}
+      onPress={() => router.push({ pathname: '/programas/[slug]', params: { slug: program.slug } })}
+      {...hoverProps}
+      style={[styles.card, hovered && styles.cardHovered, recommended && styles.cardRecommended]}>
+      {recommended ? (
+        <View style={styles.badge}>
+          <Sprout color={colors.accent} size={16} aria-hidden />
+          <AppText variant="caption" tone="accent">
+            {t('programs.recommended')}
+          </AppText>
+        </View>
+      ) : null}
+
+      <View style={styles.row}>
+        <AppText variant="heading" role="heading" style={styles.flex}>
+          {program.name}
+        </AppText>
+        <ChevronRight color={colors.textMuted} size={18} aria-hidden />
+      </View>
+      <AppText tone="muted">{program.tagline}</AppText>
+
+      <View style={styles.facts}>
+        <AppText variant="caption" tone="muted">
+          {t('programs.facts', {
+            days: program.daysPerWeek,
+            weeks: program.weeks.length,
+            minutes: program.minutesPerSession,
+          })}
+        </AppText>
+        <AppText variant="caption" tone="muted">
+          {t(`programs.places.${program.place}`)} · {t(`programs.levels.${program.level}`)}
+        </AppText>
+      </View>
+
+      {missingEquipment ? (
+        <AppText variant="caption" tone="warning">
+          {t('programs.missingEquipment')}
+        </AppText>
+      ) : reasons && reasons.length > 0 ? (
+        <View style={styles.chips}>
+          {reasons.slice(0, 3).map((reason) => (
+            <Chip
+              key={reason}
+              label={t(`programs.reasons.${reason}` as 'programs.reasons.days')}
+              variant="outline"
+            />
+          ))}
+        </View>
+      ) : null}
+    </Pressable>
+  );
+}
+
+/** The exercises of one session with their prescription (3 × 8-12). */
+export function SessionExercises({ session }: { session: PlannedSession }) {
+  return (
+    <View style={styles.exercises}>
+      {session.exercises.map((exercise) => (
+        <View key={exercise.slug} style={styles.exerciseRow}>
+          <View style={styles.flex}>
+            <AppText variant="label" numberOfLines={1}>
+              {getExercise(exercise.slug)?.name ?? exercise.slug}
+            </AppText>
+            {exercise.note ? (
+              <AppText variant="caption" tone="muted">
+                {exercise.note}
+              </AppText>
+            ) : null}
+          </View>
+          <AppText variant="caption" tone="muted">
+            {describePrescription(exercise)}
+          </AppText>
+        </View>
+      ))}
+    </View>
+  );
+}
+
+/** "Tu próxima sesión": what the programme says to do today. */
+export function NextSessionCard({
+  program,
+  planned,
+  progress,
+  onStart,
+  disabled = false,
+}: {
+  program: Program;
+  planned: PlannedSession;
+  progress: ProgramProgress;
+  onStart: () => void;
+  disabled?: boolean;
+}) {
+  const { t } = useTranslation();
+
+  return (
+    <Card style={styles.next}>
+      <AppText variant="caption" tone="muted">
+        {program.name} · {t('programs.week', { week: planned.week.number })}
+      </AppText>
+      <AppText variant="title" role="heading">
+        {planned.session.name}
+      </AppText>
+      <AppText tone="muted">{planned.session.focus}</AppText>
+
+      <View style={styles.chips}>
+        <Chip label={t(`programs.phases.${planned.week.phase}`)} variant="outline" />
+        <Chip label={t('programs.rir', { rir: planned.week.rir })} variant="outline" />
+      </View>
+
+      <SessionExercises session={planned} />
+
+      <AppText variant="caption" tone="muted">
+        {planned.week.note}
+      </AppText>
+
+      <ProgramProgressBar progress={progress} />
+
+      <Button label={t('programs.startSession')} disabled={disabled} onPress={onStart} />
+      {disabled ? (
+        <AppText variant="caption" tone="muted">
+          {t('workout.activeHint')}
+        </AppText>
+      ) : null}
+    </Card>
+  );
+}
+
+const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  card: {
+    cursor: 'pointer',
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: spacing.md,
+    gap: spacing.xs,
+  },
+  cardHovered: {
+    borderColor: colors.textMuted,
+  },
+  cardRecommended: {
+    borderColor: colors.accent,
+  },
+  badge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+  },
+  facts: {
+    gap: 2,
+    marginTop: spacing.xs,
+  },
+  chips: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.xs,
+    marginTop: spacing.xs,
+  },
+  exercises: {
+    gap: 2,
+    marginTop: spacing.xs,
+  },
+  exerciseRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  next: {
+    borderColor: colors.accent,
+    padding: spacing.md,
+    gap: spacing.sm,
+  },
+  progress: {
+    gap: spacing.xs,
+  },
+  track: {
+    height: 8,
+    borderRadius: radius.pill,
+    backgroundColor: colors.surface2,
+    overflow: 'hidden',
+  },
+  fill: {
+    height: '100%',
+    borderRadius: radius.pill,
+    backgroundColor: colors.accent,
+  },
+});

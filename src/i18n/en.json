@@ -118,7 +118,21 @@
     "workoutTitle": "Today's workout",
     "workoutEmpty": "Pick a program and you'll see what's next every day.",
     "checkinTitle": "20-second check-in",
-    "checkinEmpty": "Tell us how you slept and how you feel. We'll adjust your session."
+    "checkinEmpty": "Tell us how you slept and how you feel. We'll adjust your session.",
+    "loading": "Loading your plan…",
+    "weekSessions": "This week",
+    "programWeek": "Programme",
+    "programSessions": "{{done}} of {{total}} sessions",
+    "noProgramTitle": "Choose your programme",
+    "noProgramDescription": "We tell you what to do each day, with sets, reps and the suggested weight. We recommend one based on your answers.",
+    "chooseProgram": "See programmes",
+    "programFinished": "You finished {{name}}!",
+    "programFinishedBody": "Eight weeks following a plan is not something everyone does. Pick the next one or repeat this one heavier.",
+    "chooseAnother": "Choose another programme",
+    "freeWorkoutTitle": "Prefer to do your own thing?",
+    "freeWorkoutDescription": "Start an empty workout or use one of your routines.",
+    "openWorkout": "Go to Workout",
+    "lastWorkout": "Your last workout"
   },
   "workout": {
     "title": "Workout",
@@ -133,7 +147,10 @@
     "pendingSync_one": "{{count}} workout waiting to upload",
     "pendingSync_other": "{{count}} workouts waiting to upload",
     "syncNow": "Try again now",
-    "activeHint": "Finish or discard the workout in progress to start another one."
+    "activeHint": "Finish or discard the workout in progress to start another one.",
+    "programTitle": "Guided programmes",
+    "programDescription": "Six to eight week plans with the reasoning: what to do each day and when to add weight.",
+    "seePrograms": "See programmes"
   },
   "logger": {
     "title": "Workout",
@@ -623,6 +640,70 @@
       "range": "Between {{min}} and {{max}}. Missing a decimal point?",
       "empty": "Fill in at least one measurement",
       "save": "We couldn't save. Logging measurements needs a connection."
+    }
+  },
+  "programs": {
+    "title": "Programmes",
+    "subtitle": "Guided plans, free",
+    "intro": "Four programmes of our own. The list is ordered with what you told us during onboarding; the first one fits you best.",
+    "minutesQuestion": "How long do you have per session?",
+    "minutesOption": "{{minutes}} min",
+    "fromOnboarding": "We use your answers: {{days}} days a week · {{level}} level. You can change them in your profile.",
+    "currentHint": "You are currently following {{name}}.",
+    "open": "See the {{name}} programme",
+    "recommended": "Recommended for you",
+    "facts": "{{days}} days a week · {{weeks}} weeks · {{minutes}} min per session",
+    "missingEquipment": "Needs equipment you have not ticked in your profile.",
+    "places": {
+      "gym": "At the gym",
+      "home": "At home",
+      "both": "At home or at the gym"
+    },
+    "levels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "any": "Any level"
+    },
+    "reasons": {
+      "days": "Fits your days",
+      "level": "For your level",
+      "goal": "Matches your goal",
+      "minutes": "Fits your time",
+      "gym": "Needs a gym",
+      "equipment": "With your equipment"
+    },
+    "phases": {
+      "aprender": "Learn",
+      "acumular": "Build",
+      "apretar": "Push",
+      "descarga": "Deload"
+    },
+    "week": "Week {{week}}",
+    "week1": "The first week ({{count}} sessions in total)",
+    "weekByWeek": "Week by week",
+    "rir": "RIR {{rir}}",
+    "rirHint": "This week leave {{rir}} reps in reserve.",
+    "why": "Why it works",
+    "references": "Where it comes from",
+    "start": "Start this programme",
+    "starting": "Starting…",
+    "startSession": "Start the session",
+    "following": "You are following it",
+    "nextIs": "Next up: {{name}} (week {{week}}).",
+    "finished": "You have completed every session. Well done!",
+    "leaveProgram": "Leave the programme",
+    "leave": "Leave it",
+    "keep": "Stay on it",
+    "leaveTitle": "Leave this programme?",
+    "leaveBody": "Your workouts are not deleted. You can start it again whenever you want, from week 1.",
+    "progressLabel": "Programme progress: {{done}} of {{total}} sessions",
+    "progressText": "{{done}} of {{total}} sessions · you are on week {{week}}",
+    "notFound": "We couldn't find this programme",
+    "notFoundDescription": "The link may be an old one.",
+    "backToCatalogue": "See every programme",
+    "errors": {
+      "start": "We couldn't start the programme. You need a connection.",
+      "leave": "We couldn't save it. Check your connection."
     }
   }
 }

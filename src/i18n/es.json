@@ -118,7 +118,21 @@
     "workoutTitle": "Tu entreno de hoy",
     "workoutEmpty": "Elige un programa y aquí verás qué te toca cada día.",
     "checkinTitle": "Check-in de 20 segundos",
-    "checkinEmpty": "Cuéntanos cómo has dormido y cómo te sientes. Ajustaremos tu sesión."
+    "checkinEmpty": "Cuéntanos cómo has dormido y cómo te sientes. Ajustaremos tu sesión.",
+    "loading": "Cargando tu plan…",
+    "weekSessions": "Esta semana",
+    "programWeek": "Programa",
+    "programSessions": "{{done}} de {{total}} sesiones",
+    "noProgramTitle": "Elige tu programa",
+    "noProgramDescription": "Te decimos qué hacer cada día, con series, repeticiones y el peso sugerido. Te recomendamos uno según tus respuestas.",
+    "chooseProgram": "Ver programas",
+    "programFinished": "¡Has terminado {{name}}!",
+    "programFinishedBody": "Ocho semanas siguiendo un plan no las hace cualquiera. Elige el siguiente o repite este con más peso.",
+    "chooseAnother": "Elegir otro programa",
+    "freeWorkoutTitle": "¿Prefieres ir por libre?",
+    "freeWorkoutDescription": "Empieza un entreno vacío o usa una de tus rutinas.",
+    "openWorkout": "Ir a Entreno",
+    "lastWorkout": "Tu último entreno"
   },
   "workout": {
     "title": "Entreno",
@@ -133,7 +147,10 @@
     "pendingSync_one": "{{count}} entreno pendiente de subir",
     "pendingSync_other": "{{count}} entrenos pendientes de subir",
     "syncNow": "Reintentar ahora",
-    "activeHint": "Termina o descarta el entreno en curso para empezar otro."
+    "activeHint": "Termina o descarta el entreno en curso para empezar otro.",
+    "programTitle": "Programas guiados",
+    "programDescription": "Planes de 6 a 8 semanas con su explicación: qué hacer cada día y cuándo subir el peso.",
+    "seePrograms": "Ver programas"
   },
   "logger": {
     "title": "Entreno",
@@ -623,6 +640,70 @@
       "range": "Entre {{min}} y {{max}}. ¿Falta una coma?",
       "empty": "Rellena al menos una medida",
       "save": "No hemos podido guardar. Necesitas conexión para registrar medidas."
+    }
+  },
+  "programs": {
+    "title": "Programas",
+    "subtitle": "Planes guiados, gratis",
+    "intro": "Cuatro programas propios. Te ordenamos la lista según lo que nos contaste en el onboarding; el primero es el que mejor te encaja.",
+    "minutesQuestion": "¿Cuánto tiempo tienes por sesión?",
+    "minutesOption": "{{minutes}} min",
+    "fromOnboarding": "Usamos tus respuestas: {{days}} días por semana · nivel {{level}}. Puedes cambiarlas en tu perfil.",
+    "currentHint": "Ahora mismo sigues {{name}}.",
+    "open": "Ver el programa {{name}}",
+    "recommended": "Recomendado para ti",
+    "facts": "{{days}} días por semana · {{weeks}} semanas · {{minutes}} min por sesión",
+    "missingEquipment": "Necesita material que no tienes marcado en tu perfil.",
+    "places": {
+      "gym": "En el gimnasio",
+      "home": "En casa",
+      "both": "En casa o en el gimnasio"
+    },
+    "levels": {
+      "beginner": "Principiante",
+      "intermediate": "Intermedio",
+      "any": "Cualquier nivel"
+    },
+    "reasons": {
+      "days": "Encaja con tus días",
+      "level": "Para tu nivel",
+      "goal": "Va con tu objetivo",
+      "minutes": "Cabe en tu tiempo",
+      "gym": "Necesita gimnasio",
+      "equipment": "Con tu material"
+    },
+    "phases": {
+      "aprender": "Aprender",
+      "acumular": "Acumular",
+      "apretar": "Apretar",
+      "descarga": "Descarga"
+    },
+    "week": "Semana {{week}}",
+    "week1": "La primera semana ({{count}} sesiones en total)",
+    "weekByWeek": "Semana a semana",
+    "rir": "RIR {{rir}}",
+    "rirHint": "Esta semana deja {{rir}} repeticiones en la recámara.",
+    "why": "Por qué funciona",
+    "references": "De dónde sale",
+    "start": "Empezar este programa",
+    "starting": "Empezando…",
+    "startSession": "Empezar la sesión",
+    "following": "Lo estás siguiendo",
+    "nextIs": "Te toca {{name}} (semana {{week}}).",
+    "finished": "Has completado todas las sesiones. ¡Enhorabuena!",
+    "leaveProgram": "Dejar el programa",
+    "leave": "Dejarlo",
+    "keep": "Seguir con él",
+    "leaveTitle": "¿Dejar este programa?",
+    "leaveBody": "Tus entrenos no se borran. Puedes volver a empezarlo cuando quieras, desde la semana 1.",
+    "progressLabel": "Progreso del programa: {{done}} de {{total}} sesiones",
+    "progressText": "{{done}} de {{total}} sesiones · vas por la semana {{week}}",
+    "notFound": "No encontramos este programa",
+    "notFoundDescription": "Puede que el enlace sea antiguo.",
+    "backToCatalogue": "Ver todos los programas",
+    "errors": {
+      "start": "No hemos podido empezar el programa. Necesitas conexión.",
+      "leave": "No hemos podido guardarlo. Comprueba tu conexión."
     }
   }
 }

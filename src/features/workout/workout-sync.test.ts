@@ -55,6 +55,8 @@ describe('uploadWorkout', () => {
       name: 'Torso',
       started_at: '2026-09-20T17:00:00.000Z',
       ended_at: '2026-09-20T18:00:00.000Z',
+      program_slug: null,
+      program_session: null,
     });
     expect(mockUpsert).toHaveBeenNthCalledWith(2, 'workout_exercises', [
       {

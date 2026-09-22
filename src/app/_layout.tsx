@@ -144,6 +144,11 @@ function RootNavigator() {
           options={{ headerShown: true, title: t('history.detailTitle') }}
         />
         <Stack.Screen
+          name="programas/index"
+          options={{ headerShown: true, title: t('programs.title') }}
+        />
+        <Stack.Screen name="programas/[slug]" options={{ headerShown: true, title: '' }} />
+        <Stack.Screen
           name="medidas"
           options={{ headerShown: true, title: t('measurements.title') }}
         />
