@@ -24,3 +24,6 @@ Fitness and wellness app (training logger + guided programs + wellness check-in;
 - Data that lives on the phone (offline queue, history/routine/measurement snapshots, active workout) must be cleared on sign-out in `src/app/(tabs)/perfil.tsx`: another account can sign in on the same device.
 - Progress, records and charts are pure functions in `src/domain/progress.ts` / `measurements.ts` over the downloaded history plus the offline queue (ADR 0006). Charts use `src/components/charts/line-chart.tsx` (react-native-svg) and `chartColors` from the tokens; validate any new chart colour with the dataviz palette validator.
 - Routines store sets and rep ranges, never weights: starting one fills last session's values (ADR 0007).
+- Guided programmes live in `src/data/programs.ts` (content) and `src/domain/programs.ts` (plan, next session, double progression). Progress is derived from the workouts themselves (`program_slug`, `program_session`), never stored (ADR 0008).
+- The wellness check-in and the readiness score are pure functions in `src/domain/wellness.ts`; the session adjustment must stay small and always be skippable (ADR 0009).
+- New image prompts: edit `docs/prompts/*.json` and run `node scripts/build-exercise-prompts.mjs <file>`; never edit the generated markdown by hand.
