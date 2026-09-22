@@ -25,9 +25,12 @@ describe('availableEquipment', () => {
 
 describe('filterExercises', () => {
   it('finds exercises by Spanish name without accents', () => {
-    expect(slugs(filterExercises(EXERCISES, { query: 'triceps' }))).toEqual([
+    expect(slugs(filterExercises(EXERCISES, { query: 'triceps' }))).toContain(
       'extension-triceps-polea',
-    ]);
+    );
+    expect(slugs(filterExercises(EXERCISES, { query: 'extension de triceps' }))).toContain(
+      'extension-triceps-sobre-cabeza',
+    );
   });
 
   it('finds exercises by English name and aliases', () => {
@@ -42,20 +45,23 @@ describe('filterExercises', () => {
       query: 'gemelos',
       muscleLabel: (muscle) => (muscle === 'calves' ? 'Gemelos' : muscle),
     });
-    expect(slugs(result)).toEqual(['elevacion-gemelos']);
+    expect(slugs(result)).toContain('elevacion-gemelos');
   });
 
   it('filters by primary muscle group', () => {
     const result = filterExercises(EXERCISES, { muscleGroup: 'chest' });
-    expect(slugs(result).sort()).toEqual(
-      ['flexiones', 'press-banca-barra', 'press-inclinado-mancuernas'].sort(),
-    );
+    expect(slugs(result)).toEqual(expect.arrayContaining(['flexiones', 'press-banca-barra']));
+    // Only exercises whose main muscle is the chest, never those where it is secondary.
+    expect(slugs(result)).not.toContain('fondos-banco');
   });
 
   it('keeps only exercises doable with the available equipment', () => {
     const available = availableEquipment(['bodyweight']);
     const result = filterExercises(EXERCISES, { available });
-    expect(slugs(result).sort()).toEqual(['flexiones', 'plancha']);
+    expect(slugs(result)).toEqual(
+      expect.arrayContaining(['flexiones', 'plancha', 'puente-gluteo', 'sentadilla-silla']),
+    );
+    expect(slugs(result)).not.toContain('press-banca-barra');
     expect(result.every((exercise) => canPerform(exercise, available))).toBe(true);
   });
 

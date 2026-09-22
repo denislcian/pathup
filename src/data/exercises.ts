@@ -1,10 +1,11 @@
+import { EXTRA_EXERCISES } from '@/data/exercises-extra';
 import type { Exercise } from '@/domain/exercises';
 
 /**
  * Curated exercise catalogue (Spanish first). Written for PathUp; technique cues follow
  * standard strength-coaching practice. Images live in assets/images/exercises (see exercise-images.ts).
  */
-export const EXERCISES: Exercise[] = [
+const CORE_EXERCISES: Exercise[] = [
   {
     slug: 'press-banca-barra',
     name: 'Press banca con barra',
@@ -529,6 +530,9 @@ export const EXERCISES: Exercise[] = [
     substitutes: [],
   },
 ];
+
+/** The whole catalogue: the first twenty plus the ones the guided programmes needed. */
+export const EXERCISES: Exercise[] = [...CORE_EXERCISES, ...EXTRA_EXERCISES];
 
 export function getExercise(slug: string): Exercise | undefined {
   return EXERCISES.find((exercise) => exercise.slug === slug);
