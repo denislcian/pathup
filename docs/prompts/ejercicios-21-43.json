@@ -1,0 +1,398 @@
+{
+  "title": "PathUp · Prompts de imagen · Ejercicios 21-43",
+  "firstNumber": 21,
+  "intro": "Generados con `node scripts/build-exercise-prompts.mjs docs/prompts/ejercicios-21-43.json` a partir de este mismo JSON. Se usan igual que los del archivo [ejercicios-01-20.md](ejercicios-01-20.md): inicio y final en el mismo chat, 2-4 variantes, guardar en `assets/raw/ejercicios/` y revisar con el checklist del [doc 05](../05-imagenes-y-video-ia.md). Para cambiar la redacción de todos a la vez, edita el bloque del script, no los prompts.",
+  "exercises": [
+    {
+      "slug": "sentadilla-trasera-barra",
+      "name": "Sentadilla con barra",
+      "exercise": "a barbell back squat",
+      "mintEs": "cuádriceps y glúteos",
+      "secondaryEs": "isquiotibiales, aductores, lumbares, abdominales",
+      "start": "Standing tall inside a squat rack with the barbell resting on the upper back over the rear deltoids (not on the neck), hands gripping the bar slightly wider than the shoulders with elbows pointing down and back. Feet shoulder width apart with toes turned out about 15 degrees, knees straight, chest up and core braced.",
+      "end": "At the bottom of the squat: hips pushed back and down until the thighs are at least parallel to the floor, knees bent and tracking over the toes in line with the feet, heels flat on the floor, torso leaning forward about 30 degrees with a flat neutral back, the barbell still over the middle of the feet.",
+      "muscles": "the quadriceps of both thighs and the gluteal muscles",
+      "equipment": "a squat rack with safety bars at hip height and an Olympic barbell loaded with plates",
+      "camera": "Front three-quarter side view at chest height",
+      "checks": [
+        "Barra sobre la espalda alta, nunca sobre el cuello.",
+        "En el final, muslos al menos paralelos al suelo y espalda plana: si la zona lumbar se redondea, regenera.",
+        "Rodillas alineadas con las puntas de los pies, nunca hacia dentro."
+      ]
+    },
+    {
+      "slug": "remo-polea-sentado",
+      "name": "Remo sentado en polea",
+      "exercise": "a seated cable row with a neutral grip handle",
+      "mintEs": "dorsales y espalda alta",
+      "secondaryEs": "bíceps, hombro posterior",
+      "start": "Seated on the cable row bench with feet on the platform and knees slightly bent, torso upright and tall. Both hands holding the neutral grip handle with palms facing each other, arms fully extended forward with the shoulder blades allowed to slide forward, cable under tension.",
+      "end": "Handle pulled to the abdomen just above the navel, elbows driven back close to the torso and slightly behind it, shoulder blades squeezed together, chest up and torso still upright without leaning back.",
+      "muscles": "the latissimus dorsi and the muscles of the upper back between the shoulder blades",
+      "equipment": "a seated cable row machine with a low pulley, weight stack and a V-shaped neutral grip handle",
+      "camera": "Rear three-quarter view from behind and slightly above, so the back muscles are clearly visible",
+      "checks": [
+        "El torso no se balancea: vertical en inicio y final.",
+        "Codos pegados al cuerpo y omóplatos juntos en el final.",
+        "Hombros abajo, sin encogerlos hacia las orejas."
+      ]
+    },
+    {
+      "slug": "extension-cuadriceps",
+      "name": "Extensión de cuádriceps",
+      "exercise": "a leg extension on a machine",
+      "mintEs": "cuádriceps",
+      "secondaryEs": "ninguno",
+      "start": "Seated on the leg extension machine with the back against the pad, hands holding the side handles, knees bent about 90 degrees and aligned with the machine pivot, the roller pad resting on the front of the shins just above the ankles.",
+      "end": "Knees fully extended with the legs straight and horizontal, the roller pad lifted to the top of the movement, thighs still on the seat and back against the pad, quadriceps contracted.",
+      "muscles": "the quadriceps of both thighs",
+      "equipment": "a leg extension machine with a weight stack, seat pad, back pad and an ankle roller",
+      "camera": "Side view at seat height, with the working leg closest to the camera",
+      "checks": [
+        "Espalda apoyada y cadera pegada al asiento en las dos posiciones.",
+        "Rodilla alineada con el eje de giro de la máquina.",
+        "En el final, piernas rectas y horizontales, sin hiperextender."
+      ]
+    },
+    {
+      "slug": "curl-femoral-tumbado",
+      "name": "Curl femoral tumbado",
+      "exercise": "a lying leg curl on a machine",
+      "mintEs": "isquiotibiales",
+      "secondaryEs": "gemelos",
+      "start": "Lying face down on the leg curl bench with the hips flat on the pad and the knees just past the edge of the bench, hands holding the front handles, legs almost straight with the roller pad against the back of the ankles.",
+      "end": "Knees bent with the heels curled up towards the glutes, the roller pad lifted high, hips still pressed flat against the bench and the toes pulled towards the shins.",
+      "muscles": "the hamstrings at the back of both thighs",
+      "equipment": "a lying leg curl machine with a padded bench, weight stack and an ankle roller",
+      "camera": "Side view at bench height from behind the legs",
+      "checks": [
+        "La cadera no se despega del banco en el final.",
+        "Rodillas justo fuera del borde del banco.",
+        "Recorrido completo: abajo casi estirado, arriba talones cerca del glúteo."
+      ]
+    },
+    {
+      "slug": "press-pecho-maquina",
+      "name": "Press de pecho en máquina",
+      "exercise": "a seated machine chest press",
+      "mintEs": "pecho",
+      "secondaryEs": "deltoides anterior, tríceps",
+      "start": "Seated on the chest press machine with the back flat against the pad and feet flat on the floor, shoulder blades pinched together. Hands on the handles at mid-chest height, elbows bent and pulled back so the chest feels stretched, wrists straight.",
+      "end": "Arms pressed forward until almost fully extended without locking the elbows, handles together in front of the mid chest, back still against the pad and shoulders down, chest contracted.",
+      "muscles": "the chest muscles (pectoralis major, both sides)",
+      "equipment": "a seated chest press machine with a weight stack, seat, back pad and two horizontal handles",
+      "camera": "Front three-quarter side view at chest height",
+      "checks": [
+        "Asas a la altura de la mitad del pecho.",
+        "Hombros atrás y abajo, sin adelantarlos al empujar.",
+        "En el final, codos casi extendidos pero no bloqueados de golpe."
+      ]
+    },
+    {
+      "slug": "face-pull",
+      "name": "Face pull en polea",
+      "exercise": "a cable face pull with a rope",
+      "mintEs": "hombro posterior",
+      "secondaryEs": "espalda alta, trapecio",
+      "start": "Standing facing a cable pulley set at face height, feet staggered for balance, holding both ends of a rope attachment with palms facing each other and thumbs towards the body. Arms extended forward at shoulder height, cable under tension, torso upright.",
+      "end": "Rope pulled towards the face with both hands ending beside the ears, the two rope ends pulled apart, elbows high at or slightly above shoulder height and flared out, shoulder blades squeezed together, torso still upright.",
+      "muscles": "the rear deltoids of both shoulders",
+      "equipment": "a cable pulley station with the pulley at face height, weight stack and a double-ended rope attachment",
+      "camera": "Side three-quarter view at shoulder height",
+      "checks": [
+        "Codos a la altura de los hombros o algo por encima en el final.",
+        "Las manos acaban a los lados de la cabeza, no delante de la cara.",
+        "Torso quieto: nada de echarse hacia atrás."
+      ]
+    },
+    {
+      "slug": "press-frances",
+      "name": "Press francés",
+      "exercise": "a lying EZ-bar skull crusher",
+      "mintEs": "tríceps",
+      "secondaryEs": "ninguno",
+      "start": "Lying face up on a flat bench with feet flat on the floor, holding an EZ curl bar with an overhand grip about shoulder width apart. Arms extended but angled slightly back towards the head instead of perfectly vertical, bar held above the forehead, elbows pointing to the ceiling.",
+      "end": "Elbows bent so the bar is lowered just behind the top of the head, upper arms still angled back and elbows pointing to the ceiling without flaring out to the sides, shoulders and torso motionless on the bench.",
+      "muscles": "the triceps at the back of both upper arms",
+      "equipment": "a flat bench and an EZ curl bar loaded with small plates",
+      "camera": "Side view at bench height from the side of the working arms",
+      "checks": [
+        "Codos apuntando al techo y quietos: no se abren hacia los lados.",
+        "En el final la barra pasa por detrás de la frente, no sobre la nariz.",
+        "Los hombros no se mueven: el brazo solo gira por el codo."
+      ]
+    },
+    {
+      "slug": "extension-triceps-sobre-cabeza",
+      "name": "Extensión de tríceps sobre la cabeza",
+      "exercise": "a two-handed overhead dumbbell triceps extension",
+      "mintEs": "tríceps",
+      "secondaryEs": "ninguno",
+      "start": "Standing tall with feet hip width apart, holding a single dumbbell with both hands cupped around the top plate, arms extended straight overhead, elbows close to the head and pointing forward, core braced without arching the lower back.",
+      "end": "Elbows bent so the dumbbell is lowered behind the head, upper arms staying vertical and close to the head, forearms folded back, triceps stretched, torso still upright.",
+      "muscles": "the triceps at the back of both upper arms, especially the long head",
+      "equipment": "one hexagonal dumbbell held by its top plate with both hands",
+      "camera": "Side three-quarter view at chest height",
+      "checks": [
+        "Brazos pegados a la cabeza: los codos no se abren.",
+        "Zona lumbar neutra, sin arquear al subir.",
+        "En el final la mancuerna baja por detrás de la cabeza, no hacia la nuca de lado."
+      ]
+    },
+    {
+      "slug": "curl-martillo",
+      "name": "Curl martillo",
+      "exercise": "a standing dumbbell hammer curl with both arms",
+      "mintEs": "bíceps y antebrazos",
+      "secondaryEs": "ninguno",
+      "start": "Standing tall with feet hip width apart, a dumbbell in each hand hanging at the sides of the thighs with palms facing each other (neutral grip), elbows close to the torso and arms straight, shoulders back.",
+      "end": "Both dumbbells curled up to shoulder height keeping the palms facing each other, elbows still pinned to the sides of the torso and the upper arms vertical, wrists straight, torso upright without swinging.",
+      "muscles": "the biceps and the forearm muscles of both arms",
+      "equipment": "two hexagonal dumbbells",
+      "camera": "Front three-quarter view at chest height",
+      "checks": [
+        "Palmas enfrentadas en todo el recorrido: si giran, es un curl normal.",
+        "Codos quietos a los lados del cuerpo.",
+        "Sin balanceo del torso."
+      ]
+    },
+    {
+      "slug": "fondos-banco",
+      "name": "Fondos en banco",
+      "exercise": "bench dips with the hands on a flat bench",
+      "mintEs": "tríceps",
+      "secondaryEs": "pecho, deltoides anterior",
+      "start": "Hands flat on the edge of a bench behind the body with fingers pointing forward and hands just outside the hips, hips lifted off the bench and close to it, arms straight, legs extended forward with heels on the floor and toes up, torso upright.",
+      "end": "Elbows bent about 90 degrees so the hips have lowered straight down close to the bench, elbows pointing back and not flared out, shoulders down away from the ears, legs still extended with heels on the floor.",
+      "muscles": "the triceps at the back of both upper arms",
+      "equipment": "a flat bench used as a support behind the figure",
+      "camera": "Side three-quarter view at hip height",
+      "checks": [
+        "Codos hacia atrás, no abiertos hacia los lados.",
+        "Cadera cerca del banco en las dos posiciones.",
+        "No bajar más de 90°: el hombro no debe quedar por delante del codo."
+      ]
+    },
+    {
+      "slug": "press-suelo-mancuernas",
+      "name": "Press en el suelo con mancuernas",
+      "exercise": "a dumbbell floor press",
+      "mintEs": "pecho",
+      "secondaryEs": "tríceps, deltoides anterior",
+      "start": "Lying face up on the floor with knees bent and feet flat, a dumbbell in each hand with palms facing forward, arms fully extended straight up above the chest, wrists stacked over the elbows.",
+      "end": "Dumbbells lowered until the back of both upper arms rests on the floor, elbows bent about 90 degrees and angled about 45 degrees from the torso, forearms vertical, dumbbells beside the chest.",
+      "muscles": "the chest muscles (pectoralis major, both sides)",
+      "equipment": "two hexagonal dumbbells, the figure lying on the bare studio floor",
+      "camera": "Front three-quarter side view from slightly above, camera tilted down about 25 degrees",
+      "checks": [
+        "En el final los tríceps tocan el suelo y los antebrazos quedan verticales.",
+        "Codos a 45°, no en T.",
+        "Zona lumbar sin arquear; pies apoyados."
+      ]
+    },
+    {
+      "slug": "remo-mancuerna-una-mano",
+      "name": "Remo con mancuerna a una mano",
+      "exercise": "a one-arm dumbbell row with the free hand and knee on a bench",
+      "mintEs": "dorsal y espalda alta del lado que trabaja",
+      "secondaryEs": "bíceps, hombro posterior",
+      "start": "One hand and the same-side knee on a flat bench, the other foot on the floor, back flat and parallel to the floor, head neutral. The working arm hangs straight down holding a dumbbell with a neutral grip, shoulder blade allowed to drop.",
+      "end": "Dumbbell pulled up to the side of the hip with the elbow driven back close to the torso, shoulder blade pulled back and down, back still flat and hips square to the floor without twisting.",
+      "muscles": "the latissimus dorsi and upper back on the working side only",
+      "equipment": "a flat bench and one hexagonal dumbbell",
+      "camera": "Side three-quarter view at bench height, working side towards the camera",
+      "checks": [
+        "La cadera no gira: hombros paralelos al suelo en las dos imágenes.",
+        "El codo va hacia la cadera, no hacia el hombro.",
+        "Espalda plana, nunca redondeada."
+      ]
+    },
+    {
+      "slug": "peso-muerto-rumano-mancuernas",
+      "name": "Peso muerto rumano con mancuernas",
+      "exercise": "a dumbbell Romanian deadlift",
+      "mintEs": "isquiotibiales y glúteos",
+      "secondaryEs": "lumbares, antebrazos",
+      "start": "Standing tall with feet hip width apart and knees slightly bent, a dumbbell in each hand resting against the front of the thighs with palms facing the body, shoulders back and back neutral.",
+      "end": "Hips pushed back with the torso hinged forward to about 45 degrees, dumbbells sliding down the front of the legs to just below the knees, knees still only slightly bent, back flat and neutral, hamstrings stretched.",
+      "muscles": "the hamstrings at the back of both thighs and the gluteal muscles",
+      "equipment": "two hexagonal dumbbells",
+      "camera": "Side view at hip height",
+      "checks": [
+        "El movimiento es de cadera: las rodillas casi no se mueven.",
+        "Espalda plana en el final; si se redondea, regenera.",
+        "Mancuernas rozando las piernas, no alejadas del cuerpo."
+      ]
+    },
+    {
+      "slug": "sentadilla-bulgara",
+      "name": "Sentadilla búlgara",
+      "exercise": "a Bulgarian split squat with dumbbells",
+      "mintEs": "cuádriceps y glúteo de la pierna de delante",
+      "secondaryEs": "isquiotibiales, aductores",
+      "start": "Standing in a split stance with the top of the rear foot resting on a flat bench behind, the front foot planted about one long step in front of the bench, torso upright and slightly leaning forward, a dumbbell hanging at each side with a neutral grip.",
+      "end": "Front knee bent so the front thigh is almost parallel to the floor and the rear knee points down towards the floor, front knee tracking over the foot, front heel flat, torso leaning forward slightly with a flat back, dumbbells hanging beside the front leg.",
+      "muscles": "the quadriceps and gluteal muscles of the front leg only",
+      "equipment": "a flat bench used to support the rear foot and two hexagonal dumbbells",
+      "camera": "Side three-quarter view at hip height, front leg towards the camera",
+      "checks": [
+        "Pie de delante lo bastante adelantado: la rodilla no debe pasarse mucho de la punta.",
+        "El peso está en la pierna de delante; la de atrás solo apoya el empeine.",
+        "Talón de delante apoyado en el suelo."
+      ]
+    },
+    {
+      "slug": "zancada-inversa",
+      "name": "Zancada inversa",
+      "exercise": "a reverse lunge with dumbbells",
+      "mintEs": "cuádriceps y glúteo de la pierna de delante",
+      "secondaryEs": "isquiotibiales, aductores",
+      "start": "Standing tall with feet hip width apart, a dumbbell hanging at each side with a neutral grip, shoulders back, core braced.",
+      "end": "One leg stepped back into a long lunge with the rear knee bent and hovering a few centimetres above the floor, the front knee bent about 90 degrees over the front foot with the heel flat, torso upright, dumbbells hanging at the sides.",
+      "muscles": "the quadriceps and gluteal muscles of the front leg",
+      "equipment": "two hexagonal dumbbells",
+      "camera": "Side three-quarter view at hip height",
+      "checks": [
+        "Paso hacia atrás lo bastante largo: rodilla de delante sobre el pie.",
+        "La rodilla de atrás no golpea el suelo.",
+        "Torso erguido, sin inclinarse hacia delante."
+      ]
+    },
+    {
+      "slug": "puente-gluteo",
+      "name": "Puente de glúteo",
+      "exercise": "a bodyweight glute bridge",
+      "mintEs": "glúteos",
+      "secondaryEs": "isquiotibiales, abdominales",
+      "start": "Lying face up on the floor with knees bent and feet flat about hip width apart, heels close to the glutes, arms resting at the sides with palms down, hips on the floor.",
+      "end": "Hips lifted so that knees, hips and shoulders form one straight line, glutes squeezed, shins vertical, shoulders and upper back still on the floor, ribs down without arching the lower back.",
+      "muscles": "the gluteal muscles",
+      "equipment": "",
+      "camera": "Side view low to the floor at hip height",
+      "checks": [
+        "Línea recta de rodillas a hombros en el final, sin arquear la lumbar.",
+        "Espinillas verticales: los pies no quedan lejos de los glúteos.",
+        "Hombros y cabeza en el suelo."
+      ]
+    },
+    {
+      "slug": "elevaciones-posteriores-mancuernas",
+      "name": "Elevaciones posteriores con mancuernas",
+      "exercise": "a bent-over dumbbell rear delt fly",
+      "mintEs": "hombro posterior",
+      "secondaryEs": "espalda alta, trapecio",
+      "start": "Standing with knees slightly bent and the torso hinged forward until almost horizontal, back flat. A light dumbbell in each hand hanging straight down below the chest with palms facing each other and elbows slightly bent.",
+      "end": "Both dumbbells raised out to the sides to shoulder height with the elbows kept slightly bent, arms forming a wide T with the torso, shoulder blades squeezed together, torso still hinged forward and motionless.",
+      "muscles": "the rear deltoids of both shoulders",
+      "equipment": "two small hexagonal dumbbells",
+      "camera": "Front three-quarter view slightly above the hinged torso",
+      "checks": [
+        "El torso no sube entre las dos posiciones.",
+        "Codos ligeramente flexionados y fijos.",
+        "Hombros abajo: si se encogen, baja el peso."
+      ]
+    },
+    {
+      "slug": "elevacion-talones-pie",
+      "name": "Elevación de talones de pie",
+      "exercise": "a bodyweight standing calf raise on a step",
+      "mintEs": "gemelos",
+      "secondaryEs": "ninguno",
+      "start": "Standing on the edge of a low step with the balls of both feet on the step and the heels hanging off and dropped below the step, one hand lightly touching a wall for balance, legs straight and torso upright.",
+      "end": "Raised as high as possible onto the balls of the feet with the ankles fully extended, heels well above the step, legs straight and torso upright.",
+      "muscles": "the calf muscles of both legs",
+      "equipment": "a low sturdy step and a plain wall used for balance",
+      "camera": "Rear three-quarter view low to the floor, so the calves are clearly visible",
+      "checks": [
+        "Recorrido completo: talones por debajo del escalón en inicio y bien altos en el final.",
+        "Piernas rectas.",
+        "Solo un apoyo ligero con la mano, sin colgarse de la pared."
+      ]
+    },
+    {
+      "slug": "sentadilla-silla",
+      "name": "Sentadilla a la silla",
+      "exercise": "a sit-to-stand squat to a chair",
+      "mintEs": "cuádriceps y glúteos",
+      "secondaryEs": "isquiotibiales, abdominales",
+      "start": "Standing tall in front of a sturdy chair with the back of the legs close to the seat, feet shoulder width apart, arms extended forward at shoulder height for balance.",
+      "end": "Hips pushed back and lowered until the glutes lightly touch the seat of the chair without sitting down, knees bent and tracking over the toes, torso leaning slightly forward with a flat back, arms still extended forward.",
+      "muscles": "the quadriceps of both thighs and the gluteal muscles",
+      "equipment": "a plain sturdy chair with a flat seat and no armrests",
+      "camera": "Side three-quarter view at hip height",
+      "checks": [
+        "En el final los glúteos rozan el asiento, no se sienta del todo.",
+        "Rodillas alineadas con los pies, sin irse hacia dentro.",
+        "Espalda plana; los brazos delante ayudan al equilibrio."
+      ]
+    },
+    {
+      "slug": "flexiones-inclinadas",
+      "name": "Flexiones inclinadas",
+      "exercise": "an incline push-up with the hands on a waist-high sturdy box",
+      "mintEs": "pecho",
+      "secondaryEs": "deltoides anterior, tríceps, abdominales",
+      "start": "Hands flat on the edge of a waist-high sturdy box, slightly wider than shoulder width and under the shoulders, arms straight. Feet on the floor well behind the body so it forms one straight line from head to heels, weight on the toes, neck neutral.",
+      "end": "Elbows bent about 45 degrees from the torso so the chest is lowered to the edge of the box, body still in one straight line from head to heels, hips neither sagging nor piked.",
+      "muscles": "the chest muscles (pectoralis major, both sides)",
+      "equipment": "a plain sturdy box about waist height",
+      "camera": "Side three-quarter view at chest height",
+      "checks": [
+        "Línea recta de cabeza a talones: sin cadera caída ni culo alto.",
+        "Codos a unos 45°, no abiertos en T.",
+        "En el final el pecho llega al borde del cajón."
+      ]
+    },
+    {
+      "slug": "remo-banda",
+      "name": "Remo con banda elástica",
+      "exercise": "a seated band row with the band around the feet",
+      "mintEs": "espalda alta y dorsales",
+      "secondaryEs": "bíceps, hombro posterior",
+      "start": "Seated on the floor with legs extended and knees slightly bent, a long resistance band looped around the soles of both feet and one end held in each hand with palms facing each other. Torso upright and tall, arms extended forward, band already under tension.",
+      "end": "Band pulled towards the lower ribs with both elbows driven back close to the torso, shoulder blades squeezed together, torso still upright without leaning back, wrists straight.",
+      "muscles": "the upper back muscles between the shoulder blades and the latissimus dorsi",
+      "equipment": "a long flat resistance band looped around the feet, the figure seated on the bare studio floor",
+      "camera": "Side three-quarter view at seated shoulder height",
+      "checks": [
+        "Torso vertical en las dos posiciones: nada de echarse hacia atrás.",
+        "Banda tensa ya en la posición inicial.",
+        "Codos cerca del cuerpo y hombros abajo."
+      ]
+    },
+    {
+      "slug": "bird-dog",
+      "name": "Bird dog",
+      "exercise": "a bird dog core exercise",
+      "mintEs": "abdominales y lumbares",
+      "secondaryEs": "glúteos",
+      "start": "On all fours on the floor with hands directly under the shoulders and knees directly under the hips, back flat and neutral, neck in line with the spine, gaze towards the floor.",
+      "end": "One arm extended straight forward at shoulder height and the opposite leg extended straight back at hip height, both parallel to the floor, hips square to the floor without tilting, back still flat and neutral.",
+      "muscles": "the abdominal muscles and the lower back muscles",
+      "equipment": "",
+      "camera": "Side three-quarter view low to the floor",
+      "checks": [
+        "Brazo y pierna contrarios, nunca del mismo lado.",
+        "Cadera sin girar y espalda plana en el final.",
+        "Extensión larga y a la altura del hombro y de la cadera, no más alta."
+      ]
+    },
+    {
+      "slug": "plancha-lateral",
+      "name": "Plancha lateral",
+      "exercise": "a side plank on the forearm",
+      "mintEs": "oblicuos y abdominales",
+      "secondaryEs": "glúteos, deltoides lateral",
+      "start": "Lying on one side on the floor propped on the forearm with the elbow directly under the shoulder, legs straight and stacked one on top of the other, hips still resting on the floor, free arm along the body.",
+      "end": "Hips lifted so the body forms one straight line from head to feet, supported on the forearm and the side of the lower foot, hips high and square, free arm resting along the top side of the body, neck neutral.",
+      "muscles": "the oblique muscles of the supporting side and the abdominal muscles",
+      "equipment": "",
+      "camera": "Front three-quarter view low to the floor, facing the chest",
+      "checks": [
+        "Codo justo debajo del hombro.",
+        "Línea recta de cabeza a pies: la cadera no cae ni sube de más.",
+        "El pecho mira al frente, no al suelo."
+      ]
+    }
+  ]
+}

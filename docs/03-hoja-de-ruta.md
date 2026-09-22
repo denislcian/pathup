@@ -80,7 +80,7 @@ Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguient
 - [x] Seguir el programa sesión a sesión, con reajuste si faltas ([decisión 0008](decisiones/0008-programas-guiados.md)).
 - [x] Sugerencia de peso para la siguiente sesión (doble progresión), aplicada al empezar la sesión.
 - [x] **Pantalla Hoy:** qué toca hoy, semana del programa, racha y último entreno. El check-in llega en la fase 3.
-- [ ] **Tú:** portadas de los 4 programas y las imágenes de los ejercicios 21 a 43.
+- [ ] **Tú:** portadas de los 4 programas y las imágenes de los ejercicios 21 a 43 ([prompts listos](prompts/ejercicios-21-43.md)).
 - [ ] **Puerta:** un amigo o amiga sin experiencia elige programa y termina su primera sesión sin preguntarte nada.
 
 ### Fase 3 · Bienestar (semana 6)
