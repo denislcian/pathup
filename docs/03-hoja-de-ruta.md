@@ -84,11 +84,11 @@ Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguient
 - [ ] **Puerta:** un amigo o amiga sin experiencia elige programa y termina su primera sesión sin preguntarte nada.
 
 ### Fase 3 · Bienestar (semana 6)
-- Check-in de 20 s y puntuación de preparación.
-- **Ajuste de la sesión de hoy** según la preparación, con explicación y opción de ignorarlo.
-- Respiración guiada (caja y 4-7-8) con animación y vibración.
-- Hábitos con rachas, podómetro y agua. Recordatorios locales.
-- **Puerta:** 7 días seguidos de check-in tuyos y un ajuste de sesión que tenga sentido.
+- [x] Check-in de 20 s (sueño, energía, estrés, agujetas y ánimo) y puntuación de preparación 0-100 ([decisión 0009](decisiones/0009-preparacion-y-ajuste.md), 22 sep).
+- [x] **Ajuste de la sesión de hoy** según la preparación, con explicación de por qué y opción de empezar sin ajustar (22 sep).
+- [x] Respiración guiada (caja 4-4-4-4 y 4-7-8) con animación y vibración en cada fase (22 sep).
+- [ ] Hábitos con rachas, podómetro y agua. Recordatorios locales.
+- [ ] **Puerta:** 7 días seguidos de check-in tuyos y un ajuste de sesión que tenga sentido.
 
 ### Fase 4 · Listo para el CV (semana 7)
 - **Botón "Probar con cuenta demo"** con datos realistas de 8 semanas.

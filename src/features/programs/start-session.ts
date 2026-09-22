@@ -2,6 +2,7 @@ import { router } from 'expo-router';
 
 import { getExercise } from '@/data/exercises';
 import { plannedSessionToTemplate, type PlannedSession, type Program } from '@/domain/programs';
+import { applyAdjustment, type SessionAdjustment } from '@/domain/wellness';
 import { useActiveWorkout } from '@/features/workout/active-workout-store';
 import { readPreviousPerformance } from '@/features/workout/workout-storage';
 
@@ -12,13 +13,16 @@ import { readPreviousPerformance } from '@/features/workout/workout-storage';
 export async function startProgramSession(
   program: Program,
   planned: PlannedSession,
+  adjustment?: SessionAdjustment | null,
 ): Promise<void> {
   const previous = await readPreviousPerformance();
-  const template = plannedSessionToTemplate(
+  const planTemplate = plannedSessionToTemplate(
     planned,
     previous,
     (slug) => getExercise(slug)?.equipment ?? [],
   );
+  // On a bad day the check-in can take a set off and hold the weights back a little.
+  const template = adjustment ? applyAdjustment(planTemplate, adjustment) : planTemplate;
   useActiveWorkout.getState().startFrom({
     ...template,
     programSlug: program.slug,

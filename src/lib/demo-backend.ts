@@ -1,6 +1,7 @@
 import type { Measurement } from '@/domain/measurements';
 import { sessionKey } from '@/domain/programs';
 import type { Routine } from '@/domain/routines';
+import type { Checkin } from '@/domain/wellness';
 import type { LoggedSet, SetType, Workout } from '@/domain/workout';
 
 /**
@@ -170,6 +171,27 @@ let enrollment: {
   status: 'active' | 'finished' | 'abandoned';
 } | null = null;
 let enrollmentReady = false;
+let checkins: Checkin[] | null = null;
+
+/** Two weeks of check-ins with the usual ups and downs. */
+export function buildDemoCheckins(now: Date): Checkin[] {
+  const sleep = [7.5, 6, 8, 7, 5.5, 8.5, 7, 7.5, 6.5, 8, 7, 6, 7.5, 8];
+  const quality = [4, 3, 5, 4, 2, 5, 4, 4, 3, 5, 4, 3, 4, 5];
+  const pad = (value: number) => String(value).padStart(2, '0');
+  return sleep.map((hours, index) => {
+    const day = new Date(now.getFullYear(), now.getMonth(), now.getDate() - index);
+    return {
+      date: `${day.getFullYear()}-${pad(day.getMonth() + 1)}-${pad(day.getDate())}`,
+      sleepHours: hours,
+      sleepQuality: quality[index],
+      energy: Math.min(5, Math.max(1, quality[index] + (index % 3 === 0 ? 0 : -1))),
+      stress: index % 4 === 0 ? 3 : 2,
+      soreness: index % 5 === 0 ? 4 : 2,
+      mood: Math.min(5, quality[index]),
+      note: null,
+    };
+  });
+}
 
 export const demoBackend = {
   listWorkouts(): Workout[] {
@@ -225,5 +247,15 @@ export const demoBackend = {
   setEnrollmentStatus(id: string, status: 'active' | 'finished' | 'abandoned'): void {
     demoBackend.getEnrollment();
     if (enrollment && enrollment.id === id) enrollment = { ...enrollment, status };
+  },
+  listCheckins(): Checkin[] {
+    checkins ??= buildDemoCheckins(new Date());
+    return checkins;
+  },
+  saveCheckin(checkin: Checkin): void {
+    checkins = [
+      checkin,
+      ...demoBackend.listCheckins().filter((item) => item.date !== checkin.date),
+    ].sort((a, b) => b.date.localeCompare(a.date));
   },
 };

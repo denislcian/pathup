@@ -13,6 +13,7 @@ import { useProfile } from '@/features/profile/profile-api';
 import { clearLocalMeasurements } from '@/features/measurements/measurements-api';
 import { clearLocalProgram } from '@/features/programs/programs-api';
 import { clearLocalRoutines } from '@/features/routines/routines-api';
+import { clearLocalWellness } from '@/features/wellness/wellness-api';
 import { useActiveWorkout } from '@/features/workout/active-workout-store';
 import { useFinishedWorkout } from '@/features/workout/finished-workout-store';
 import { useWorkoutSync } from '@/features/workout/use-workout-sync';
@@ -38,6 +39,7 @@ export default function ProfileScreen() {
     await clearLocalRoutines();
     await clearLocalMeasurements();
     await clearLocalProgram();
+    await clearLocalWellness();
     useActiveWorkout.getState().discard();
     useFinishedWorkout.getState().clear();
     queryClient.clear();

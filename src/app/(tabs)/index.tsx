@@ -2,14 +2,16 @@ import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
-import { Activity, Dumbbell, Sprout } from '@/components/icons';
+import { Dumbbell, HeartPulse, Sprout } from '@/components/icons';
 import { AppText } from '@/components/ui/app-text';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Columns } from '@/components/ui/columns';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Screen } from '@/components/ui/screen';
+import { todayIso } from '@/domain/age';
 import { thisWeek, weeklyStreak } from '@/domain/progress';
+import { sessionAdjustment } from '@/domain/wellness';
 import { countCompletedSets } from '@/domain/workout';
 import { useWorkoutHistory } from '@/features/history/history-api';
 import { StatRow, StatTile, WorkoutCard } from '@/features/history/history-components';
@@ -17,6 +19,8 @@ import { NextSessionCard } from '@/features/programs/program-components';
 import { useProgramState } from '@/features/programs/programs-api';
 import { startProgramSession } from '@/features/programs/start-session';
 import { useProfile } from '@/features/profile/profile-api';
+import { ReadinessCard } from '@/features/wellness/readiness-card';
+import { useTodayCheckin } from '@/features/wellness/wellness-api';
 import { useActiveWorkout } from '@/features/workout/active-workout-store';
 import { formatKg } from '@/lib/format';
 import { colors, spacing } from '@/theme/tokens';
@@ -27,6 +31,9 @@ export default function TodayScreen() {
   const history = useWorkoutHistory();
   const state = useProgramState();
   const active = useActiveWorkout((store) => store.workout);
+  const today_ = todayIso();
+  const { checkin } = useTodayCheckin(today_);
+  const adjustment = checkin ? sessionAdjustment(checkin) : null;
 
   const today = new Intl.DateTimeFormat(i18n.language, {
     weekday: 'long',
@@ -90,7 +97,14 @@ export default function TodayScreen() {
                 planned={state.next}
                 progress={state.progress}
                 disabled={active !== null}
-                onStart={() => void startProgramSession(state.program!, state.next!)}
+                adjustment={adjustment}
+                onStart={(adjusted) =>
+                  void startProgramSession(
+                    state.program!,
+                    state.next!,
+                    adjusted ? adjustment : null,
+                  )
+                }
               />
             ) : state.program && state.progress?.finished ? (
               <Card style={styles.done}>
@@ -134,12 +148,18 @@ export default function TodayScreen() {
               </View>
             ) : null}
 
-            <EmptyState
-              icon={Activity}
-              tone="calm"
-              title={t('today.checkinTitle')}
-              description={t('today.checkinEmpty')}
-            />
+            {checkin ? (
+              <ReadinessCard checkin={checkin} onEdit={() => router.push('/bienestar')} />
+            ) : (
+              <EmptyState
+                icon={HeartPulse}
+                tone="calm"
+                title={t('today.checkinTitle')}
+                description={t('today.checkinEmpty')}
+                actionLabel={t('today.doCheckin')}
+                onAction={() => router.push('/bienestar')}
+              />
+            )}
           </View>,
         ]}
       </Columns>

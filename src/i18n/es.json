@@ -132,7 +132,8 @@
     "freeWorkoutTitle": "¿Prefieres ir por libre?",
     "freeWorkoutDescription": "Empieza un entreno vacío o usa una de tus rutinas.",
     "openWorkout": "Ir a Entreno",
-    "lastWorkout": "Tu último entreno"
+    "lastWorkout": "Tu último entreno",
+    "doCheckin": "Hacer el check-in"
   },
   "workout": {
     "title": "Entreno",
@@ -311,9 +312,134 @@
   },
   "wellness": {
     "title": "Bienestar",
-    "subtitle": "Sueño, energía y hábitos",
+    "subtitle": "Sueño, energía y preparación",
     "empty": "Empieza por un check-in",
-    "emptyDescription": "Sueño, energía, estrés y ánimo en 20 segundos. Con eso adaptamos tu día."
+    "emptyDescription": "Sueño, energía, estrés, agujetas y ánimo en 20 segundos. Con eso adaptamos tu sesión.",
+    "loading": "Cargando tus check-ins…",
+    "offline": "Sin conexión: ves lo último guardado en este dispositivo. Para guardar el check-in necesitas red.",
+    "formTitle": "Check-in de hoy",
+    "formHint": "20 segundos. Con esto ajustamos la sesión de hoy.",
+    "sleepHours": "¿Cuántas horas has dormido?",
+    "hours": "{{hours}} h",
+    "sleepLess": "Media hora menos de sueño",
+    "sleepMore": "Media hora más de sueño",
+    "scales": {
+      "sleepQuality": "¿Qué tal has dormido?",
+      "energy": "¿Cómo andas de energía?",
+      "stress": "¿Cuánto estrés tienes?",
+      "soreness": "¿Cómo vas de agujetas?",
+      "mood": "¿Cómo estás de ánimo?"
+    },
+    "answers": {
+      "sleepQuality": {
+        "1": "Fatal, me he despertado mil veces",
+        "2": "Mal",
+        "3": "Normal",
+        "4": "Bien",
+        "5": "De un tirón"
+      },
+      "energy": {
+        "1": "Arrastrándome",
+        "2": "Poca",
+        "3": "Normal",
+        "4": "Bien",
+        "5": "A tope"
+      },
+      "stress": {
+        "1": "Ninguno",
+        "2": "Poco",
+        "3": "El normal",
+        "4": "Bastante",
+        "5": "Al límite"
+      },
+      "soreness": {
+        "1": "Ninguna",
+        "2": "Poca",
+        "3": "Alguna",
+        "4": "Bastantes",
+        "5": "No puedo ni moverme"
+      },
+      "mood": {
+        "1": "Muy bajo",
+        "2": "Bajo",
+        "3": "Normal",
+        "4": "Bien",
+        "5": "Genial"
+      }
+    },
+    "save": "Guardar check-in",
+    "saving": "Guardando…",
+    "cancel": "Cancelar",
+    "edit": "Cambiar respuestas",
+    "errors": {
+      "save": "No hemos podido guardar el check-in. Necesitas conexión."
+    },
+    "readinessTitle": "Preparación de hoy",
+    "bands": {
+      "great": "Gran día",
+      "normal": "Día normal",
+      "easy": "Día flojo",
+      "rest": "Día para cuidarse"
+    },
+    "advice": {
+      "great": "Buen día para intentar subir peso o repeticiones en los ejercicios principales.",
+      "normal": "Haz la sesión tal y como está planificada.",
+      "easy": "Mantén los pesos y quita una serie de cada ejercicio: hoy no es el día de récords.",
+      "rest": "Entrena suave: una serie menos, un 10 % menos de peso y sin llegar cerca del fallo. Si lo tuyo es dolor, no agujetas, descansa."
+    },
+    "adjust": {
+      "great": "",
+      "normal": "",
+      "easy": "Podemos quitar una serie de cada ejercicio para que la sesión te cunda igual.",
+      "rest": "Podemos quitar una serie y bajar un 10 % los pesos de la sesión."
+    },
+    "startAdjusted": "Empezar la sesión ajustada",
+    "startAsPlanned": "Empezar sin ajustar",
+    "because": {
+      "sleepQuality": "Sobre todo por cómo has dormido.",
+      "sleepHours": "Sobre todo por las horas de sueño.",
+      "energy": "Sobre todo por tu energía de hoy.",
+      "stress": "Sobre todo por el estrés.",
+      "soreness": "Sobre todo por las agujetas."
+    },
+    "streak": "Racha de check-ins",
+    "daysCount_one": "{{count}} día",
+    "daysCount_other": "{{count}} días",
+    "streakHint": "Días seguidos contestando",
+    "average": "Preparación media",
+    "averageHint": "Últimos 7 check-ins",
+    "chartTitle": "Preparación de las últimas 2 semanas",
+    "chartHint": "0 a 100. Sube con buen sueño y energía, baja con estrés y agujetas.",
+    "history": "Últimos check-ins",
+    "historyLine": "Preparación {{readiness}} · {{hours}} h de sueño · energía {{energy}}/5",
+    "breathingTitle": "Respiración guiada",
+    "breathingDescription": "Unos minutos de respiración bajan las pulsaciones y ayudan a dormir. Sigue el círculo.",
+    "patterns": {
+      "box": {
+        "name": "Respiración en caja 4-4-4-4",
+        "detail": "Inspira, aguanta, suelta y aguanta, 4 segundos cada fase"
+      },
+      "relax": {
+        "name": "Respiración 4-7-8",
+        "detail": "Inspira 4, aguanta 7 y suelta 8 segundos"
+      }
+    },
+    "minutes": "unos {{minutes}} min",
+    "startBreathing": "Empezar {{name}}",
+    "phases": {
+      "0": "Inspira",
+      "1": "Aguanta",
+      "2": "Suelta",
+      "3": "Aguanta"
+    },
+    "cycleOf": "Ciclo {{cycle}} de {{total}}",
+    "breathingDone": "Terminado",
+    "breathingDoneHint": "Fíjate en cómo respiras ahora comparado con el principio.",
+    "breathingHint": "Respira por la nariz y suelta por la boca, sin forzar. Si te mareas, para y respira normal.",
+    "pause": "Pausa",
+    "resume": "Seguir",
+    "again": "Otra vez",
+    "close": "Cerrar"
   },
   "profile": {
     "title": "Perfil",

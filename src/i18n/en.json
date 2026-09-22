@@ -132,7 +132,8 @@
     "freeWorkoutTitle": "Prefer to do your own thing?",
     "freeWorkoutDescription": "Start an empty workout or use one of your routines.",
     "openWorkout": "Go to Workout",
-    "lastWorkout": "Your last workout"
+    "lastWorkout": "Your last workout",
+    "doCheckin": "Do the check-in"
   },
   "workout": {
     "title": "Workout",
@@ -311,9 +312,134 @@
   },
   "wellness": {
     "title": "Wellness",
-    "subtitle": "Sleep, energy and habits",
+    "subtitle": "Sleep, energy and readiness",
     "empty": "Start with a check-in",
-    "emptyDescription": "Sleep, energy, stress and mood in 20 seconds. We use it to adapt your day."
+    "emptyDescription": "Sleep, energy, stress, soreness and mood in 20 seconds. We use it to adapt your session.",
+    "loading": "Loading your check-ins…",
+    "offline": "Offline: showing what was last saved on this device. Saving the check-in needs a connection.",
+    "formTitle": "Today's check-in",
+    "formHint": "20 seconds. We use it to adapt today's session.",
+    "sleepHours": "How many hours did you sleep?",
+    "hours": "{{hours}} h",
+    "sleepLess": "Half an hour less of sleep",
+    "sleepMore": "Half an hour more of sleep",
+    "scales": {
+      "sleepQuality": "How did you sleep?",
+      "energy": "How is your energy?",
+      "stress": "How stressed are you?",
+      "soreness": "How sore are you?",
+      "mood": "How is your mood?"
+    },
+    "answers": {
+      "sleepQuality": {
+        "1": "Awful, woke up all night",
+        "2": "Badly",
+        "3": "So-so",
+        "4": "Well",
+        "5": "Straight through"
+      },
+      "energy": {
+        "1": "Dragging myself",
+        "2": "Low",
+        "3": "Normal",
+        "4": "Good",
+        "5": "Full of it"
+      },
+      "stress": {
+        "1": "None",
+        "2": "A little",
+        "3": "The usual",
+        "4": "Quite a lot",
+        "5": "At my limit"
+      },
+      "soreness": {
+        "1": "None",
+        "2": "A little",
+        "3": "Some",
+        "4": "Quite sore",
+        "5": "Can barely move"
+      },
+      "mood": {
+        "1": "Very low",
+        "2": "Low",
+        "3": "Normal",
+        "4": "Good",
+        "5": "Great"
+      }
+    },
+    "save": "Save check-in",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "edit": "Change answers",
+    "errors": {
+      "save": "We couldn't save the check-in. You need a connection."
+    },
+    "readinessTitle": "Today's readiness",
+    "bands": {
+      "great": "Great day",
+      "normal": "Normal day",
+      "easy": "Low day",
+      "rest": "Take care today"
+    },
+    "advice": {
+      "great": "Good day to try adding weight or reps on the main lifts.",
+      "normal": "Do the session exactly as planned.",
+      "easy": "Keep the weights and drop one set per exercise: today is not a day for records.",
+      "rest": "Train easy: one set fewer, 10% less weight and nowhere near failure. If it is pain rather than soreness, rest."
+    },
+    "adjust": {
+      "great": "",
+      "normal": "",
+      "easy": "We can drop one set per exercise so the session still counts.",
+      "rest": "We can drop one set and take 10% off the weights."
+    },
+    "startAdjusted": "Start the adjusted session",
+    "startAsPlanned": "Start as planned",
+    "because": {
+      "sleepQuality": "Mostly because of how you slept.",
+      "sleepHours": "Mostly because of the hours of sleep.",
+      "energy": "Mostly because of your energy today.",
+      "stress": "Mostly because of the stress.",
+      "soreness": "Mostly because of the soreness."
+    },
+    "streak": "Check-in streak",
+    "daysCount_one": "{{count}} day",
+    "daysCount_other": "{{count}} days",
+    "streakHint": "Days in a row answering",
+    "average": "Average readiness",
+    "averageHint": "Last 7 check-ins",
+    "chartTitle": "Readiness over the last 2 weeks",
+    "chartHint": "0 to 100. It goes up with good sleep and energy, down with stress and soreness.",
+    "history": "Latest check-ins",
+    "historyLine": "Readiness {{readiness}} · {{hours}} h of sleep · energy {{energy}}/5",
+    "breathingTitle": "Guided breathing",
+    "breathingDescription": "A few minutes of breathing lower your heart rate and help you sleep. Follow the circle.",
+    "patterns": {
+      "box": {
+        "name": "Box breathing 4-4-4-4",
+        "detail": "Breathe in, hold, out and hold, 4 seconds each"
+      },
+      "relax": {
+        "name": "4-7-8 breathing",
+        "detail": "In for 4, hold for 7, out for 8 seconds"
+      }
+    },
+    "minutes": "about {{minutes}} min",
+    "startBreathing": "Start {{name}}",
+    "phases": {
+      "0": "Breathe in",
+      "1": "Hold",
+      "2": "Breathe out",
+      "3": "Hold"
+    },
+    "cycleOf": "Cycle {{cycle}} of {{total}}",
+    "breathingDone": "Done",
+    "breathingDoneHint": "Notice how you are breathing now compared with the start.",
+    "breathingHint": "Breathe in through the nose and out through the mouth, without forcing. If you feel dizzy, stop and breathe normally.",
+    "pause": "Pause",
+    "resume": "Resume",
+    "again": "Again",
+    "close": "Close"
   },
   "profile": {
     "title": "Profile",

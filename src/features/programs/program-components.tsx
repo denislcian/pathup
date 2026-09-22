@@ -11,6 +11,7 @@ import { useHover } from '@/components/ui/use-hover';
 import { getExercise } from '@/data/exercises';
 import { describePrescription } from '@/domain/routines';
 import type { PlannedSession, Program, ProgramProgress } from '@/domain/programs';
+import type { SessionAdjustment } from '@/domain/wellness';
 import { colors, radius, spacing } from '@/theme/tokens';
 
 /** Progress bar of a programme: sessions done out of the total. */
@@ -143,14 +144,20 @@ export function NextSessionCard({
   progress,
   onStart,
   disabled = false,
+  adjustment = null,
 }: {
   program: Program;
   planned: PlannedSession;
   progress: ProgramProgress;
-  onStart: () => void;
+  /** `adjusted` is true when the advice from today's check-in should be applied. */
+  onStart: (adjusted: boolean) => void;
   disabled?: boolean;
+  adjustment?: SessionAdjustment | null;
 }) {
   const { t } = useTranslation();
+  // Only a mediocre or bad day changes anything; a good one starts the session as planned.
+  const advises =
+    adjustment !== null && (adjustment.setsDelta !== 0 || adjustment.weightFactor < 1);
 
   return (
     <Card style={styles.next}>
@@ -175,7 +182,30 @@ export function NextSessionCard({
 
       <ProgramProgressBar progress={progress} />
 
-      <Button label={t('programs.startSession')} disabled={disabled} onPress={onStart} />
+      {advises ? (
+        <View style={styles.advice}>
+          <AppText variant="label" tone="warning">
+            {t(`wellness.bands.${adjustment.band}`)} · {adjustment.score}
+          </AppText>
+          <AppText variant="caption" tone="muted">
+            {t(`wellness.adjust.${adjustment.band}` as 'wellness.adjust.easy')}
+          </AppText>
+        </View>
+      ) : null}
+
+      <Button
+        label={advises ? t('wellness.startAdjusted') : t('programs.startSession')}
+        disabled={disabled}
+        onPress={() => onStart(advises)}
+      />
+      {advises ? (
+        <Button
+          label={t('wellness.startAsPlanned')}
+          variant="ghost"
+          disabled={disabled}
+          onPress={() => onStart(false)}
+        />
+      ) : null}
       {disabled ? (
         <AppText variant="caption" tone="muted">
           {t('workout.activeHint')}
@@ -237,6 +267,12 @@ const styles = StyleSheet.create({
     borderColor: colors.accent,
     padding: spacing.md,
     gap: spacing.sm,
+  },
+  advice: {
+    gap: 2,
+    padding: spacing.sm,
+    borderRadius: radius.sm,
+    backgroundColor: colors.surfaceRaised,
   },
   progress: {
     gap: spacing.xs,

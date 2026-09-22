@@ -52,5 +52,6 @@ export { default as Trash2 } from 'lucide-react-native/icons/trash';
 export { default as TrendingUp } from 'lucide-react-native/icons/trending-up';
 export { default as Trophy } from 'lucide-react-native/icons/trophy';
 export { default as Users } from 'lucide-react-native/icons/users';
+export { default as Wind } from 'lucide-react-native/icons/wind';
 export { default as X } from 'lucide-react-native/icons/x';
 export type { LucideIcon } from 'lucide-react-native';

@@ -8,11 +8,14 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Screen } from '@/components/ui/screen';
+import { todayIso } from '@/domain/age';
+import { sessionAdjustment } from '@/domain/wellness';
 import { countCompletedSets } from '@/domain/workout';
 import { NextSessionCard } from '@/features/programs/program-components';
 import { useProgramState } from '@/features/programs/programs-api';
 import { startProgramSession } from '@/features/programs/start-session';
 import { RoutineSection } from '@/features/routines/routine-list';
+import { useTodayCheckin } from '@/features/wellness/wellness-api';
 import { useActiveWorkout } from '@/features/workout/active-workout-store';
 import { useWorkoutSync } from '@/features/workout/use-workout-sync';
 import { colors, spacing } from '@/theme/tokens';
@@ -23,6 +26,8 @@ export default function WorkoutScreen() {
   const start = useActiveWorkout((state) => state.start);
   const { pending, sync } = useWorkoutSync();
   const program = useProgramState();
+  const { checkin } = useTodayCheckin(todayIso());
+  const adjustment = checkin ? sessionAdjustment(checkin) : null;
 
   return (
     <Screen wide title={t('workout.title')} subtitle={t('workout.subtitle')}>
@@ -72,7 +77,10 @@ export default function WorkoutScreen() {
           planned={program.next}
           progress={program.progress}
           disabled={active !== null}
-          onStart={() => void startProgramSession(program.program!, program.next!)}
+          adjustment={adjustment}
+          onStart={(adjusted) =>
+            void startProgramSession(program.program!, program.next!, adjusted ? adjustment : null)
+          }
         />
       ) : (
         <EmptyState

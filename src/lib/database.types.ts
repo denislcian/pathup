@@ -238,6 +238,54 @@ export type Database = {
         }
         Relationships: []
       }
+      wellness_checkins: {
+        Row: {
+          created_at: string
+          day: string
+          energy: number
+          id: string
+          mood: number
+          note: string | null
+          readiness: number
+          sleep_hours: number
+          sleep_quality: number
+          soreness: number
+          stress: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          day: string
+          energy: number
+          id?: string
+          mood: number
+          note?: string | null
+          readiness: number
+          sleep_hours: number
+          sleep_quality: number
+          soreness: number
+          stress: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          day?: string
+          energy?: number
+          id?: string
+          mood?: number
+          note?: string | null
+          readiness?: number
+          sleep_hours?: number
+          sleep_quality?: number
+          soreness?: number
+          stress?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       workout_exercises: {
         Row: {
           exercise_slug: string
