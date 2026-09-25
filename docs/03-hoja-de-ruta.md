@@ -96,7 +96,8 @@ Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguient
 - [x] **Botón "Probar sin cuenta"** en la landing: la app entera con 8 semanas de datos de ejemplo en memoria, sin tocar la base de datos (25 sep).
 - Web publicada con dominio gratuito; APK firmado descargable desde la sección Releases de GitHub.
 - Tarea keep-alive de Supabase.
-- Flujos E2E con Maestro: registro, entreno sin red y check-in.
+- [x] E2E con Playwright contra la build web de producción, en escritorio y móvil, dentro del CI: landing sin errores de hidratación, sesión completa de la demo, biblioteca y check-in (25 sep). Ya encontró un fallo real: al terminar un entreno, la pantalla volvía a Entreno sin enseñar el resumen.
+- [ ] E2E en el móvil nativo (Maestro) cuando exista el APK.
 - Revisión de accesibilidad: lector de pantalla, contraste y tamaño de texto.
 - [x] Exportar todos tus datos en JSON y borrar la cuenta con todo su contenido, con confirmación escrita (25 sep).
 - Política de privacidad publicada.

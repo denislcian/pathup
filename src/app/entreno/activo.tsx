@@ -80,7 +80,9 @@ export default function ActiveWorkoutScreen() {
     return () => clearInterval(interval);
   }, [startedAt]);
 
-  if (!workout) return <Redirect href="/entreno" />;
+  // While finishing, the session is already closed but the summary is not open yet: without this
+  // guard the redirect below wins the race and the summary never shows.
+  if (!workout) return finishing ? null : <Redirect href="/entreno" />;
 
   async function handleFinish() {
     setFinishing(true);

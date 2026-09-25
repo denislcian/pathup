@@ -7,7 +7,7 @@ Fitness and wellness app (training logger + guided programs + wellness check-in;
 - Product, architecture, roadmap and asset docs live in `docs/` (Spanish). Read `docs/03-hoja-de-ruta.md` to know the current phase before starting work, and respect its "Fuera de alcance" list.
 - UI copy in Spanish first (i18n keys, English later).
 - Business logic goes in `src/domain/` as pure, tested functions.
-- Run `npm run check` (lint, Prettier, tsc, Jest) before saying work is done; DB changes need a migration in `supabase/migrations` plus pgTAP tests (`npm run db:start && npm run db:test`, requires Docker Desktop).
+- Run `npm run check` (lint, Prettier, tsc, Jest) before saying work is done, and `npm run e2e` (Playwright against the production web build, Edge locally) when a change touches navigation or the web build; DB changes need a migration in `supabase/migrations` plus pgTAP tests (`npm run db:start && npm run db:test`, requires Docker Desktop).
 - Docker Desktop on this PC does not start its engine, so pgTAP tests are verified in CI. Flow for a new migration: commit + push → CI green → `npx supabase db push` (project already linked) → `npm run db:types`.
 - Tests use RNTL v14: `await render(...)`, `await user.press(...)`. Never put test files inside `src/app` (Expo Router would treat them as routes) and keep helpers in `src/test/`, not `__tests__/`. Screen tests use `renderRouter('./src/app')` and mock `@/features/auth/auth-provider` / `@/features/profile/profile-api`.
 - After adding dependencies run `npm run lock:check`: npm on Windows can write a lockfile that `npm ci` rejects (fix: delete `node_modules` + `package-lock.json` and reinstall). Avoid packages whose peers clash with ESLint's `ajv@6` (that is why react-hook-form was dropped).
