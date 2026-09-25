@@ -515,7 +515,9 @@
       "trustFree": "Truly free",
       "trustNoAds": "No ads",
       "trustEu": "Data stored in the EU",
-      "trustAge": "Ages 16+"
+      "trustAge": "Ages 16+",
+      "tryDemo": "Try without an account",
+      "tryDemoHint": "The demo opens the app with 8 weeks of sample workouts. Nothing is saved."
     },
     "mock": {
       "day": "Tuesday",
@@ -888,5 +890,11 @@
       "export": "We couldn't prepare the file. You need a connection.",
       "delete": "We couldn't delete the account. Check your connection and try again."
     }
+  },
+  "demo": {
+    "bannerTitle": "You are trying PathUp",
+    "bannerBody": "These are 8 weeks of Marcos's made-up workouts. Try anything: start a session, change a routine or do the check-in. Nothing leaves this device.",
+    "createAccount": "Create my account",
+    "exit": "Leave the demo"
   }
 }

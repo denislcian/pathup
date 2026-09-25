@@ -515,7 +515,9 @@
       "trustFree": "Gratis de verdad",
       "trustNoAds": "Sin anuncios",
       "trustEu": "Datos en la UE",
-      "trustAge": "Desde 16 años"
+      "trustAge": "Desde 16 años",
+      "tryDemo": "Probar sin cuenta",
+      "tryDemoHint": "La demo abre la app con 8 semanas de entrenos de ejemplo. No se guarda nada."
     },
     "mock": {
       "day": "Martes",
@@ -888,5 +890,11 @@
       "export": "No hemos podido preparar el archivo. Necesitas conexión.",
       "delete": "No hemos podido borrar la cuenta. Comprueba tu conexión y vuelve a probar."
     }
+  },
+  "demo": {
+    "bannerTitle": "Estás probando PathUp",
+    "bannerBody": "Son 8 semanas de entrenos de Marcos, inventadas. Toca lo que quieras: empieza una sesión, cambia una rutina o haz el check-in. Nada sale de este dispositivo.",
+    "createAccount": "Crear mi cuenta",
+    "exit": "Salir de la demo"
   }
 }

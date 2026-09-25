@@ -92,7 +92,7 @@ Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguient
 - [ ] **Puerta:** 7 días seguidos de check-in tuyos y un ajuste de sesión que tenga sentido.
 
 ### Fase 4 · Listo para el CV (semana 7)
-- **Botón "Probar con cuenta demo"** con datos realistas de 8 semanas.
+- [x] **Botón "Probar sin cuenta"** en la landing: la app entera con 8 semanas de datos de ejemplo en memoria, sin tocar la base de datos (25 sep).
 - Web publicada con dominio gratuito; APK firmado descargable desde la sección Releases de GitHub.
 - Tarea keep-alive de Supabase.
 - Flujos E2E con Maestro: registro, entreno sin red y check-in.

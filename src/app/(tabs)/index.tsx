@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
@@ -13,6 +14,7 @@ import { todayIso } from '@/domain/age';
 import { thisWeek, weeklyStreak } from '@/domain/progress';
 import { sessionAdjustment } from '@/domain/wellness';
 import { countCompletedSets } from '@/domain/workout';
+import { exitDemo } from '@/features/account/demo';
 import { useWorkoutHistory } from '@/features/history/history-api';
 import { StatRow, StatTile, WorkoutCard } from '@/features/history/history-components';
 import { NextSessionCard } from '@/features/programs/program-components';
@@ -22,6 +24,7 @@ import { useProfile } from '@/features/profile/profile-api';
 import { ReadinessCard } from '@/features/wellness/readiness-card';
 import { useTodayCheckin } from '@/features/wellness/wellness-api';
 import { useActiveWorkout } from '@/features/workout/active-workout-store';
+import { useDemoMode } from '@/lib/demo-mode';
 import { formatKg } from '@/lib/format';
 import { colors, spacing } from '@/theme/tokens';
 
@@ -31,6 +34,8 @@ export default function TodayScreen() {
   const history = useWorkoutHistory();
   const state = useProgramState();
   const active = useActiveWorkout((store) => store.workout);
+  const demo = useDemoMode();
+  const queryClient = useQueryClient();
   const today_ = todayIso();
   const { checkin } = useTodayCheckin(today_);
   const adjustment = checkin ? sessionAdjustment(checkin) : null;
@@ -48,6 +53,26 @@ export default function TodayScreen() {
 
   return (
     <Screen wide title={name ? t('today.greeting', { name }) : t('today.title')} subtitle={today}>
+      {demo ? (
+        <Card style={styles.demo}>
+          <AppText variant="heading" role="heading" tone="calm">
+            {t('demo.bannerTitle')}
+          </AppText>
+          <AppText tone="muted">{t('demo.bannerBody')}</AppText>
+          <View style={styles.demoActions}>
+            <Button
+              label={t('demo.createAccount')}
+              onPress={() => void exitDemo(queryClient, '/registro')}
+            />
+            <Button
+              label={t('demo.exit')}
+              variant="ghost"
+              onPress={() => void exitDemo(queryClient)}
+            />
+          </View>
+        </Card>
+      ) : null}
+
       {active ? (
         <Card style={styles.active}>
           <AppText variant="heading" role="heading" tone="accent">
@@ -176,5 +201,13 @@ const styles = StyleSheet.create({
   },
   done: {
     borderColor: colors.accent,
+  },
+  demo: {
+    borderColor: colors.calm,
+  },
+  demoActions: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
   },
 });

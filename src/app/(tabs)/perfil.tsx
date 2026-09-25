@@ -9,10 +9,12 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Chip } from '@/components/ui/chip';
 import { Screen } from '@/components/ui/screen';
+import { exitDemo } from '@/features/account/demo';
 import { signOutAndForget } from '@/features/account/sign-out';
 import { useAuth } from '@/features/auth/auth-provider';
 import { useProfile, useUpdateProfile } from '@/features/profile/profile-api';
 import { useActiveWorkout } from '@/features/workout/active-workout-store';
+import { useDemoMode } from '@/lib/demo-mode';
 import { useWorkoutSync } from '@/features/workout/use-workout-sync';
 import { colors, spacing } from '@/theme/tokens';
 
@@ -28,9 +30,12 @@ export default function ProfileScreen() {
   const [confirmSignOut, setConfirmSignOut] = useState(false);
   const unsaved = pending > 0 || active !== null;
 
+  const demo = useDemoMode();
+
   async function signOut() {
     // Nothing of this account stays on the device for the next person who signs in.
-    await signOutAndForget(queryClient);
+    if (demo) await exitDemo(queryClient);
+    else await signOutAndForget(queryClient);
   }
 
   const rows = data
@@ -129,9 +134,9 @@ export default function ProfileScreen() {
         </Card>
       ) : (
         <Button
-          label={t('auth.signOut')}
+          label={demo ? t('demo.exit') : t('auth.signOut')}
           variant="secondary"
-          onPress={() => (unsaved ? setConfirmSignOut(true) : void signOut())}
+          onPress={() => (unsaved && !demo ? setConfirmSignOut(true) : void signOut())}
         />
       )}
     </Screen>

@@ -194,6 +194,15 @@ export function buildDemoCheckins(now: Date): Checkin[] {
 }
 
 export const demoBackend = {
+  /** Back to the untouched sample data, for the next person who tries the demo. */
+  reset(): void {
+    workouts = null;
+    routines = null;
+    measurements = null;
+    enrollment = null;
+    enrollmentReady = false;
+    checkins = null;
+  },
   listWorkouts(): Workout[] {
     workouts ??= buildDemoWorkouts(new Date());
     return workouts;

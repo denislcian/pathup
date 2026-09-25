@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { Link, router } from 'expo-router';
 import Head from 'expo-router/head';
 import {
@@ -33,6 +34,7 @@ import {
   RisingPath,
   SuggestionToast,
 } from '@/features/landing/app-mocks';
+import { startDemo } from '@/features/account/demo';
 import { Container, Grid, LandingSection, useLandingLayout } from '@/features/landing/layout';
 import { colors, fonts, radius, spacing } from '@/theme/tokens';
 
@@ -49,6 +51,8 @@ export function LandingScreen() {
 
   const goToSignUp = () => router.push('/registro');
   const goToSignIn = () => router.push('/entrar');
+  const queryClient = useQueryClient();
+  const tryDemo = () => void startDemo(queryClient);
   function handleNavPress(anchor: Anchor) {
     scrollRef.current?.scrollTo({ y: Math.max((anchors[anchor] ?? 0) - 16, 0), animated: true });
   }
@@ -121,12 +125,15 @@ export function LandingScreen() {
                     style={styles.cta}
                   />
                   <Button
-                    label={t('landing.hero.secondary')}
+                    label={t('landing.hero.tryDemo')}
                     variant="secondary"
-                    onPress={goToSignIn}
+                    onPress={tryDemo}
                     style={styles.cta}
                   />
                 </View>
+                <AppText variant="caption" tone="muted">
+                  {t('landing.hero.tryDemoHint')}
+                </AppText>
                 <View style={styles.trustRow}>
                   {(['trustFree', 'trustNoAds', 'trustEu', 'trustAge'] as const).map((key) => (
                     <View key={key} style={styles.trustItem}>
@@ -307,9 +314,9 @@ export function LandingScreen() {
               <View style={[styles.ctaRow, !isMedium && styles.ctaColumn, styles.centerSelf]}>
                 <Button label={t('landing.hero.primary')} onPress={goToSignUp} style={styles.cta} />
                 <Button
-                  label={t('landing.hero.secondary')}
+                  label={t('landing.hero.tryDemo')}
                   variant="secondary"
-                  onPress={goToSignIn}
+                  onPress={tryDemo}
                   style={styles.cta}
                 />
               </View>
