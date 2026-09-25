@@ -3,7 +3,7 @@ import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
-import { Dumbbell, HeartPulse, Sprout } from '@/components/icons';
+import { Dumbbell, HeartPulse } from '@/components/icons';
 import { AppText } from '@/components/ui/app-text';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -17,7 +17,8 @@ import { countCompletedSets } from '@/domain/workout';
 import { exitDemo } from '@/features/account/demo';
 import { useWorkoutHistory } from '@/features/history/history-api';
 import { StatRow, StatTile, WorkoutCard } from '@/features/history/history-components';
-import { NextSessionCard } from '@/features/programs/program-components';
+import { HabitsToday } from '@/features/habits/habits-today';
+import { NextSessionCard, RecommendedProgram } from '@/features/programs/program-components';
 import { useProgramState } from '@/features/programs/programs-api';
 import { startProgramSession } from '@/features/programs/start-session';
 import { useProfile } from '@/features/profile/profile-api';
@@ -143,13 +144,7 @@ export default function TodayScreen() {
                 />
               </Card>
             ) : (
-              <EmptyState
-                icon={Sprout}
-                title={t('today.noProgramTitle')}
-                description={t('today.noProgramDescription')}
-                actionLabel={t('today.chooseProgram')}
-                onAction={() => router.push('/programas')}
-              />
+              <RecommendedProgram profile={profile.data ?? null} />
             )}
 
             {!state.program ? (
@@ -185,6 +180,8 @@ export default function TodayScreen() {
                 onAction={() => router.push('/bienestar')}
               />
             )}
+
+            <HabitsToday today={today_} />
           </View>,
         ]}
       </Columns>

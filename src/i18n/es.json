@@ -123,9 +123,6 @@
     "weekSessions": "Esta semana",
     "programWeek": "Programa",
     "programSessions": "{{done}} de {{total}} sesiones",
-    "noProgramTitle": "Elige tu programa",
-    "noProgramDescription": "Te decimos qué hacer cada día, con series, repeticiones y el peso sugerido. Te recomendamos uno según tus respuestas.",
-    "chooseProgram": "Ver programas",
     "programFinished": "¡Has terminado {{name}}!",
     "programFinishedBody": "Ocho semanas siguiendo un plan no las hace cualquiera. Elige el siguiente o repite este con más peso.",
     "chooseAnother": "Elegir otro programa",
@@ -133,7 +130,8 @@
     "freeWorkoutDescription": "Empieza un entreno vacío o usa una de tus rutinas.",
     "openWorkout": "Ir a Entreno",
     "lastWorkout": "Tu último entreno",
-    "doCheckin": "Hacer el check-in"
+    "doCheckin": "Hacer el check-in",
+    "seeAllPrograms": "Ver el plan completo"
   },
   "workout": {
     "title": "Entreno",
@@ -952,6 +950,7 @@
     "errors": {
       "name": "Ponle un nombre",
       "save": "No hemos podido guardar el cambio. Comprueba tu conexión."
-    }
+    },
+    "todayLink": "Hábitos de hoy: {{done}} de {{total}} hechos. Abrir Bienestar"
   }
 }

@@ -88,29 +88,42 @@ beforeEach(async () => {
 });
 
 describe('guided programmes', () => {
-  it('invites you to choose a programme and starts the one you pick', async () => {
+  it('recommends a programme on Today and starts it in one tap', async () => {
     const user = userEvent.setup();
     await renderRouter('./src/app', { initialUrl: '/' });
 
-    await user.press(await screen.findByRole('button', { name: 'Ver programas' }, ROUTER_TIMEOUT));
-
-    // The catalogue puts the beginner full body first for a beginner with three days.
-    const card = await screen.findByRole(
-      'link',
-      { name: 'Ver el programa Primeros pasos · cuerpo completo' },
-      ROUTER_TIMEOUT,
-    );
+    // A beginner with three days in a gym gets the beginner full body, with the reasons.
+    expect(
+      await screen.findByRole(
+        'heading',
+        { name: 'Primeros pasos · cuerpo completo' },
+        ROUTER_TIMEOUT,
+      ),
+    ).toBeOnTheScreen();
     expect(screen.getByText('Recomendado para ti')).toBeOnTheScreen();
+    expect(screen.getByText('Encaja con tus días')).toBeOnTheScreen();
 
-    await user.press(card);
-    await user.press(
-      await screen.findByRole('button', { name: 'Empezar este programa' }, ROUTER_TIMEOUT),
-    );
+    await user.press(screen.getByRole('button', { name: 'Empezar este programa' }));
 
     expect(mockInsert).toHaveBeenCalledWith(
       'program_enrollments',
       expect.objectContaining({ user_id: 'user-1', program_slug: 'primeros-pasos' }),
     );
+  });
+
+  it('lists every programme with the best one first', async () => {
+    const user = userEvent.setup();
+    await renderRouter('./src/app', { initialUrl: '/programas' });
+
+    const card = await screen.findByRole(
+      'link',
+      { name: 'Ver el programa Primeros pasos · cuerpo completo' },
+      ROUTER_TIMEOUT,
+    );
+    await user.press(card);
+    expect(
+      await screen.findByRole('heading', { name: 'Por qué funciona' }, ROUTER_TIMEOUT),
+    ).toBeOnTheScreen();
   });
 
   it('offers the next session and starts it with the weight the progression suggests', async () => {

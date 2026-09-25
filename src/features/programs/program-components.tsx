@@ -9,9 +9,18 @@ import { Card } from '@/components/ui/card';
 import { Chip } from '@/components/ui/chip';
 import { useHover } from '@/components/ui/use-hover';
 import { getExercise } from '@/data/exercises';
+import { PROGRAMS } from '@/data/programs';
 import { describePrescription } from '@/domain/routines';
-import type { PlannedSession, Program, ProgramProgress } from '@/domain/programs';
+import {
+  recommendPrograms,
+  type PlannedSession,
+  type Program,
+  type ProgramAnswers,
+  type ProgramGoal,
+  type ProgramProgress,
+} from '@/domain/programs';
 import type { SessionAdjustment } from '@/domain/wellness';
+import { useStartProgram } from '@/features/programs/programs-api';
 import { colors, radius, spacing } from '@/theme/tokens';
 
 /** Progress bar of a programme: sessions done out of the total. */
@@ -289,3 +298,84 @@ const styles = StyleSheet.create({
     backgroundColor: colors.accent,
   },
 });
+
+/**
+ * First thing a new user sees on Today: the programme that fits their onboarding answers, with
+ * why, and one button to start it. The gate of phase 2b is that nobody has to ask what to do.
+ */
+export function RecommendedProgram({
+  profile,
+}: {
+  profile: {
+    goal: string | null;
+    experience_level: string | null;
+    training_days_per_week: number | null;
+    equipment: string[];
+  } | null;
+}) {
+  const { t } = useTranslation();
+  const start = useStartProgram();
+  const [best] = recommendPrograms(PROGRAMS, {
+    goal: (profile?.goal as ProgramGoal | null) ?? null,
+    level: (profile?.experience_level as ProgramAnswers['level']) ?? null,
+    daysPerWeek: profile?.training_days_per_week ?? null,
+    equipment: profile?.equipment ?? [],
+    minutes: null,
+  });
+  if (!best) return null;
+  const { program, reasons } = best;
+
+  return (
+    <Card style={styles.next}>
+      <View style={styles.badge}>
+        <Sprout color={colors.accent} size={16} aria-hidden />
+        <AppText variant="caption" tone="accent">
+          {t('programs.recommended')}
+        </AppText>
+      </View>
+      <AppText variant="title" role="heading">
+        {program.name}
+      </AppText>
+      <AppText tone="muted">{program.tagline}</AppText>
+      <AppText variant="caption" tone="muted">
+        {t('programs.facts', {
+          days: program.daysPerWeek,
+          weeks: program.weeks.length,
+          minutes: program.minutesPerSession,
+        })}
+      </AppText>
+      {reasons.length > 0 ? (
+        <View style={styles.chips}>
+          {reasons.slice(0, 3).map((reason) => (
+            <Chip
+              key={reason}
+              label={t(`programs.reasons.${reason}` as 'programs.reasons.days')}
+              variant="outline"
+            />
+          ))}
+        </View>
+      ) : null}
+      <AppText variant="caption" tone="muted">
+        {program.why[0]}
+      </AppText>
+      <Button
+        label={start.isPending ? t('programs.starting') : t('programs.start')}
+        disabled={start.isPending}
+        aria-busy={start.isPending}
+        onPress={() => start.mutate(program.slug)}
+      />
+      <Button
+        label={t('today.seeAllPrograms')}
+        variant="ghost"
+        onPress={() =>
+          router.push({ pathname: '/programas/[slug]', params: { slug: program.slug } })
+        }
+      />
+      {start.isError ? (
+        <AppText variant="caption" tone="danger" role="alert">
+          {t('programs.errors.start')}
+        </AppText>
+      ) : null}
+    </Card>
+  );
+}
