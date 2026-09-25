@@ -7,6 +7,7 @@ import { FlatList, Image, Pressable, ScrollView, StyleSheet, TextInput, View } f
 import { MuscleMap } from '@/components/muscle-map/muscle-map';
 import { bestView } from '@/components/muscle-map/regions';
 import { AppText } from '@/components/ui/app-text';
+import { DocumentTitle } from '@/components/ui/document-title';
 import { Chip } from '@/components/ui/chip';
 import { useIsWide } from '@/components/ui/columns';
 import { EmptyState } from '@/components/ui/empty-state';
@@ -101,26 +102,29 @@ export function ExerciseBrowser({ onSelect }: { onSelect?: (slug: string) => voi
   );
 
   return (
-    <FlatList
-      // Changing the number of columns needs a new list instance.
-      key={`columns-${columns}`}
-      numColumns={columns}
-      columnWrapperStyle={columns > 1 ? styles.columnWrapper : undefined}
-      data={results}
-      keyExtractor={(item) => item.slug}
-      ListHeaderComponent={header}
-      ListEmptyComponent={
-        <EmptyState
-          icon={Search}
-          title={t('library.emptyTitle')}
-          description={t('library.emptyDescription')}
-        />
-      }
-      renderItem={({ item }) => <ExerciseRow exercise={item} onSelect={onSelect} />}
-      keyboardShouldPersistTaps="handled"
-      style={styles.list}
-      contentContainerStyle={styles.listContent}
-    />
+    <>
+      <DocumentTitle title={onSelect ? t('logger.pickerTitle') : t('library.title')} />
+      <FlatList
+        // Changing the number of columns needs a new list instance.
+        key={`columns-${columns}`}
+        numColumns={columns}
+        columnWrapperStyle={columns > 1 ? styles.columnWrapper : undefined}
+        data={results}
+        keyExtractor={(item) => item.slug}
+        ListHeaderComponent={header}
+        ListEmptyComponent={
+          <EmptyState
+            icon={Search}
+            title={t('library.emptyTitle')}
+            description={t('library.emptyDescription')}
+          />
+        }
+        renderItem={({ item }) => <ExerciseRow exercise={item} onSelect={onSelect} />}
+        keyboardShouldPersistTaps="handled"
+        style={styles.list}
+        contentContainerStyle={styles.listContent}
+      />
+    </>
   );
 }
 

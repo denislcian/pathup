@@ -82,7 +82,11 @@ export default function TodayScreen() {
   const statsStrip = <TodayStats stats={stats} />;
 
   return (
-    <Screen wide title={name ? t('today.greeting', { name }) : t('today.title')} subtitle={today}>
+    <Screen
+      wide
+      title={name ? t('today.greeting', { name }) : t('today.title')}
+      documentTitle={t('today.title')}
+      subtitle={today}>
       {demo ? <DemoBanner /> : null}
 
       {active ? (

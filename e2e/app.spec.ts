@@ -85,12 +85,15 @@ test.describe('demo without an account', () => {
   test('trains a full session of the programme', async ({ page }) => {
     const errors = collectErrors(page);
     await enterDemo(page);
+    // Each page names itself in the browser tab (WCAG 2.4.2).
+    await expect(page).toHaveTitle('Hoy · PathUp');
 
     await page
       .getByRole('button', { name: /^Empezar la sesión/ })
       .first()
       .click();
     await expect(page.getByText('Torso / Pierna · Semana 8 · Apretar')).toBeVisible();
+    await expect(page).toHaveTitle('Pierna A · PathUp');
 
     // First set of the first exercise: type it, tick it and see the rest timer start.
     const weight = page.getByLabel(/^Peso en kilos, serie 1 de/).first();

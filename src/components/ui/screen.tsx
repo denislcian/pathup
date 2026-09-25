@@ -4,10 +4,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '@/components/ui/app-text';
 import { useIsWide } from '@/components/ui/columns';
+import { DocumentTitle } from '@/components/ui/document-title';
 import { colors, maxContentWidth, maxWideWidth, spacing } from '@/theme/tokens';
 
 export type ScreenProps = {
   title?: string;
+  /** The browser tab's title when it should differ from `title` ("Hoy" rather than "Hola, Marcos"). */
+  documentTitle?: string;
   subtitle?: string;
   children: ReactNode;
   /** Set to false on screens that show a navigation header, which already handles the top inset. */
@@ -24,6 +27,7 @@ export type ScreenProps = {
 /** Standard screen: safe-area aware, scrollable, keyboard friendly, centered column on wide screens. */
 export function Screen({
   title,
+  documentTitle,
   subtitle,
   children,
   insetTop = true,
@@ -46,6 +50,7 @@ export function Screen({
           { paddingTop: (insetTop ? insets.top : 0) + spacing.lg },
         ]}>
         <View style={[styles.column, { maxWidth }]}>
+          {(documentTitle ?? title) ? <DocumentTitle title={(documentTitle ?? title)!} /> : null}
           {title ? (
             <View style={styles.header}>
               {subtitle ? (

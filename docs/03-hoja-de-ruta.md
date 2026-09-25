@@ -100,7 +100,8 @@ Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguient
 - Tarea keep-alive de Supabase.
 - [x] E2E con Playwright contra la build web de producción, en escritorio y móvil, dentro del CI: landing sin errores de hidratación, sesión completa de la demo, biblioteca y check-in (25 sep). Ya encontró un fallo real: al terminar un entreno, la pantalla volvía a Entreno sin enseñar el resumen.
 - [ ] E2E en el móvil nativo (Maestro) cuando exista el APK.
-- Revisión de accesibilidad: lector de pantalla, contraste y tamaño de texto.
+- [x] Auditoría automática WCAG 2.2 AA con axe-core en el E2E: 11 pantallas en escritorio y móvil, sin infracciones. Encontró páginas sin título, un `autocomplete` inválido y una etiqueta ARIA prohibida (25 sep).
+- [ ] **Tú:** probar la app con TalkBack o VoiceOver y con el texto del sistema al 200 %.
 - [x] Exportar todos tus datos en JSON y borrar la cuenta con todo su contenido, con confirmación escrita (25 sep).
 - Política de privacidad publicada.
 - README con GIF, capturas, diagrama, decisiones técnicas y enlace a la demo.

@@ -62,7 +62,11 @@ export default function ProfileScreen() {
     : [];
 
   return (
-    <Screen wide title={data?.display_name ?? t('profile.title')} subtitle={session?.user.email}>
+    <Screen
+      wide
+      title={data?.display_name ?? t('profile.title')}
+      documentTitle={t('profile.title')}
+      subtitle={session?.user.email}>
       <Card>
         <AppText variant="heading" role="heading">
           {t('profile.summaryTitle')}

@@ -68,11 +68,11 @@ Stack: Expo SDK 57 · React Native 0.86 · React 19.2 con React Compiler · Type
 
 | | |
 |---|---|
-| **315 tests** de Jest y React Native Testing Library | Lógica de dominio y pantallas completas con el router real |
+| **328 tests** de Jest y React Native Testing Library | Lógica de dominio y pantallas completas con el router real |
 | **59 comprobaciones pgTAP** en 9 archivos | RLS, restricciones y borrado de cuenta contra un Postgres real |
-| **12 pruebas E2E** con Playwright | Contra la build web de producción, en escritorio y móvil. Ya encontraron dos fallos reales: el resumen que no aparecía al terminar un entreno y los enlaces a ejercicios que daban 404 al recargar |
+| **36 pruebas E2E** con Playwright | Contra la build web de producción, en escritorio y móvil. Ya encontraron cinco fallos reales, entre ellos el resumen que no aparecía al terminar un entreno, la landing que salía en inglés si compilaba una máquina en inglés y la demo que te devolvía a Hoy al recargar |
 | **CI** en cada push | Lint, formato, tipos, tests, migraciones + pgTAP y E2E |
-| **Accesibilidad** | Roles y etiquetas en todo, objetivos táctiles de 44 px o más, contraste AA, teclado en escritorio |
+| **Accesibilidad** | Auditoría automática WCAG 2.2 AA (axe-core) de 11 pantallas en cada push, sin infracciones. Roles y etiquetas en todo, título en cada página, objetivos táctiles de 44 px o más, teclado en escritorio |
 
 ## Desarrollo
 

@@ -176,6 +176,7 @@ function HabitRow({
         </AppText>
         <View
           style={styles.week}
+          role="img"
           aria-label={t('habits.weekLabel', { done: week.filter((day) => day.done).length })}>
           {week.map((day) => (
             <View key={day.date} style={[styles.dot, day.done && styles.dotDone]} />

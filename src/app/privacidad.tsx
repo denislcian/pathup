@@ -11,7 +11,7 @@ export default function PrivacyScreen() {
   const { t } = useTranslation();
 
   return (
-    <Screen insetTop={false}>
+    <Screen insetTop={false} documentTitle={t('privacy.title')}>
       <AppText tone="muted">{t('privacy.intro')}</AppText>
       {SECTIONS.map((section) => (
         <View key={section} style={{ gap: spacing.xs }}>

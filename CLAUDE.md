@@ -27,3 +27,5 @@ Fitness and wellness app (training logger + guided programs + wellness check-in;
 - Guided programmes live in `src/data/programs.ts` (content) and `src/domain/programs.ts` (plan, next session, double progression). Progress is derived from the workouts themselves (`program_slug`, `program_session`), never stored (ADR 0008).
 - The wellness check-in and the readiness score are pure functions in `src/domain/wellness.ts`; the session adjustment must stay small and always be skippable (ADR 0009).
 - New image prompts: edit `docs/prompts/*.json` and run `node scripts/build-exercise-prompts.mjs <file>`; never edit the generated markdown by hand.
+- Every screen names the browser tab: `Screen` does it from `title` (or `documentTitle` when the heading is personal, like "Hola, Marcos"); screens without `Screen` render `<DocumentTitle>`. Expo Router turns off React Navigation's automatic titles.
+- `e2e/accessibility.spec.ts` audits the main screens with axe-core (WCAG 2.2 AA) and must stay at zero violations; add new screens to it.

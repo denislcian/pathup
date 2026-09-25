@@ -2,7 +2,7 @@ import { Link } from 'expo-router';
 import { MailCheck } from '@/components/icons';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/ui/app-text';
 import { Button } from '@/components/ui/button';
@@ -138,7 +138,9 @@ export default function SignUpScreen() {
         onChangeText={(value) => update('birthDate', maskBirthDate(value))}
         placeholder="DD/MM/AAAA"
         keyboardType="number-pad"
-        autoComplete="birthdate-full"
+        // "bday" is the HTML token browsers understand (WCAG 1.3.5); React Native's types only list
+        // the Android name, and map "bday" to it on Android anyway.
+        autoComplete={Platform.OS === 'web' ? ('bday' as 'birthdate-full') : 'birthdate-full'}
         returnKeyType="done"
         onSubmitEditing={handleSubmit}
         maxLength={10}

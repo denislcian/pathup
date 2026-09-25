@@ -124,6 +124,7 @@ export default function ActiveWorkoutScreen() {
       <Screen
         wide
         insetTop={false}
+        documentTitle={workout.name}
         footer={
           askDiscard ? (
             <View style={styles.footer}>
