@@ -48,6 +48,7 @@ export function routineToTemplate(
       const last = previous[exercise.slug]?.sets.filter((set) => set.type !== 'warmup') ?? [];
       return {
         slug: exercise.slug,
+        target: { repMin: exercise.repMin, repMax: exercise.repMax },
         sets: Array.from({ length: exercise.sets }, (_, index) => {
           const reference = last[index] ?? last.at(-1);
           return {

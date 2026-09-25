@@ -23,6 +23,11 @@ export async function fetchProfile(userId: string): Promise<Profile> {
 }
 
 export async function updateProfile(userId: string, patch: ProfileUpdate): Promise<Profile> {
+  if (isDemoMode()) {
+    // The preview keeps its profile in memory, like the rest of the demo data.
+    Object.assign(DEMO_PROFILE, patch);
+    return { ...DEMO_PROFILE } as Profile;
+  }
   const { data, error } = await requireSupabase()
     .from('profiles')
     .update(patch)

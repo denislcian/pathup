@@ -192,6 +192,8 @@ export function plannedSessionToTemplate(
       );
       return {
         slug: exercise.slug,
+        target: { repMin: exercise.repMin, repMax: exercise.repMax },
+        hint: exercise.note ?? null,
         sets: Array.from({ length: exercise.sets }, () => ({
           type: 'normal' as const,
           weightKg: suggestion.weightKg,

@@ -1,4 +1,6 @@
-import { Check, Timer, Trash2 } from '@/components/icons';
+import { Link } from 'expo-router';
+
+import { Check, Ellipsis, Timer, Trash2 } from '@/components/icons';
 import { useEffect, useEffectEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, TextInput, Vibration, View } from 'react-native';
@@ -7,9 +9,11 @@ import { AppText } from '@/components/ui/app-text';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Chip } from '@/components/ui/chip';
-import { getExercise } from '@/data/exercises';
+import { EXERCISES, getExercise } from '@/data/exercises';
+import { alternativesFor, type Equipment } from '@/domain/exercises';
 import {
   formatDuration,
+  NOTE_MAX_LENGTH,
   RIR_OPTIONS,
   SET_TYPES,
   setLabel,
@@ -130,9 +134,11 @@ export function SetRow({
             </AppText>
           </Pressable>
         ) : (
-          <AppText variant="caption" tone="muted" style={styles.previous} numberOfLines={1}>
-            {t('logger.noPrevious')}
-          </AppText>
+          <View style={styles.previous}>
+            <AppText variant="caption" tone="muted" numberOfLines={1}>
+              {t('logger.noPrevious')}
+            </AppText>
+          </View>
         )}
 
         <TextInput
@@ -246,46 +252,165 @@ export function SetRow({
 type ExerciseCardProps = {
   exercise: LoggedExercise;
   previous?: PreviousPerformance;
+  /** Equipment the user has, to offer only alternatives they can do. */
+  available?: Set<Equipment> | null;
+  /** Beginner mode: the key technique cue stays visible under the name. */
+  beginner?: boolean;
   onAddSet: () => void;
   onRemove: () => void;
   onChangeSet: (setId: string, patch: SetPatch) => void;
   onToggleSet: (setId: string, fallback?: SetValues) => boolean;
   onRemoveSet: (setId: string) => void;
+  onSwap: (slug: string) => boolean;
+  onNote: (note: string) => void;
 };
 
 export function ExerciseCard({
   exercise,
   previous,
+  available,
+  beginner = false,
   onAddSet,
   onRemove,
   onChangeSet,
   onToggleSet,
   onRemoveSet,
+  onSwap,
+  onNote,
 }: ExerciseCardProps) {
   const { t } = useTranslation();
-  const name = getExercise(exercise.slug)?.name ?? exercise.slug;
+  const details = getExercise(exercise.slug);
+  const name = details?.name ?? exercise.slug;
+  const [panel, setPanel] = useState<'menu' | 'swap' | null>(null);
+  const [noteOpen, setNoteOpen] = useState(false);
+  const started = exercise.sets.some((set) => set.completedAt !== null);
+  const alternatives = details ? alternativesFor(details, EXERCISES, available) : [];
+  const subtitle = [
+    exercise.target
+      ? t('logger.target', {
+          reps:
+            exercise.target.repMin === exercise.target.repMax
+              ? exercise.target.repMin
+              : `${exercise.target.repMin}-${exercise.target.repMax}`,
+        })
+      : null,
+    exercise.hint,
+  ]
+    .filter(Boolean)
+    .join(' · ');
 
   return (
     <Card style={styles.card}>
       <View style={styles.cardHeader}>
-        <AppText variant="heading" role="heading" style={styles.flex} numberOfLines={1}>
-          {name}
-        </AppText>
+        <View style={styles.flex}>
+          <Link href={{ pathname: '/ejercicios/[slug]', params: { slug: exercise.slug } }}>
+            <AppText variant="heading" role="heading" numberOfLines={1}>
+              {name}
+            </AppText>
+          </Link>
+          {subtitle ? (
+            <AppText variant="caption" tone="muted">
+              {subtitle}
+            </AppText>
+          ) : null}
+          {beginner && details?.cues[0] ? (
+            <AppText variant="caption" tone="calm">
+              {t('logger.keyCue', { cue: details.cues[0] })}
+            </AppText>
+          ) : null}
+        </View>
         <Pressable
           role="button"
-          aria-label={t('logger.removeExercise', { name })}
-          onPress={onRemove}
+          aria-label={t('logger.exerciseActions', { name })}
+          aria-expanded={panel !== null}
+          onPress={() => setPanel((current) => (current ? null : 'menu'))}
           hitSlop={8}
           style={styles.removeExercise}>
-          <Trash2 color={colors.textMuted} size={18} />
+          <Ellipsis color={colors.textMuted} size={20} />
         </Pressable>
       </View>
+
+      {panel === 'menu' ? (
+        <View style={styles.menu}>
+          <Button
+            label={t('logger.swap')}
+            variant="ghost"
+            disabled={started || alternatives.length === 0}
+            onPress={() => setPanel('swap')}
+          />
+          <Button
+            label={exercise.note ? t('logger.editNote') : t('logger.addNote')}
+            variant="ghost"
+            onPress={() => {
+              setNoteOpen(true);
+              setPanel(null);
+            }}
+          />
+          <Pressable
+            role="button"
+            aria-label={t('logger.removeExercise', { name })}
+            onPress={onRemove}
+            style={styles.menuDanger}>
+            <Trash2 color={colors.danger} size={16} aria-hidden />
+            <AppText variant="label" tone="danger">
+              {t('logger.remove')}
+            </AppText>
+          </Pressable>
+          {started ? (
+            <AppText variant="caption" tone="muted" style={styles.menuHint}>
+              {t('logger.swapLocked')}
+            </AppText>
+          ) : null}
+        </View>
+      ) : null}
+
+      {panel === 'swap' ? (
+        <View style={styles.swap}>
+          <AppText variant="caption" tone="muted">
+            {t('logger.swapTitle', { name })}
+          </AppText>
+          {alternatives.map((alternative) => (
+            <Pressable
+              key={alternative.slug}
+              role="button"
+              aria-label={t('logger.swapTo', { name: alternative.name })}
+              onPress={() => {
+                if (onSwap(alternative.slug)) setPanel(null);
+              }}
+              style={styles.swapRow}>
+              <View style={styles.flex}>
+                <AppText variant="label">{alternative.name}</AppText>
+                <AppText variant="caption" tone="muted">
+                  {alternative.primaryMuscles.map((muscle) => t(`muscles.${muscle}`)).join(' · ')}
+                </AppText>
+              </View>
+            </Pressable>
+          ))}
+          <Button label={t('logger.cancel')} variant="ghost" onPress={() => setPanel(null)} />
+        </View>
+      ) : null}
+
+      {noteOpen || exercise.note ? (
+        <TextInput
+          value={exercise.note ?? ''}
+          onChangeText={onNote}
+          onBlur={() => setNoteOpen(false)}
+          autoFocus={noteOpen && !exercise.note}
+          multiline
+          maxLength={NOTE_MAX_LENGTH}
+          placeholder={t('logger.notePlaceholder')}
+          placeholderTextColor={colors.textMuted}
+          selectionColor={colors.accent}
+          aria-label={t('logger.noteLabel', { name })}
+          style={styles.note}
+        />
+      ) : null}
 
       <View style={styles.columns} aria-hidden>
         <AppText variant="caption" tone="muted" style={styles.setNumber} numberOfLines={1}>
           {t('logger.setColumn')}
         </AppText>
-        <AppText variant="caption" tone="muted" style={styles.previous}>
+        <AppText variant="caption" tone="muted" style={styles.previousHeader}>
           {t('logger.previousColumn')}
         </AppText>
         <AppText variant="caption" tone="muted" style={styles.columnLabel}>
@@ -312,6 +437,22 @@ export function ExerciseCard({
       ))}
 
       <Button label={t('logger.addSet')} variant="secondary" onPress={onAddSet} />
+    </Card>
+  );
+}
+
+/** Shown once per session in beginner mode: how the logger works, in three lines. */
+export function BeginnerTips({ onDismiss }: { onDismiss: () => void }) {
+  const { t } = useTranslation();
+  return (
+    <Card style={styles.tips}>
+      <AppText variant="heading" role="heading" tone="calm">
+        {t('logger.tipsTitle')}
+      </AppText>
+      <AppText>• {t('logger.tipTick')}</AppText>
+      <AppText>• {t('logger.tipPrevious')}</AppText>
+      <AppText>• {t('logger.tipRir')}</AppText>
+      <Button label={t('logger.tipsDismiss')} variant="secondary" onPress={onDismiss} />
     </Card>
   );
 }
@@ -400,6 +541,58 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  menu: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: spacing.xs,
+    padding: spacing.xs,
+    borderRadius: radius.md,
+    backgroundColor: colors.surfaceRaised,
+  },
+  menuDanger: {
+    cursor: 'pointer',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+    minHeight: minTouchTarget,
+    paddingHorizontal: spacing.md,
+  },
+  menuHint: {
+    flexBasis: '100%',
+    paddingHorizontal: spacing.sm,
+  },
+  swap: {
+    gap: spacing.xs,
+    padding: spacing.sm,
+    borderRadius: radius.md,
+    backgroundColor: colors.surfaceRaised,
+  },
+  swapRow: {
+    cursor: 'pointer',
+    minHeight: minTouchTarget,
+    justifyContent: 'center',
+    paddingHorizontal: spacing.sm,
+    borderRadius: radius.sm,
+    backgroundColor: colors.surface2,
+  },
+  note: {
+    minHeight: minTouchTarget,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs,
+    borderRadius: radius.sm,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.surface2,
+    color: colors.text,
+    fontFamily: fonts.body,
+    fontSize: 14,
+  },
+  tips: {
+    borderColor: colors.calm,
+    padding: spacing.md,
+    gap: spacing.xs,
+  },
   columns: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -448,6 +641,10 @@ const styles = StyleSheet.create({
     minHeight: minTouchTarget,
     justifyContent: 'center',
     cursor: 'pointer',
+  },
+  previousHeader: {
+    flex: 1,
+    minWidth: 52,
   },
   inputInvalid: {
     borderColor: colors.danger,

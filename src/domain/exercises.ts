@@ -135,3 +135,39 @@ export function filterExercises(
     })
     .sort((a, b) => a.name.localeCompare(b.name, 'es'));
 }
+
+/**
+ * Exercises that can replace `exercise` when the machine is taken or it hurts: first the
+ * substitutes written for it, then others that work the same main muscle. Only exercises doable
+ * with the available equipment, when it is given.
+ */
+export function alternativesFor(
+  exercise: Exercise,
+  catalogue: readonly Exercise[],
+  available?: Set<Equipment> | null,
+  limit = 6,
+): Exercise[] {
+  const doable = (candidate: Exercise) =>
+    candidate.slug !== exercise.slug && (!available || canPerform(candidate, available));
+
+  const substitutes = exercise.substitutes
+    .map((slug) => catalogue.find((candidate) => candidate.slug === slug))
+    .filter((candidate): candidate is Exercise => candidate !== undefined && doable(candidate));
+
+  const sameMuscle = catalogue
+    .filter(
+      (candidate) =>
+        doable(candidate) &&
+        !substitutes.includes(candidate) &&
+        candidate.primaryMuscles.some((muscle) => exercise.primaryMuscles.includes(muscle)),
+    )
+    // Closest first: the ones sharing more main muscles.
+    .sort(
+      (a, b) =>
+        b.primaryMuscles.filter((muscle) => exercise.primaryMuscles.includes(muscle)).length -
+          a.primaryMuscles.filter((muscle) => exercise.primaryMuscles.includes(muscle)).length ||
+        a.name.localeCompare(b.name, 'es'),
+    );
+
+  return [...substitutes, ...sameMuscle].slice(0, limit);
+}

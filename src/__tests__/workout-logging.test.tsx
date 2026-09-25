@@ -192,6 +192,60 @@ describe('logging a workout', () => {
     expect(useActiveWorkout.getState().workout!.exercises[0].sets[0].type).toBe('warmup');
   });
 
+  it('swaps an exercise for an alternative and keeps a note with the workout', async () => {
+    const user = userEvent.setup();
+    await renderRouter('./src/app', { initialUrl: '/entreno' });
+
+    await user.press(
+      await screen.findByRole('button', { name: 'Empezar entreno vacío' }, ROUTER_TIMEOUT),
+    );
+    await user.press(
+      await screen.findByRole('button', { name: 'Añadir ejercicio' }, ROUTER_TIMEOUT),
+    );
+    await user.type(
+      await screen.findByRole('searchbox', { name: 'Buscar ejercicio' }, ROUTER_TIMEOUT),
+      'banca',
+    );
+    await user.press(await screen.findByRole('button', { name: /^Press banca con barra/ }));
+
+    // The bench is taken: swap it for the machine before logging anything.
+    await user.press(
+      await screen.findByRole(
+        'button',
+        { name: 'Opciones de Press banca con barra' },
+        ROUTER_TIMEOUT,
+      ),
+    );
+    await user.press(screen.getByRole('button', { name: 'Cambiar ejercicio' }));
+    await user.press(screen.getByRole('button', { name: 'Cambiar a Press de pecho en máquina' }));
+
+    await user.press(
+      await screen.findByRole('button', { name: 'Opciones de Press de pecho en máquina' }),
+    );
+    await user.press(screen.getByRole('button', { name: 'Añadir nota' }));
+    await user.type(screen.getByLabelText('Nota de Press de pecho en máquina'), 'Asiento en el 4');
+
+    await user.type(
+      screen.getByLabelText('Peso en kilos, serie 1 de Press de pecho en máquina'),
+      '50',
+    );
+    await user.type(
+      screen.getByLabelText('Repeticiones, serie 1 de Press de pecho en máquina'),
+      '10',
+    );
+    await user.press(
+      screen.getByRole('checkbox', {
+        name: 'Marcar como hecha la serie 1 de Press de pecho en máquina',
+      }),
+    );
+    await user.press(screen.getByRole('button', { name: 'Terminar' }));
+
+    await screen.findByRole('heading', { name: 'Entreno guardado' }, ROUTER_TIMEOUT);
+    expect(mockUpsert).toHaveBeenCalledWith('workout_exercises', [
+      expect.objectContaining({ exercise_slug: 'press-pecho-maquina', notes: 'Asiento en el 4' }),
+    ]);
+  });
+
   it('discards a session without saving anything', async () => {
     const user = userEvent.setup();
     await logOneSet(user);

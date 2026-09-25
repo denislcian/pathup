@@ -40,6 +40,7 @@ export async function uploadWorkout(userId: string, original: Workout): Promise<
     user_id: userId,
     exercise_slug: exercise.slug,
     position: index,
+    notes: exercise.note ?? null,
   }));
   if (exercises.length > 0) {
     const { error } = await supabase.from('workout_exercises').upsert(exercises);

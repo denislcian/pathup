@@ -13,6 +13,7 @@ import { EmptyState } from '@/components/ui/empty-state';
 import { Screen } from '@/components/ui/screen';
 import { useEscapeKey } from '@/components/ui/use-escape-key';
 import { getProgram } from '@/data/programs';
+import { availableEquipment } from '@/domain/exercises';
 import { detectRecords, type RecordHit } from '@/domain/progress';
 
 import {
@@ -24,9 +25,10 @@ import {
 } from '@/domain/workout';
 import { useAuth } from '@/features/auth/auth-provider';
 import { historyKeys } from '@/features/history/history-api';
+import { useProfile } from '@/features/profile/profile-api';
 import { useActiveWorkout } from '@/features/workout/active-workout-store';
 import { useFinishedWorkout } from '@/features/workout/finished-workout-store';
-import { ExerciseCard, RestBar } from '@/features/workout/logger-components';
+import { BeginnerTips, ExerciseCard, RestBar } from '@/features/workout/logger-components';
 import {
   enqueueWorkout,
   readKnownWorkouts,
@@ -58,6 +60,10 @@ export default function ActiveWorkoutScreen() {
   const [askDiscard, setAskDiscard] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [finishing, setFinishing] = useState(false);
+  const [tipsDismissed, setTipsDismissed] = useState(false);
+  const profile = useProfile();
+  const beginner = profile.data?.beginner_mode ?? false;
+  const available = profile.data ? availableEquipment(profile.data.equipment) : null;
 
   useEffect(() => {
     void readPreviousPerformance().then(setPrevious);
@@ -175,9 +181,13 @@ export default function ActiveWorkoutScreen() {
               {t(`programs.phases.${programWeek.week.phase}`)}
             </AppText>
             <AppText variant="caption" tone="muted">
-              {t('programs.rirHint', { rir: programWeek.week.rir })} {programWeek.week.note}
+              {t('programs.rirHint', { count: programWeek.week.rir })} {programWeek.week.note}
             </AppText>
           </Card>
+        ) : null}
+
+        {beginner && !tipsDismissed ? (
+          <BeginnerTips onDismiss={() => setTipsDismissed(true)} />
         ) : null}
 
         {askDiscard ? (
@@ -202,6 +212,10 @@ export default function ActiveWorkoutScreen() {
                 key={exercise.id}
                 exercise={exercise}
                 previous={previous[exercise.slug]}
+                available={available}
+                beginner={beginner}
+                onSwap={(slug) => store.swapExercise(exercise.id, slug)}
+                onNote={(note) => store.setExerciseNote(exercise.id, note)}
                 onAddSet={() => store.addSet(exercise.id)}
                 onRemove={() => store.removeExercise(exercise.id)}
                 onChangeSet={(setId, patch) => store.updateSet(exercise.id, setId, patch)}

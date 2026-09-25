@@ -17,7 +17,15 @@ export type LoggedExercise = {
   id: string;
   slug: string;
   sets: LoggedSet[];
+  /** Your own note ("asiento en el 4", "molestia en el hombro"). Uploaded with the workout. */
+  note?: string | null;
+  /** Rep range the routine or programme asks for; shown while logging, not uploaded. */
+  target?: { repMin: number; repMax: number } | null;
+  /** Instruction from the programme, e.g. "las repeticiones son por lado". Not uploaded. */
+  hint?: string | null;
 };
+
+export const NOTE_MAX_LENGTH = 500;
 
 export type Workout = {
   id: string;
@@ -33,7 +41,12 @@ export type Workout = {
 /** A plan to start from: a past workout you repeat, a routine or a session of a programme. */
 export type WorkoutTemplate = {
   name: string;
-  exercises: { slug: string; sets: Pick<LoggedSet, 'type' | 'weightKg' | 'reps' | 'rir'>[] }[];
+  exercises: {
+    slug: string;
+    sets: Pick<LoggedSet, 'type' | 'weightKg' | 'reps' | 'rir'>[];
+    target?: { repMin: number; repMax: number } | null;
+    hint?: string | null;
+  }[];
   /** Filled in when the plan is a session of a programme. */
   programSlug?: string;
   programSession?: string;
@@ -179,6 +192,9 @@ export function sanitizeWorkout(workout: Workout): Workout {
       .slice(0, 100)
       .map((exercise) => ({
         ...exercise,
+        note: exercise.note
+          ? exercise.note.trim().slice(0, NOTE_MAX_LENGTH) || null
+          : exercise.note,
         sets: exercise.sets
           .filter((set) => set.completedAt !== null && isSetLoggable(set))
           .slice(0, 100)

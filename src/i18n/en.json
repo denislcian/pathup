@@ -197,7 +197,24 @@
     "invalidSet": "Enter the reps before ticking the set",
     "restDone": "Rest is over!",
     "restClose": "Close",
-    "restSetting": "Rest between sets: {{time}}. Press to change it"
+    "restSetting": "Rest between sets: {{time}}. Press to change it",
+    "target": "Target: {{reps}} reps",
+    "keyCue": "Key: {{cue}}",
+    "exerciseActions": "Options for {{name}}",
+    "swap": "Swap exercise",
+    "swapTitle": "Alternatives to {{name}} with your equipment",
+    "swapTo": "Swap to {{name}}",
+    "swapLocked": "You already ticked sets of this exercise: to do another one, add it separately.",
+    "addNote": "Add note",
+    "editNote": "Edit note",
+    "remove": "Remove",
+    "notePlaceholder": "Note: seat, grip, discomfort…",
+    "noteLabel": "Note for {{name}}",
+    "tipsTitle": "How to log a workout",
+    "tipTick": "Type the weight and reps and tick ✓ when each set is done: the rest timer starts on its own.",
+    "tipPrevious": "The grey numbers are what you did last time. Tap them to copy them.",
+    "tipRir": "RIR is the reps you had left in the tank. If you are not sure, leave it empty.",
+    "tipsDismiss": "Got it"
   },
   "summary": {
     "title": "Workout saved",
@@ -455,7 +472,13 @@
     "signOutPending_other": "You have {{count}} workouts that haven't uploaded. Signing out removes them from this device and they won't reach your account.",
     "signOutActive": "You have a workout in progress. Signing out will lose it.",
     "signOutCancel": "Cancel",
-    "signOutAnyway": "Sign out anyway"
+    "signOutAnyway": "Sign out anyway",
+    "preferences": "Preferences",
+    "beginnerMode": "Beginner mode",
+    "beginnerModeHint": "Explains each step while you train and keeps each exercise's key technique cue in view.",
+    "on": "On",
+    "off": "Off",
+    "saveError": "We couldn't save the change. Check your connection."
   },
   "privacy": {
     "title": "Privacy",
@@ -626,7 +649,8 @@
     "activeHint": "You have a workout in progress: finish it before repeating this one.",
     "rir": "RIR {{rir}}",
     "e1rm": "Est. 1RM {{value}}",
-    "saveAsRoutine": "Save as routine"
+    "saveAsRoutine": "Save as routine",
+    "note": "Note: {{note}}"
   },
   "records": {
     "title_one": "New record!",
@@ -807,7 +831,6 @@
     "week1": "The first week ({{count}} sessions in total)",
     "weekByWeek": "Week by week",
     "rir": "RIR {{rir}}",
-    "rirHint": "This week leave {{rir}} reps in reserve.",
     "why": "Why it works",
     "references": "Where it comes from",
     "start": "Start this programme",
@@ -829,7 +852,9 @@
     "errors": {
       "start": "We couldn't start the programme. You need a connection.",
       "leave": "We couldn't save it. Check your connection."
-    }
+    },
+    "rirHint_one": "This week leave {{count}} rep in reserve.",
+    "rirHint_other": "This week leave {{count}} reps in reserve."
   },
   "muscleMap": {
     "primary": "Main muscles: {{muscles}}.",

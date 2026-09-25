@@ -65,6 +65,7 @@ describe('uploadWorkout', () => {
         user_id: 'user-1',
         exercise_slug: 'press-banca-barra',
         position: 0,
+        notes: null,
       },
     ]);
     expect(mockUpsert).toHaveBeenNthCalledWith(3, 'workout_sets', [

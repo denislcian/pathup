@@ -1,5 +1,11 @@
 import { EXERCISES } from '@/data/exercises';
-import { availableEquipment, canPerform, filterExercises, normalizeText } from '@/domain/exercises';
+import {
+  alternativesFor,
+  availableEquipment,
+  canPerform,
+  filterExercises,
+  normalizeText,
+} from '@/domain/exercises';
 
 const slugs = (list: { slug: string }[]) => list.map((exercise) => exercise.slug);
 
@@ -68,5 +74,23 @@ describe('filterExercises', () => {
   it('sorts results alphabetically in Spanish', () => {
     const names = filterExercises(EXERCISES, {}).map((exercise) => exercise.name);
     expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b, 'es')));
+  });
+});
+
+describe('alternativesFor', () => {
+  const bench = EXERCISES.find((exercise) => exercise.slug === 'press-banca-barra')!;
+
+  it('offers the written substitutes first, then the same main muscle', () => {
+    const slugs = alternativesFor(bench, EXERCISES).map((exercise) => exercise.slug);
+    expect(slugs.slice(0, 2)).toEqual(['press-inclinado-mancuernas', 'flexiones']);
+    expect(slugs).toContain('press-pecho-maquina');
+    expect(slugs).not.toContain('press-banca-barra');
+  });
+
+  it('only offers what you can do with your equipment', () => {
+    const slugs = alternativesFor(bench, EXERCISES, availableEquipment(['bodyweight'])).map(
+      (exercise) => exercise.slug,
+    );
+    expect(slugs).toEqual(['flexiones', 'flexiones-inclinadas']);
   });
 });

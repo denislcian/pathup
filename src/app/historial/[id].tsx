@@ -193,6 +193,11 @@ export default function WorkoutDetailScreen() {
                   {name}
                 </AppText>
               </Link>
+              {exercise.note ? (
+                <AppText variant="caption" tone="muted">
+                  {t('history.note', { note: exercise.note })}
+                </AppText>
+              ) : null}
               {exercise.sets.map((set, index) => {
                 const e1rm =
                   set.type === 'warmup' ? null : estimateOneRepMax(set.weightKg, set.reps);

@@ -151,6 +151,32 @@ describe('active workout', () => {
     expect(workout.exercises[1].sets).toHaveLength(1);
   });
 
+  it('swaps an exercise that has no ticked sets, keeping sets and reps but not the weight', () => {
+    const { exerciseId } = startWithOneSet();
+    store().addSet(exerciseId);
+
+    expect(store().swapExercise(exerciseId, 'press-pecho-maquina')).toBe(true);
+
+    const swapped = store().workout!.exercises[0];
+    expect(swapped.slug).toBe('press-pecho-maquina');
+    expect(swapped.sets).toHaveLength(2);
+    expect(swapped.sets.every((set) => set.weightKg === 0 && set.reps === 8)).toBe(true);
+  });
+
+  it('refuses to swap once a set is ticked: logged sets belong to their exercise', () => {
+    const { exerciseId, setId } = startWithOneSet();
+    store().toggleSetCompleted(exerciseId, setId);
+
+    expect(store().swapExercise(exerciseId, 'press-pecho-maquina')).toBe(false);
+    expect(store().workout!.exercises[0].slug).toBe('press-banca-barra');
+  });
+
+  it('keeps a note per exercise', () => {
+    const { exerciseId } = startWithOneSet();
+    store().setExerciseNote(exerciseId, 'Asiento en el 4');
+    expect(store().workout!.exercises[0].note).toBe('Asiento en el 4');
+  });
+
   it('discarding throws the session away', () => {
     startWithOneSet();
     store().discard();

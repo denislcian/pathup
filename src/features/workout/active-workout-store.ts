@@ -39,6 +39,13 @@ type ActiveWorkoutState = {
     fallback?: Pick<LoggedSet, 'weightKg' | 'reps'>,
   ) => boolean;
   removeSet: (exerciseId: string, setId: string) => void;
+  /**
+   * Replaces an exercise with another one (the machine is taken, it hurts…). Only while none of
+   * its sets are ticked: logged sets belong to the exercise they were done on. Returns false when
+   * it cannot swap.
+   */
+  swapExercise: (exerciseId: string, slug: string) => boolean;
+  setExerciseNote: (exerciseId: string, note: string) => void;
   setRestSeconds: (seconds: number) => void;
   extendRest: (seconds: number) => void;
   stopRest: () => void;
@@ -90,6 +97,8 @@ export const useActiveWorkout = create<ActiveWorkoutState>()(
             exercises: template.exercises.map((exercise) => ({
               id: createId(),
               slug: exercise.slug,
+              target: exercise.target ?? null,
+              hint: exercise.hint ?? null,
               sets: (exercise.sets.length > 0
                 ? exercise.sets
                 : [{ type: 'normal' as const, weightKg: 0, reps: 0, rir: null }]
@@ -195,6 +204,47 @@ export const useActiveWorkout = create<ActiveWorkoutState>()(
           workout: mapExercise(workout, exerciseId, (sets) =>
             sets.filter((item) => item.id !== setId),
           ),
+        });
+      },
+
+      swapExercise: (exerciseId, slug) => {
+        const { workout } = get();
+        if (!workout) return false;
+        const exercise = workout.exercises.find((item) => item.id === exerciseId);
+        if (!exercise || exercise.sets.some((set) => set.completedAt !== null)) return false;
+        set({
+          workout: {
+            ...workout,
+            exercises: workout.exercises.map((item) =>
+              item.id === exerciseId
+                ? {
+                    ...item,
+                    id: createId(),
+                    slug,
+                    // Same number of sets and reps; the weight belonged to the old exercise.
+                    sets: item.sets.map((planned) => ({
+                      ...planned,
+                      id: createId(),
+                      weightKg: 0,
+                    })),
+                  }
+                : item,
+            ),
+          },
+        });
+        return true;
+      },
+
+      setExerciseNote: (exerciseId, note) => {
+        const { workout } = get();
+        if (!workout) return;
+        set({
+          workout: {
+            ...workout,
+            exercises: workout.exercises.map((item) =>
+              item.id === exerciseId ? { ...item, note } : item,
+            ),
+          },
         });
       },
 

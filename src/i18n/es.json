@@ -197,7 +197,24 @@
     "invalidSet": "Escribe las repeticiones antes de marcar la serie",
     "restDone": "¡Descanso terminado!",
     "restClose": "Cerrar",
-    "restSetting": "Descanso entre series: {{time}}. Pulsa para cambiarlo"
+    "restSetting": "Descanso entre series: {{time}}. Pulsa para cambiarlo",
+    "target": "Objetivo: {{reps}} reps",
+    "keyCue": "Clave: {{cue}}",
+    "exerciseActions": "Opciones de {{name}}",
+    "swap": "Cambiar ejercicio",
+    "swapTitle": "Alternativas a {{name}} con tu material",
+    "swapTo": "Cambiar a {{name}}",
+    "swapLocked": "Ya has marcado series de este ejercicio: para hacer otro, añádelo aparte.",
+    "addNote": "Añadir nota",
+    "editNote": "Editar nota",
+    "remove": "Quitar",
+    "notePlaceholder": "Nota: asiento, agarre, molestias…",
+    "noteLabel": "Nota de {{name}}",
+    "tipsTitle": "Cómo se apunta un entreno",
+    "tipTick": "Escribe peso y repeticiones y marca ✓ al terminar cada serie: el descanso empieza solo.",
+    "tipPrevious": "Los números en gris son lo que hiciste la última vez. Tócalos para copiarlos.",
+    "tipRir": "RIR son las repeticiones que te quedaban en la recámara. Si no lo tienes claro, déjalo sin anotar.",
+    "tipsDismiss": "Entendido"
   },
   "summary": {
     "title": "Entreno guardado",
@@ -455,7 +472,13 @@
     "signOutPending_other": "Tienes {{count}} entrenos sin subir. Si cierras sesión se borrarán de este dispositivo y no llegarán a tu cuenta.",
     "signOutActive": "Tienes un entreno en curso. Si cierras sesión se perderá.",
     "signOutCancel": "Cancelar",
-    "signOutAnyway": "Cerrar sesión igualmente"
+    "signOutAnyway": "Cerrar sesión igualmente",
+    "preferences": "Preferencias",
+    "beginnerMode": "Modo principiante",
+    "beginnerModeHint": "Explica cada paso mientras entrenas y deja a la vista la clave de técnica de cada ejercicio.",
+    "on": "Activado",
+    "off": "Desactivado",
+    "saveError": "No hemos podido guardar el cambio. Comprueba tu conexión."
   },
   "privacy": {
     "title": "Privacidad",
@@ -626,7 +649,8 @@
     "activeHint": "Tienes un entreno en curso: termínalo antes de repetir este.",
     "rir": "RIR {{rir}}",
     "e1rm": "1RM est. {{value}}",
-    "saveAsRoutine": "Guardar como rutina"
+    "saveAsRoutine": "Guardar como rutina",
+    "note": "Nota: {{note}}"
   },
   "records": {
     "title_one": "¡Nuevo récord!",
@@ -807,7 +831,6 @@
     "week1": "La primera semana ({{count}} sesiones en total)",
     "weekByWeek": "Semana a semana",
     "rir": "RIR {{rir}}",
-    "rirHint": "Esta semana deja {{rir}} repeticiones en la recámara.",
     "why": "Por qué funciona",
     "references": "De dónde sale",
     "start": "Empezar este programa",
@@ -829,7 +852,9 @@
     "errors": {
       "start": "No hemos podido empezar el programa. Necesitas conexión.",
       "leave": "No hemos podido guardarlo. Comprueba tu conexión."
-    }
+    },
+    "rirHint_one": "Esta semana deja {{count}} repetición en la recámara.",
+    "rirHint_other": "Esta semana deja {{count}} repeticiones en la recámara."
   },
   "muscleMap": {
     "primary": "Músculos principales: {{muscles}}.",

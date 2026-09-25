@@ -7,9 +7,10 @@ import { StyleSheet, View } from 'react-native';
 import { AppText } from '@/components/ui/app-text';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Chip } from '@/components/ui/chip';
 import { Screen } from '@/components/ui/screen';
 import { useAuth } from '@/features/auth/auth-provider';
-import { useProfile } from '@/features/profile/profile-api';
+import { useProfile, useUpdateProfile } from '@/features/profile/profile-api';
 import { clearLocalMeasurements } from '@/features/measurements/measurements-api';
 import { clearLocalProgram } from '@/features/programs/programs-api';
 import { clearLocalRoutines } from '@/features/routines/routines-api';
@@ -25,6 +26,7 @@ export default function ProfileScreen() {
   const { t } = useTranslation();
   const { session } = useAuth();
   const profile = useProfile();
+  const update = useUpdateProfile();
   const queryClient = useQueryClient();
   const data = profile.data;
   const { pending } = useWorkoutSync();
@@ -82,6 +84,31 @@ export default function ProfileScreen() {
         ))}
       </Card>
 
+      <Card>
+        <AppText variant="heading" role="heading">
+          {t('profile.preferences')}
+        </AppText>
+        <View style={styles.preference}>
+          <View style={styles.flex}>
+            <AppText>{t('profile.beginnerMode')}</AppText>
+            <AppText variant="caption" tone="muted">
+              {t('profile.beginnerModeHint')}
+            </AppText>
+          </View>
+          <Chip
+            role="checkbox"
+            label={data?.beginner_mode ? t('profile.on') : t('profile.off')}
+            selected={data?.beginner_mode ?? false}
+            onPress={() => update.mutate({ beginner_mode: !(data?.beginner_mode ?? false) })}
+          />
+        </View>
+        {update.isError ? (
+          <AppText variant="caption" tone="danger" role="alert">
+            {t('profile.saveError')}
+          </AppText>
+        ) : null}
+      </Card>
+
       <Link href="/privacidad" style={styles.link}>
         <AppText tone="accent" variant="label">
           {t('profile.privacy')}
@@ -136,6 +163,11 @@ const styles = StyleSheet.create({
   },
   flex: {
     flex: 1,
+  },
+  preference: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
   },
   warning: {
     borderColor: colors.warning,
