@@ -35,6 +35,25 @@ test.describe('landing', () => {
     expect(errors).toEqual([]);
   });
 
+  test.describe('in an English browser', () => {
+    test.use({ locale: 'en-US' });
+
+    test('hydrates the Spanish HTML and then switches to English', async ({ page }) => {
+      const errors = collectErrors(page);
+
+      // The HTML is Spanish whatever language the build machine speaks (the CI runner speaks English).
+      const response = await page.request.get('/bienvenida');
+      expect(await response.text()).toContain('Tu camino,');
+
+      await page.goto('/bienvenida');
+      await expect(page.getByRole('heading', { name: /Your path/ })).toBeVisible();
+      await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+      await page.waitForLoadState('networkidle');
+
+      expect(errors).toEqual([]);
+    });
+  });
+
   test('sends a visitor to sign up', async ({ page }) => {
     await page.goto('/bienvenida');
     await page.getByRole('button', { name: 'Empezar gratis' }).first().click();

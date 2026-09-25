@@ -6,6 +6,7 @@ import { useAuth } from '@/features/auth/auth-provider';
 import { historyKeys } from '@/features/history/history-api';
 import { readOutbox } from '@/features/workout/workout-storage';
 import { flushOutbox } from '@/features/workout/workout-sync';
+import { isDemoMode } from '@/lib/demo-mode';
 import { isSupabaseConfigured } from '@/lib/supabase';
 
 /**
@@ -20,7 +21,7 @@ export function useWorkoutSync() {
   const query = useQuery({
     queryKey: ['workout-outbox', userId],
     queryFn: async () => {
-      if (userId && isSupabaseConfigured) {
+      if (userId && (isSupabaseConfigured || isDemoMode())) {
         const result = await flushOutbox(userId);
         if (result.uploaded > 0) {
           await queryClient.invalidateQueries({ queryKey: historyKeys.all(userId) });

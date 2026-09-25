@@ -1,4 +1,4 @@
-import '@/i18n';
+import { LanguageProvider } from '@/i18n';
 
 import {
   BarlowCondensed_600SemiBold,
@@ -65,14 +65,16 @@ export default function RootLayout() {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <ThemeProvider value={navigationTheme}>
-          <StatusBar style="light" />
-          <RootNavigator />
-        </ThemeProvider>
-      </AuthProvider>
-    </QueryClientProvider>
+    <LanguageProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <ThemeProvider value={navigationTheme}>
+            <StatusBar style="light" />
+            <RootNavigator />
+          </ThemeProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+    </LanguageProvider>
   );
 }
 

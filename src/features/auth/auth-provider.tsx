@@ -1,5 +1,12 @@
 import type { Session } from '@supabase/supabase-js';
-import { createContext, use, useEffect, useState, type ReactNode } from 'react';
+import {
+  createContext,
+  use,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from 'react';
 
 import { DEMO_SESSION, useDemoMode } from '@/lib/demo-mode';
 import { supabase } from '@/lib/supabase';
@@ -11,8 +18,28 @@ type AuthState = {
 
 const AuthContext = createContext<AuthState>({ session: null, isLoading: false });
 
+const LOADING_STATE: AuthState = { session: null, isLoading: true };
+
+const noSubscription = () => () => {};
+
+/**
+ * False while rendering the static HTML and while the browser hydrates it, true from then on (and
+ * always on the phone). The demo flag lives in the browser, so until hydration ends nobody knows
+ * whether this is the demo: reporting "signed out" in that gap made the guards redirect a demo
+ * visitor who reloaded /ejercicios back to Today. It only showed without Supabase (as in CI),
+ * because with Supabase the session is still loading at that point anyway.
+ */
+function useHydrated(): boolean {
+  return useSyncExternalStore(
+    noSubscription,
+    () => true,
+    () => false,
+  );
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const demo = useDemoMode();
+  const hydrated = useHydrated();
   const [state, setState] = useState<AuthState>({
     session: null,
     isLoading: supabase !== null,
@@ -37,7 +64,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   // The demo has its own made-up person and never looks at the real session.
-  const value = demo ? DEMO_STATE : state;
+  const value = demo ? DEMO_STATE : hydrated ? state : LOADING_STATE;
   return <AuthContext value={value}>{children}</AuthContext>;
 }
 

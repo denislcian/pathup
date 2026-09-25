@@ -38,6 +38,7 @@ import {
   type PreviousByExercise,
 } from '@/features/workout/workout-storage';
 import { uploadWorkout } from '@/features/workout/workout-sync';
+import { isDemoMode } from '@/lib/demo-mode';
 import { isSupabaseConfigured } from '@/lib/supabase';
 import { colors, minTouchTarget, radius, spacing } from '@/theme/tokens';
 
@@ -97,7 +98,7 @@ export default function ActiveWorkoutScreen() {
       await savePreviousPerformance(toPreviousPerformance(finished));
       await enqueueWorkout(finished);
 
-      if (session && isSupabaseConfigured) {
+      if (session && (isSupabaseConfigured || isDemoMode())) {
         try {
           await uploadWorkout(session.user.id, finished);
           await removeFromOutbox(finished.id);
