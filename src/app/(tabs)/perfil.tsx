@@ -9,17 +9,11 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Chip } from '@/components/ui/chip';
 import { Screen } from '@/components/ui/screen';
+import { signOutAndForget } from '@/features/account/sign-out';
 import { useAuth } from '@/features/auth/auth-provider';
 import { useProfile, useUpdateProfile } from '@/features/profile/profile-api';
-import { clearLocalMeasurements } from '@/features/measurements/measurements-api';
-import { clearLocalProgram } from '@/features/programs/programs-api';
-import { clearLocalRoutines } from '@/features/routines/routines-api';
-import { clearLocalWellness } from '@/features/wellness/wellness-api';
 import { useActiveWorkout } from '@/features/workout/active-workout-store';
-import { useFinishedWorkout } from '@/features/workout/finished-workout-store';
 import { useWorkoutSync } from '@/features/workout/use-workout-sync';
-import { clearLocalWorkouts } from '@/features/workout/workout-storage';
-import { supabase } from '@/lib/supabase';
 import { colors, spacing } from '@/theme/tokens';
 
 export default function ProfileScreen() {
@@ -35,16 +29,8 @@ export default function ProfileScreen() {
   const unsaved = pending > 0 || active !== null;
 
   async function signOut() {
-    await supabase?.auth.signOut();
     // Nothing of this account stays on the device for the next person who signs in.
-    await clearLocalWorkouts();
-    await clearLocalRoutines();
-    await clearLocalMeasurements();
-    await clearLocalProgram();
-    await clearLocalWellness();
-    useActiveWorkout.getState().discard();
-    useFinishedWorkout.getState().clear();
-    queryClient.clear();
+    await signOutAndForget(queryClient);
   }
 
   const rows = data
@@ -108,6 +94,12 @@ export default function ProfileScreen() {
           </AppText>
         ) : null}
       </Card>
+
+      <Link href="/cuenta" style={styles.link}>
+        <AppText tone="accent" variant="label">
+          {t('profile.yourData')}
+        </AppText>
+      </Link>
 
       <Link href="/privacidad" style={styles.link}>
         <AppText tone="accent" variant="label">

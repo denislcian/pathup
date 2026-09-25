@@ -143,6 +143,7 @@ function RootNavigator() {
           name="historial/[id]"
           options={{ headerShown: true, title: t('history.detailTitle') }}
         />
+        <Stack.Screen name="cuenta" options={{ headerShown: true, title: t('account.title') }} />
         <Stack.Screen
           name="bienestar/respiracion"
           options={{ headerShown: true, title: t('wellness.breathingTitle') }}

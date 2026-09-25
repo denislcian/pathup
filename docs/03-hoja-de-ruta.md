@@ -97,7 +97,8 @@ Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguient
 - Tarea keep-alive de Supabase.
 - Flujos E2E con Maestro: registro, entreno sin red y check-in.
 - Revisión de accesibilidad: lector de pantalla, contraste y tamaño de texto.
-- Pantallas de privacidad: exportar datos y borrar cuenta. Política de privacidad publicada.
+- [x] Exportar todos tus datos en JSON y borrar la cuenta con todo su contenido, con confirmación escrita (25 sep).
+- Política de privacidad publicada.
 - README con GIF, capturas, diagrama, decisiones técnicas y enlace a la demo.
 - **Tú:** 10 probadores durante 2 semanas (amistades, gente del gimnasio).
 - **Puerta:** un reclutador abre el enlace y en 60 s está viendo un entreno registrado.

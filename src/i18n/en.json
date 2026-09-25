@@ -478,7 +478,8 @@
     "beginnerModeHint": "Explains each step while you train and keeps each exercise's key technique cue in view.",
     "on": "On",
     "off": "Off",
-    "saveError": "We couldn't save the change. Check your connection."
+    "saveError": "We couldn't save the change. Check your connection.",
+    "yourData": "Your data and your account"
   },
   "privacy": {
     "title": "Privacy",
@@ -492,7 +493,7 @@
     "whereTitle": "Where",
     "whereBody": "On Supabase servers in the European Union (Frankfurt).",
     "rightsTitle": "Your rights",
-    "rightsBody": "You'll be able to export all your data and delete your account from the app. People under 16 can't sign up; profiles of 16 and 17 year olds are always private."
+    "rightsBody": "You can download all your data and delete your account whenever you want, from Profile → Your data and your account. People under 16 cannot sign up; from 16 to 17 the profile is always private."
   },
   "landing": {
     "metaTitle": "PathUp · Free workouts, guided programs and wellness",
@@ -865,5 +866,27 @@
     },
     "legendPrimary": "Main",
     "legendSecondary": "Also works"
+  },
+  "account": {
+    "title": "Your data",
+    "subtitle": "Download it or delete your account",
+    "exportTitle": "Download your data",
+    "exportBody": "A JSON file with everything PathUp stores about you: profile, workouts, routines, measurements, programme and check-ins. It is yours: keep it or take it to another app.",
+    "export": "Download my data",
+    "exporting": "Preparing the file…",
+    "exported": "File ready.",
+    "deleteTitle": "Delete your account",
+    "deleteBody": "Your account and everything in it are deleted for good: profile, workouts, records, routines, measurements, programme and check-ins. This cannot be undone. If you want to keep something, download your data first.",
+    "pendingWarning_one": "You have {{count}} workout on this device that has not uploaded yet: it will be lost too.",
+    "pendingWarning_other": "You have {{count}} workouts on this device that have not uploaded yet: they will be lost too.",
+    "demoHint": "This is the demo: there is no real account to delete, only this device is cleared.",
+    "confirmWord": "DELETE",
+    "confirmLabel": "Type {{word}} to confirm",
+    "delete": "Delete my account for good",
+    "deleting": "Deleting…",
+    "errors": {
+      "export": "We couldn't prepare the file. You need a connection.",
+      "delete": "We couldn't delete the account. Check your connection and try again."
+    }
   }
 }

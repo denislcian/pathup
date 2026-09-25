@@ -20,6 +20,7 @@ export { default as CircleUser } from 'lucide-react-native/icons/circle-user';
 export { default as CloudOff } from 'lucide-react-native/icons/cloud-off';
 export { default as CloudUpload } from 'lucide-react-native/icons/cloud-upload';
 export { default as Copy } from 'lucide-react-native/icons/copy';
+export { default as Download } from 'lucide-react-native/icons/download';
 export { default as Dumbbell } from 'lucide-react-native/icons/dumbbell';
 export { default as Ellipsis } from 'lucide-react-native/icons/ellipsis';
 export { default as Eye } from 'lucide-react-native/icons/eye';

@@ -478,7 +478,8 @@
     "beginnerModeHint": "Explica cada paso mientras entrenas y deja a la vista la clave de técnica de cada ejercicio.",
     "on": "Activado",
     "off": "Desactivado",
-    "saveError": "No hemos podido guardar el cambio. Comprueba tu conexión."
+    "saveError": "No hemos podido guardar el cambio. Comprueba tu conexión.",
+    "yourData": "Tus datos y tu cuenta"
   },
   "privacy": {
     "title": "Privacidad",
@@ -492,7 +493,7 @@
     "whereTitle": "Dónde",
     "whereBody": "En servidores de Supabase en la Unión Europea (Frankfurt).",
     "rightsTitle": "Tus derechos",
-    "rightsBody": "Podrás exportar todos tus datos y borrar tu cuenta desde la app. Menores de 16 años no pueden registrarse; de 16 a 17 años el perfil es siempre privado."
+    "rightsBody": "Puedes descargar todos tus datos y borrar tu cuenta cuando quieras, desde Perfil → Tus datos y tu cuenta. Menores de 16 años no pueden registrarse; de 16 a 17 años el perfil es siempre privado."
   },
   "landing": {
     "metaTitle": "PathUp · Entrenos, programas guiados y bienestar gratis",
@@ -865,5 +866,27 @@
     },
     "legendPrimary": "Principal",
     "legendSecondary": "También trabaja"
+  },
+  "account": {
+    "title": "Tus datos",
+    "subtitle": "Descárgalos o borra tu cuenta",
+    "exportTitle": "Descargar tus datos",
+    "exportBody": "Un archivo JSON con todo lo que PathUp guarda de ti: perfil, entrenos, rutinas, medidas, programa y check-ins. Es tuyo: puedes guardarlo o llevártelo a otra app.",
+    "export": "Descargar mis datos",
+    "exporting": "Preparando el archivo…",
+    "exported": "Archivo preparado.",
+    "deleteTitle": "Borrar tu cuenta",
+    "deleteBody": "Se borran para siempre tu cuenta y todo lo que hay en ella: perfil, entrenos, récords, rutinas, medidas, programa y check-ins. No se puede deshacer. Si quieres conservar algo, descarga antes tus datos.",
+    "pendingWarning_one": "Tienes {{count}} entreno en este dispositivo que aún no se ha subido: también se perderá.",
+    "pendingWarning_other": "Tienes {{count}} entrenos en este dispositivo que aún no se han subido: también se perderán.",
+    "demoHint": "Estás en la demo: no hay ninguna cuenta real que borrar, solo se vacía lo que hay en este dispositivo.",
+    "confirmWord": "BORRAR",
+    "confirmLabel": "Escribe {{word}} para confirmar",
+    "delete": "Borrar mi cuenta para siempre",
+    "deleting": "Borrando…",
+    "errors": {
+      "export": "No hemos podido preparar el archivo. Necesitas conexión.",
+      "delete": "No hemos podido borrar la cuenta. Comprueba tu conexión y vuelve a probar."
+    }
   }
 }
