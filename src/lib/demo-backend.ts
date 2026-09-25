@@ -1,141 +1,147 @@
+import { getExercise } from '@/data/exercises';
+import { PROGRAMS } from '@/data/programs';
 import { dayKey, type Habit, type HabitLog } from '@/domain/habits';
 import type { Measurement } from '@/domain/measurements';
-import { sessionKey } from '@/domain/programs';
+import { sessionKey, suggestNextSet } from '@/domain/programs';
 import type { Routine } from '@/domain/routines';
 import type { Checkin } from '@/domain/wellness';
-import type { LoggedSet, SetType, Workout } from '@/domain/workout';
+import {
+  toPreviousPerformance,
+  type LoggedSet,
+  type PreviousPerformance,
+  type SetType,
+  type Workout,
+} from '@/domain/workout';
 
 /**
- * In-memory stand-in for the database while previewing the app with `?demo=1` (development only,
- * see demo-mode.ts). It starts with eight weeks of realistic training so every screen has data.
+ * In-memory stand-in for the database in the public demo ("Probar sin cuenta", see demo-mode.ts).
+ * It starts with eight weeks of realistic training so every screen has data.
  */
 
-type Plan = { slug: string; sets: number; reps: number; start: number; step: number };
+/** Marcos's first working weight on each exercise of Torso / Pierna, week 1. */
+const START_KG: Record<string, number> = {
+  'press-banca-barra': 70,
+  'remo-barra': 60,
+  'press-militar-mancuernas': 18,
+  'jalon-pecho': 55,
+  'elevaciones-laterales': 8,
+  'curl-biceps-mancuernas': 12,
+  'extension-triceps-sobre-cabeza': 18,
+  'sentadilla-trasera-barra': 85,
+  'peso-muerto-rumano': 80,
+  'prensa-piernas': 140,
+  'curl-femoral-tumbado': 35,
+  'elevacion-gemelos': 50,
+  plancha: 0,
+  'press-inclinado-mancuernas': 24,
+  'dominadas-asistidas': 25,
+  'remo-polea-sentado': 55,
+  'face-pull': 20,
+  'curl-martillo': 14,
+  'press-frances': 25,
+  'hip-thrust': 100,
+  'sentadilla-bulgara': 14,
+  'extension-cuadriceps': 45,
+  'curl-femoral-sentado': 40,
+  'crunch-polea': 35,
+};
 
-const DAYS: { weekday: number; name: string; plan: Plan[] }[] = [
-  {
-    weekday: 1,
-    name: 'Torso A',
-    plan: [
-      { slug: 'press-banca-barra', sets: 3, reps: 8, start: 70, step: 2.5 },
-      { slug: 'remo-barra', sets: 3, reps: 10, start: 55, step: 2.5 },
-      { slug: 'press-militar-mancuernas', sets: 3, reps: 10, start: 16, step: 1 },
-      { slug: 'curl-biceps-mancuernas', sets: 2, reps: 12, start: 10, step: 0.5 },
-      { slug: 'extension-triceps-polea', sets: 2, reps: 12, start: 20, step: 1.25 },
-    ],
-  },
-  {
-    weekday: 2,
-    name: 'Pierna A',
-    plan: [
-      { slug: 'sentadilla-goblet', sets: 3, reps: 10, start: 24, step: 2 },
-      { slug: 'peso-muerto-rumano', sets: 3, reps: 8, start: 70, step: 2.5 },
-      { slug: 'prensa-piernas', sets: 3, reps: 12, start: 120, step: 5 },
-      { slug: 'elevacion-gemelos', sets: 3, reps: 15, start: 40, step: 2.5 },
-    ],
-  },
-  {
-    weekday: 4,
-    name: 'Torso B',
-    plan: [
-      { slug: 'press-inclinado-mancuernas', sets: 3, reps: 10, start: 24, step: 1 },
-      { slug: 'jalon-pecho', sets: 3, reps: 10, start: 50, step: 2.5 },
-      { slug: 'elevaciones-laterales', sets: 3, reps: 15, start: 8, step: 0.5 },
-      { slug: 'flexiones', sets: 2, reps: 15, start: 0, step: 0 },
-    ],
-  },
-  {
-    weekday: 6,
-    name: 'Pierna B',
-    plan: [
-      { slug: 'hip-thrust', sets: 3, reps: 10, start: 80, step: 5 },
-      { slug: 'zancadas', sets: 3, reps: 10, start: 12, step: 1 },
-      { slug: 'curl-femoral-sentado', sets: 3, reps: 12, start: 35, step: 2.5 },
-      { slug: 'crunch-polea', sets: 3, reps: 12, start: 30, step: 2.5 },
-    ],
-  },
-];
-
+/** Monday, Tuesday, Thursday and Saturday. */
+const WEEKDAYS = [1, 2, 4, 6];
 const WEEKS = 8;
 const DEMO_PROGRAM = 'torso-pierna';
 
-function buildSet(id: string, type: SetType, weightKg: number, reps: number, at: Date): LoggedSet {
-  return {
-    id,
-    type,
-    weightKg,
-    reps,
-    rir: type === 'warmup' ? null : 2,
-    completedAt: at.toISOString(),
-  };
+function buildSet(
+  id: string,
+  type: SetType,
+  weightKg: number,
+  reps: number,
+  rir: number | null,
+  at: Date,
+): LoggedSet {
+  return { id, type, weightKg, reps, rir, completedAt: at.toISOString() };
 }
 
+/**
+ * Eight weeks of the Torso / Pierna programme, each session logged the way the app itself
+ * suggests (double progression, src/domain/programs.ts). So the demo shows what a real user sees:
+ * last time's sets in grey, and the weights of the next session already filled in.
+ */
 export function buildDemoWorkouts(now: Date): Workout[] {
+  const program = PROGRAMS.find((item) => item.slug === DEMO_PROGRAM)!;
+  const previous: Record<string, PreviousPerformance> = {};
   const workouts: Workout[] = [];
   const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7) - 7 * (WEEKS - 1));
 
   for (let week = 0; week < WEEKS; week += 1) {
-    for (const [dayIndex, day] of DAYS.entries()) {
+    const rir = program.weeks[week]?.rir ?? 2;
+    for (const [dayIndex, session] of program.sessions.entries()) {
       // One missed session this week, like real life: the programme offers it again instead of
       // losing the week.
       if (week === WEEKS - 1 && dayIndex === 1) continue;
       const started = new Date(monday);
-      started.setDate(started.getDate() + week * 7 + (day.weekday - 1));
+      started.setDate(started.getDate() + week * 7 + (WEEKDAYS[dayIndex]! - 1));
       started.setHours(18, 30, 0, 0);
       if (started > now) continue;
 
       const id = `demo-w${week}-${dayIndex}`;
       let clock = new Date(started.getTime() + 5 * 60 * 1000);
-      const exercises = day.plan.map((plan, position) => {
-        // Double progression: reps climb for a week, then the weight goes up.
-        const level = Math.floor(week / 2);
-        const weightKg = plan.start + plan.step * level;
-        const reps = plan.reps + (week % 2) + (plan.step === 0 ? week : 0);
+      const exercises = session.exercises.map((planned, position) => {
+        const equipment = getExercise(planned.slug)?.equipment ?? [];
+        const suggestion = suggestNextSet(previous[planned.slug], planned, equipment);
+        const first = suggestion.kind === 'start';
+        const weightKg = first ? (START_KG[planned.slug] ?? 0) : suggestion.weightKg;
+        const reps = first ? planned.repMin + 1 : suggestion.reps;
+
         const sets: LoggedSet[] = [];
         if (position === 0 && weightKg > 20) {
           clock = new Date(clock.getTime() + 3 * 60 * 1000);
+          const warmupKg = Math.round((weightKg * 0.5) / 2.5) * 2.5;
+          sets.push(buildSet(`${id}-${position}-w`, 'warmup', warmupKg, 10, null, clock));
+        }
+        for (let index = 0; index < planned.sets; index += 1) {
+          clock = new Date(clock.getTime() + 3 * 60 * 1000);
+          // Every other week the last set loses a rep, so the climb is not a straight line.
+          const tired = index === planned.sets - 1 && week % 2 === 1;
+          const setReps = tired ? Math.max(reps - 1, 1) : reps;
           sets.push(
-            buildSet(`${id}-${position}-w`, 'warmup', Math.round(weightKg * 0.5), 10, clock),
+            buildSet(`${id}-${position}-${index}`, 'normal', weightKg, setReps, rir, clock),
           );
         }
-        for (let index = 0; index < plan.sets; index += 1) {
-          clock = new Date(clock.getTime() + 3 * 60 * 1000);
-          // The last set usually loses a rep.
-          const setReps = index === plan.sets - 1 ? Math.max(reps - 1, 1) : reps;
-          sets.push(buildSet(`${id}-${position}-${index}`, 'normal', weightKg, setReps, clock));
-        }
-        return { id: `${id}-${position}`, slug: plan.slug, sets };
+        return { id: `${id}-${position}`, slug: planned.slug, sets };
       });
 
-      workouts.push({
+      const workout: Workout = {
         id,
-        name: day.name,
+        name: session.name,
         startedAt: started.toISOString(),
         endedAt: new Date(clock.getTime() + 4 * 60 * 1000).toISOString(),
         exercises,
-        // The demo history is the Torso / Pierna programme, one missed session included.
         programSlug: DEMO_PROGRAM,
-        programSession: sessionKey(week + 1, ['a', 'b', 'c', 'd'][dayIndex]),
-      });
+        programSession: sessionKey(week + 1, session.key),
+      };
+      for (const entry of toPreviousPerformance(workout)) previous[entry.slug] = entry;
+      workouts.push(workout);
     }
   }
   return workouts;
 }
 
-/** The four sessions above, saved as routines in a "Torso / Pierna" folder. */
+/** The programme's four sessions, saved as routines in a "Torso / Pierna" folder. */
 export function buildDemoRoutines(): Routine[] {
-  return DAYS.map((day, index) => ({
+  const program = PROGRAMS.find((item) => item.slug === DEMO_PROGRAM)!;
+  return program.sessions.map((session, index) => ({
     id: `demo-r${index}`,
-    name: day.name,
+    name: session.name,
     folder: 'Torso / Pierna',
     position: index,
-    exercises: day.plan.map((plan, position) => ({
+    exercises: session.exercises.map((planned, position) => ({
       id: `demo-r${index}-${position}`,
-      slug: plan.slug,
-      sets: plan.sets,
-      repMin: plan.reps,
-      repMax: plan.reps + 2,
+      slug: planned.slug,
+      sets: planned.sets,
+      repMin: planned.repMin,
+      repMax: planned.repMax,
     })),
   }));
 }

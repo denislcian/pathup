@@ -23,6 +23,7 @@ import { Pressable, ScrollView, StyleSheet, View, type LayoutChangeEvent } from 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '@/components/ui/app-text';
+import { Chip } from '@/components/ui/chip';
 import { Button } from '@/components/ui/button';
 import {
   LoggerPreview,
@@ -202,6 +203,7 @@ export function LandingScreen() {
                 <InfoCard
                   key={key}
                   icon={icon}
+                  soon={key === 'nutrition' || key === 'community'}
                   title={t(`landing.features.${key}Title`)}
                   body={t(`landing.features.${key}Body`)}
                 />
@@ -267,7 +269,8 @@ export function LandingScreen() {
             {(['sep', 'oct', 'nov', 'dec'] as const).map((key, index) => (
               <RoadmapItem
                 key={key}
-                done={index === 0}
+                // Workouts, programmes, progress and wellness arrived ahead of October.
+                done={index <= 1}
                 title={t(`landing.roadmap.${key}Title`)}
                 body={t(`landing.roadmap.${key}Body`)}
               />
@@ -404,20 +407,27 @@ function InfoCard({
   title,
   body,
   plain = false,
+  soon = false,
 }: {
   icon: LucideIcon;
   title: string;
   body: string;
   plain?: boolean;
+  /** Not in the app yet: says so instead of promising it. */
+  soon?: boolean;
 }) {
+  const { t } = useTranslation();
   return (
     <View style={[styles.infoCard, plain && styles.infoCardPlain]}>
       <View style={styles.infoIcon} aria-hidden>
         <Icon color={colors.accent} size={22} />
       </View>
-      <AppText variant="heading" role="heading">
-        {title}
-      </AppText>
+      <View style={styles.infoTitle}>
+        <AppText variant="heading" role="heading">
+          {title}
+        </AppText>
+        {soon ? <Chip label={t('landing.roadmap.next')} variant="outline" /> : null}
+      </View>
       <AppText tone="muted">{body}</AppText>
     </View>
   );
@@ -663,6 +673,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: spacing.xs,
+  },
+  infoTitle: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: spacing.sm,
   },
   roadmapItem: {
     flex: 1,

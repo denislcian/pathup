@@ -192,6 +192,39 @@ describe('logging a workout', () => {
     expect(useActiveWorkout.getState().workout!.exercises[0].sets[0].type).toBe('warmup');
   });
 
+  it('says which plates to load on each side of the bar', async () => {
+    const user = userEvent.setup();
+    await renderRouter('./src/app', { initialUrl: '/entreno' });
+
+    await user.press(
+      await screen.findByRole('button', { name: 'Empezar entreno vacío' }, ROUTER_TIMEOUT),
+    );
+    await user.press(
+      await screen.findByRole('button', { name: 'Añadir ejercicio' }, ROUTER_TIMEOUT),
+    );
+    await user.type(
+      await screen.findByRole('searchbox', { name: 'Buscar ejercicio' }, ROUTER_TIMEOUT),
+      'banca',
+    );
+    await user.press(await screen.findByRole('button', { name: /^Press banca con barra/ }));
+
+    const weight = await screen.findByLabelText(
+      'Peso en kilos, serie 1 de Press banca con barra',
+      {},
+      ROUTER_TIMEOUT,
+    );
+    await user.type(weight, '62,5');
+
+    expect(screen.getByText('Discos por lado para 62,5 kg')).toBeOnTheScreen();
+    expect(screen.getByText('20')).toBeOnTheScreen();
+    expect(screen.getByText('1,25')).toBeOnTheScreen();
+    expect(screen.getByText('Barra de 20 kg')).toBeOnTheScreen();
+
+    await user.clear(weight);
+    await user.type(weight, '15');
+    expect(screen.getByText('15 kg es menos que la barra de 20 kg')).toBeOnTheScreen();
+  });
+
   it('swaps an exercise for an alternative and keeps a note with the workout', async () => {
     const user = userEvent.setup();
     await renderRouter('./src/app', { initialUrl: '/entreno' });

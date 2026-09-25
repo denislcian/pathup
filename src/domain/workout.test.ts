@@ -1,4 +1,5 @@
 import {
+  previousSetFor,
   bestSet,
   countCompletedSets,
   formatDuration,
@@ -169,6 +170,43 @@ describe('isSetLoggable', () => {
     [{ weightKg: Number.NaN, reps: 8 }, false],
   ])('%p -> %p', (candidate, expected) => {
     expect(isSetLoggable(candidate)).toBe(expected);
+  });
+});
+
+describe('previousSetFor', () => {
+  const previous = {
+    slug: 'sentadilla-trasera-barra',
+    date: '2026-09-22',
+    sets: [
+      { weightKg: 45, reps: 10, type: 'warmup' as const },
+      { weightKg: 87.5, reps: 6, type: 'normal' as const },
+      { weightKg: 87.5, reps: 5, type: 'normal' as const },
+    ],
+  };
+
+  it('pairs working sets with last time working sets, skipping its warm-up', () => {
+    const today = [{ type: 'normal' as const }, { type: 'normal' as const }];
+    expect(previousSetFor(today, 0, previous)).toMatchObject({ weightKg: 87.5, reps: 6 });
+    expect(previousSetFor(today, 1, previous)).toMatchObject({ weightKg: 87.5, reps: 5 });
+  });
+
+  it('pairs warm-ups with warm-ups, and says nothing past what there was', () => {
+    const today = [
+      { type: 'warmup' as const },
+      { type: 'warmup' as const },
+      { type: 'normal' as const },
+      { type: 'failure' as const },
+      { type: 'normal' as const },
+    ];
+    expect(previousSetFor(today, 0, previous)).toMatchObject({ weightKg: 45 });
+    expect(previousSetFor(today, 1, previous)).toBeUndefined();
+    expect(previousSetFor(today, 2, previous)).toMatchObject({ reps: 6 });
+    expect(previousSetFor(today, 3, previous)).toMatchObject({ reps: 5 });
+    expect(previousSetFor(today, 4, previous)).toBeUndefined();
+  });
+
+  it('has nothing to show without a last time', () => {
+    expect(previousSetFor([{ type: 'normal' }], 0, undefined)).toBeUndefined();
   });
 });
 

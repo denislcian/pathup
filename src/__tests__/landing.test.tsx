@@ -33,8 +33,12 @@ describe('landing page', () => {
   it('is honest about what is available during the beta', async () => {
     await openLanding();
 
-    expect(screen.getAllByText('Disponible')).toHaveLength(1);
-    expect(screen.getAllByText('Próximamente')).toHaveLength(3);
+    // Roadmap: September and October are in the app, November and December are not.
+    expect(screen.getAllByText('Disponible')).toHaveLength(2);
+    // Plus the two features that are not built yet: nutrition and community.
+    expect(screen.getAllByText('Próximamente')).toHaveLength(4);
+    // Nothing the app cannot do yet is promised as if it could.
+    expect(screen.queryByText(/superseries|fotos/i)).not.toBeOnTheScreen();
   });
 
   it('expands and collapses frequently asked questions', async () => {

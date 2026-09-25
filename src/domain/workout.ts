@@ -168,6 +168,24 @@ export function setLabel(sets: readonly Pick<LoggedSet, 'type'>[], index: number
   return String(sets.slice(0, index + 1).filter((item) => item.type === 'normal').length);
 }
 
+/**
+ * Last time's set to show next to (and copy into) this one. Warm-ups pair with warm-ups and
+ * working sets with working sets: matching by position alone, a warm-up logged last time shifted
+ * every row, and the first working set showed the warm-up's 45 × 10.
+ */
+export function previousSetFor(
+  sets: readonly Pick<LoggedSet, 'type'>[],
+  index: number,
+  previous: PreviousPerformance | undefined,
+): PreviousPerformance['sets'][number] | undefined {
+  const set = sets[index];
+  if (!previous || !set) return undefined;
+  const warmup = set.type === 'warmup';
+  const sameKind = (item: Pick<LoggedSet, 'type'>) => (item.type === 'warmup') === warmup;
+  const position = sets.slice(0, index).filter(sameKind).length;
+  return previous.sets.filter(sameKind)[position];
+}
+
 export const RIR_OPTIONS = [0, 1, 2, 3, 4, 5] as const;
 
 /** Rest presets offered while logging, in seconds. */

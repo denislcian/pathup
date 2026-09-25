@@ -11,9 +11,11 @@ import { Card } from '@/components/ui/card';
 import { Chip } from '@/components/ui/chip';
 import { EXERCISES, getExercise } from '@/data/exercises';
 import { alternativesFor, type Equipment } from '@/domain/exercises';
+import { plateLoad } from '@/domain/plates';
 import {
   formatDuration,
   NOTE_MAX_LENGTH,
+  previousSetFor,
   RIR_OPTIONS,
   SET_TYPES,
   setLabel,
@@ -429,15 +431,73 @@ export function ExerciseCard({
           index={index}
           label={setLabel(exercise.sets, index)}
           exerciseName={name}
-          previous={previous?.sets[index]}
+          previous={previousSetFor(exercise.sets, index, previous)}
           onChange={(patch) => onChangeSet(set.id, patch)}
           onToggle={(fallback) => onToggleSet(set.id, fallback)}
           onRemove={() => onRemoveSet(set.id)}
         />
       ))}
 
+      {details?.equipment.includes('barbell') ? (
+        <PlateHint weightKg={nextSetWeight(exercise, previous)} />
+      ) : null}
+
       <Button label={t('logger.addSet')} variant="secondary" onPress={onAddSet} />
     </Card>
+  );
+}
+
+/** The weight of the next set to do: what is typed, or else last time's, which a tick would copy. */
+function nextSetWeight(exercise: LoggedExercise, previous?: PreviousPerformance): number {
+  const index = exercise.sets.findIndex((set) => set.completedAt === null);
+  if (index === -1) return 0;
+  const typed = exercise.sets[index]!.weightKg;
+  return typed > 0 ? typed : (previousSetFor(exercise.sets, index, previous)?.weightKg ?? 0);
+}
+
+/**
+ * Plates per side for the next set, so nobody does sums between sets. Drawn like the end of a
+ * bar: the heavier the plate, the taller.
+ */
+function PlateHint({ weightKg }: { weightKg: number }) {
+  const { t, i18n } = useTranslation();
+  if (weightKg <= 0) return null;
+
+  const kg = (value: number) =>
+    new Intl.NumberFormat(i18n.language, { maximumFractionDigits: 2 }).format(value);
+  const load = plateLoad(weightKg);
+
+  return (
+    <View style={styles.plates}>
+      {load.kind === 'plates' ? (
+        <>
+          <AppText variant="caption" tone="muted">
+            {t('logger.platesFor', { weight: kg(weightKg) })}
+          </AppText>
+          <View style={styles.plateRow}>
+            {load.perSide.map((plate, index) => (
+              <View key={index} style={[styles.plate, { height: 14 + Math.min(plate, 20) * 1.1 }]}>
+                <AppText style={styles.plateText}>{kg(plate)}</AppText>
+              </View>
+            ))}
+            <AppText variant="caption" tone="muted">
+              {t('logger.platesBar', { bar: kg(load.barKg) })}
+            </AppText>
+          </View>
+          {load.shortPerSideKg > 0 ? (
+            <AppText variant="caption" tone="warning">
+              {t('logger.platesShort', { kg: kg(load.shortPerSideKg) })}
+            </AppText>
+          ) : null}
+        </>
+      ) : (
+        <AppText variant="caption" tone="muted">
+          {load.kind === 'bar-only'
+            ? t('logger.platesBarOnly', { bar: kg(load.barKg) })
+            : t('logger.platesBelowBar', { weight: kg(weightKg), bar: kg(load.barKg) })}
+        </AppText>
+      )}
+    </View>
   );
 }
 
@@ -522,6 +582,31 @@ export function RestBar({
 }
 
 const styles = StyleSheet.create({
+  plates: {
+    gap: spacing.xs,
+    paddingTop: spacing.xs,
+  },
+  plateRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 3,
+  },
+  plate: {
+    minWidth: 30,
+    paddingHorizontal: 3,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.surface2,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  plateText: {
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 11,
+    lineHeight: 14,
+  },
   flex: {
     flex: 1,
   },

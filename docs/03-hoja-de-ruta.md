@@ -51,6 +51,8 @@ Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguient
 - [x] Tipo de serie (calentamiento, drop, al fallo) y RIR desde la app, descanso configurable y vibración al acabar (21 sep).
 - [x] Una serie sin repeticiones ya no se puede marcar: antes llegaba a la cola, la base de datos la rechazaba y atascaba la subida del resto (21 sep).
 - [ ] Superseries: fuera de alcance según la lista de recortes.
+- [x] Calculadora de discos: en los ejercicios con barra, qué discos van en cada lado para la siguiente serie (25 sep).
+- [x] «Anterior» empareja calentamientos con calentamientos y series efectivas con efectivas: un calentamiento de la vez pasada ya no desplaza todas las filas (25 sep).
 - [ ] **Tú:** entrenas una sesión real en el gimnasio con la app, **con el modo avión puesto**.
 - [ ] **Puerta:** la sesión completa llega a Supabase al recuperar la red, sin series perdidas ni duplicadas.
 
