@@ -1,5 +1,6 @@
 import type { QueryClient } from '@tanstack/react-query';
 
+import { clearLocalHabits } from '@/features/habits/habits-api';
 import { clearLocalMeasurements } from '@/features/measurements/measurements-api';
 import { clearLocalProgram } from '@/features/programs/programs-api';
 import { clearLocalRoutines } from '@/features/routines/routines-api';
@@ -21,6 +22,7 @@ export async function forgetThisDevice(queryClient: QueryClient): Promise<void> 
     clearLocalMeasurements(),
     clearLocalProgram(),
     clearLocalWellness(),
+    clearLocalHabits(),
   ]);
   useActiveWorkout.getState().discard();
   useFinishedWorkout.getState().clear();

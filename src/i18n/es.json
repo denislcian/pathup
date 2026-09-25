@@ -896,5 +896,62 @@
     "bannerBody": "Son 8 semanas de entrenos de Marcos, inventadas. Toca lo que quieras: empieza una sesión, cambia una rutina o haz el check-in. Nada sale de este dispositivo.",
     "createAccount": "Crear mi cuenta",
     "exit": "Salir de la demo"
+  },
+  "habits": {
+    "title": "Hábitos de hoy",
+    "progress": "{{done}} de {{total}} hechos",
+    "loading": "Cargando tus hábitos…",
+    "empty": "Elige uno para empezar, o crea el tuyo. Mejor pocos y fáciles que muchos a medias.",
+    "custom": "Crear uno propio",
+    "new": "Nuevo hábito",
+    "suggestions": {
+      "water": {
+        "name": "Beber agua",
+        "unit": "vasos"
+      },
+      "sleep": {
+        "name": "Dormir 7 horas",
+        "unit": ""
+      },
+      "walk": {
+        "name": "Caminar 30 minutos",
+        "unit": ""
+      },
+      "stretch": {
+        "name": "Estirar 10 minutos",
+        "unit": ""
+      },
+      "screens": {
+        "name": "Sin pantallas antes de dormir",
+        "unit": ""
+      },
+      "protein": {
+        "name": "Proteína en cada comida",
+        "unit": ""
+      }
+    },
+    "addOne": "{{name}}: {{count}} de {{target}}. Sumar uno",
+    "toggle": "{{name}}: marcar como hecho hoy",
+    "target": "{{target}} {{unit}} al día",
+    "streak_one": "{{count}} día seguido",
+    "streak_other": "{{count}} días seguidos",
+    "noStreak": "Hoy empieza la racha",
+    "weekLabel": "{{done}} de los últimos 7 días",
+    "delete": "Borrar",
+    "keep": "No",
+    "deleteNamed": "Borrar el hábito {{name}}",
+    "name": "Nombre",
+    "namePlaceholder": "Ej.: Leer 10 páginas",
+    "timesPerDay": "Veces al día",
+    "less": "Una vez menos",
+    "more": "Una vez más",
+    "unit": "Unidad (opcional)",
+    "unitPlaceholder": "Ej.: vasos, páginas",
+    "cancel": "Cancelar",
+    "save": "Guardar hábito",
+    "errors": {
+      "name": "Ponle un nombre",
+      "save": "No hemos podido guardar el cambio. Comprueba tu conexión."
+    }
   }
 }

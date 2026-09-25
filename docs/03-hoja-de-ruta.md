@@ -88,7 +88,8 @@ Cada fase termina con una **puerta**. Si no se cumple, no se empieza la siguient
 - [x] Check-in de 20 s (sueño, energía, estrés, agujetas y ánimo) y puntuación de preparación 0-100 ([decisión 0009](decisiones/0009-preparacion-y-ajuste.md), 22 sep).
 - [x] **Ajuste de la sesión de hoy** según la preparación, con explicación de por qué y opción de empezar sin ajustar (22 sep).
 - [x] Respiración guiada (caja 4-4-4-4 y 4-7-8) con animación y vibración en cada fase (22 sep).
-- [ ] Hábitos con rachas, podómetro y agua. Recordatorios locales.
+- [x] Hábitos con racha y los últimos 7 días, de marcar o de contar (el agua es un hábito de 8 vasos), con sugerencias de un toque (25 sep).
+- [ ] Podómetro y recordatorios locales: necesitan la app nativa, pasan a la fase 4 con el APK.
 - [ ] **Puerta:** 7 días seguidos de check-in tuyos y un ajuste de sesión que tenga sentido.
 
 ### Fase 4 · Listo para el CV (semana 7)

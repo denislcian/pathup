@@ -1,3 +1,4 @@
+import { fetchHabits } from '@/features/habits/habits-api';
 import { fetchProfile } from '@/features/profile/profile-api';
 import { fetchRemoteWorkouts } from '@/features/history/history-api';
 import { fetchMeasurements } from '@/features/measurements/measurements-api';
@@ -15,8 +16,8 @@ export const EXPORT_VERSION = 1;
  * portability). Workouts still waiting on the phone are included too, marked as such.
  */
 export async function exportMyData(userId: string): Promise<string> {
-  const [profile, workouts, routines, measurements, checkins, program, pending] = await Promise.all(
-    [
+  const [profile, workouts, routines, measurements, checkins, program, pending, habits] =
+    await Promise.all([
       isDemoMode() ? Promise.resolve(DEMO_PROFILE) : fetchProfile(userId),
       fetchRemoteWorkouts(),
       fetchRoutines(),
@@ -24,8 +25,8 @@ export async function exportMyData(userId: string): Promise<string> {
       fetchCheckins(),
       fetchActiveEnrollment(),
       readOutbox(),
-    ],
-  );
+      fetchHabits(),
+    ]);
 
   return JSON.stringify(
     {
@@ -39,6 +40,8 @@ export async function exportMyData(userId: string): Promise<string> {
       routines,
       bodyMeasurements: measurements,
       wellnessCheckins: checkins,
+      habits: habits.habits,
+      habitLogs: habits.logs,
     },
     null,
     2,

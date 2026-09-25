@@ -8,7 +8,10 @@ export type ChipProps = {
   label: string;
   selected?: boolean;
   onPress?: () => void;
-  /** `radio` for single choice groups, `checkbox` for toggles; static chips have no role. */
+  /**
+   * `radio` for single choice groups, `checkbox` for toggles. A tappable chip without either is a
+   * plain button; static chips have no role.
+   */
   role?: 'radio' | 'checkbox';
   variant?: 'filled' | 'outline';
 };
@@ -20,7 +23,7 @@ export function Chip({ label, selected = false, onPress, role, variant = 'filled
 
   return (
     <Pressable
-      role={role}
+      role={role ?? (interactive ? 'button' : undefined)}
       aria-checked={role ? selected : undefined}
       aria-label={label}
       disabled={!interactive}

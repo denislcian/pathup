@@ -1,3 +1,4 @@
+import { dayKey, type Habit, type HabitLog } from '@/domain/habits';
 import type { Measurement } from '@/domain/measurements';
 import { sessionKey } from '@/domain/programs';
 import type { Routine } from '@/domain/routines';
@@ -172,6 +173,35 @@ let enrollment: {
 } | null = null;
 let enrollmentReady = false;
 let checkins: Checkin[] | null = null;
+let habits: { habits: Habit[]; logs: HabitLog[] } | null = null;
+
+/** Three habits with two weeks of history: water most days, stretching on and off. */
+export function buildDemoHabits(now: Date): { habits: Habit[]; logs: HabitLog[] } {
+  const list: Habit[] = [
+    { id: 'demo-h-water', name: 'Beber agua', target: 8, unit: 'vasos', position: 0 },
+    { id: 'demo-h-stretch', name: 'Estirar 10 minutos', target: 1, unit: null, position: 1 },
+    {
+      id: 'demo-h-screens',
+      name: 'Sin pantallas antes de dormir',
+      target: 1,
+      unit: null,
+      position: 2,
+    },
+  ];
+  const logs: HabitLog[] = [];
+  for (let daysAgo = 0; daysAgo < 14; daysAgo += 1) {
+    const date = dayKey(new Date(now.getFullYear(), now.getMonth(), now.getDate() - daysAgo));
+    // Today is still in progress: a few glasses and nothing else yet.
+    if (daysAgo === 0) {
+      logs.push({ habitId: 'demo-h-water', date, count: 3 });
+      continue;
+    }
+    logs.push({ habitId: 'demo-h-water', date, count: daysAgo === 6 ? 5 : 8 });
+    if (daysAgo % 3 !== 0) logs.push({ habitId: 'demo-h-stretch', date, count: 1 });
+    if (daysAgo < 5) logs.push({ habitId: 'demo-h-screens', date, count: 1 });
+  }
+  return { habits: list, logs };
+}
 
 /** Two weeks of check-ins with the usual ups and downs. */
 export function buildDemoCheckins(now: Date): Checkin[] {
@@ -202,6 +232,7 @@ export const demoBackend = {
     enrollment = null;
     enrollmentReady = false;
     checkins = null;
+    habits = null;
   },
   listWorkouts(): Workout[] {
     workouts ??= buildDemoWorkouts(new Date());
@@ -256,6 +287,36 @@ export const demoBackend = {
   setEnrollmentStatus(id: string, status: 'active' | 'finished' | 'abandoned'): void {
     demoBackend.getEnrollment();
     if (enrollment && enrollment.id === id) enrollment = { ...enrollment, status };
+  },
+  listHabits(): { habits: Habit[]; logs: HabitLog[] } {
+    habits ??= buildDemoHabits(new Date());
+    return { habits: [...habits.habits], logs: [...habits.logs] };
+  },
+  saveHabit(habit: Habit): void {
+    const current = demoBackend.listHabits();
+    habits = {
+      habits: [...current.habits.filter((item) => item.id !== habit.id), habit].sort(
+        (a, b) => a.position - b.position,
+      ),
+      logs: current.logs,
+    };
+  },
+  deleteHabit(id: string): void {
+    const current = demoBackend.listHabits();
+    habits = {
+      habits: current.habits.filter((item) => item.id !== id),
+      logs: current.logs.filter((log) => log.habitId !== id),
+    };
+  },
+  logHabit(log: HabitLog): void {
+    const current = demoBackend.listHabits();
+    habits = {
+      habits: current.habits,
+      logs: [
+        ...current.logs.filter((item) => !(item.habitId === log.habitId && item.date === log.date)),
+        log,
+      ],
+    };
   },
   listCheckins(): Checkin[] {
     checkins ??= buildDemoCheckins(new Date());

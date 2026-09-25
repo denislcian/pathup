@@ -19,6 +19,7 @@ import {
   patternSeconds,
   readinessScore,
 } from '@/domain/wellness';
+import { HabitsSection } from '@/features/habits/habits-section';
 import { StatRow, StatTile } from '@/features/history/history-components';
 import { CheckinForm } from '@/features/wellness/checkin-form';
 import { ReadinessCard } from '@/features/wellness/readiness-card';
@@ -120,6 +121,8 @@ export default function WellnessScreen() {
           </View>,
 
           <View key="history" style={styles.stack}>
+            <HabitsSection today={today} />
+
             {series.length > 1 ? (
               <Card style={styles.card}>
                 <AppText variant="heading" role="heading">

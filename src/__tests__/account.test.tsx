@@ -37,6 +37,7 @@ jest.mock('@/lib/supabase', () => {
         then: (resolve: (value: unknown) => void) => resolve({ data: [], error: null }),
       }),
       eq: () => ({ maybeSingle: () => Promise.resolve({ data: null, error: null }) }),
+      gte: empty,
     }),
   });
   return {

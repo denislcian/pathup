@@ -896,5 +896,62 @@
     "bannerBody": "These are 8 weeks of Marcos's made-up workouts. Try anything: start a session, change a routine or do the check-in. Nothing leaves this device.",
     "createAccount": "Create my account",
     "exit": "Leave the demo"
+  },
+  "habits": {
+    "title": "Today's habits",
+    "progress": "{{done}} of {{total}} done",
+    "loading": "Loading your habits…",
+    "empty": "Pick one to start, or create your own. Better a few easy ones than many half done.",
+    "custom": "Create my own",
+    "new": "New habit",
+    "suggestions": {
+      "water": {
+        "name": "Drink water",
+        "unit": "glasses"
+      },
+      "sleep": {
+        "name": "Sleep 7 hours",
+        "unit": ""
+      },
+      "walk": {
+        "name": "Walk 30 minutes",
+        "unit": ""
+      },
+      "stretch": {
+        "name": "Stretch 10 minutes",
+        "unit": ""
+      },
+      "screens": {
+        "name": "No screens before bed",
+        "unit": ""
+      },
+      "protein": {
+        "name": "Protein with every meal",
+        "unit": ""
+      }
+    },
+    "addOne": "{{name}}: {{count}} of {{target}}. Add one",
+    "toggle": "{{name}}: mark as done today",
+    "target": "{{target}} {{unit}} a day",
+    "streak_one": "{{count}} day in a row",
+    "streak_other": "{{count}} days in a row",
+    "noStreak": "Your streak starts today",
+    "weekLabel": "{{done}} of the last 7 days",
+    "delete": "Delete",
+    "keep": "No",
+    "deleteNamed": "Delete the habit {{name}}",
+    "name": "Name",
+    "namePlaceholder": "E.g. Read 10 pages",
+    "timesPerDay": "Times a day",
+    "less": "One time fewer",
+    "more": "One more time",
+    "unit": "Unit (optional)",
+    "unitPlaceholder": "E.g. glasses, pages",
+    "cancel": "Cancel",
+    "save": "Save habit",
+    "errors": {
+      "name": "Give it a name",
+      "save": "We couldn't save the change. Check your connection."
+    }
   }
 }
