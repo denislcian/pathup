@@ -1,9 +1,11 @@
 import { Link } from 'expo-router';
-import { ChevronRight, Dumbbell, Plus, Search } from '@/components/icons';
+import { ChevronRight, Plus, Search } from '@/components/icons';
 import { useDeferredValue, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, Image, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 
+import { MuscleMap } from '@/components/muscle-map/muscle-map';
+import { bestView } from '@/components/muscle-map/regions';
 import { AppText } from '@/components/ui/app-text';
 import { Chip } from '@/components/ui/chip';
 import { useIsWide } from '@/components/ui/columns';
@@ -139,7 +141,16 @@ function ExerciseRow({
         {image ? (
           <Image source={image} style={styles.thumbImage} accessibilityIgnoresInvertColors />
         ) : (
-          <Dumbbell color={colors.textMuted} size={24} aria-hidden />
+          <View aria-hidden>
+            <MuscleMap
+              primary={exercise.primaryMuscles}
+              views={[bestView(exercise.primaryMuscles)]}
+              height={56}
+              crop
+              showLabels={false}
+              showLegend={false}
+            />
+          </View>
         )}
       </View>
       <View style={styles.itemText}>

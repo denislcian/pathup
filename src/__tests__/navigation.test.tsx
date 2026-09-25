@@ -97,7 +97,10 @@ describe('exercise library', () => {
     expect(
       await screen.findByRole('heading', { name: 'Claves de técnica' }, ROUTER_TIMEOUT),
     ).toBeOnTheScreen();
-    expect(screen.getByText('Imagen en preparación')).toBeOnTheScreen();
+    // No photo yet: the muscle map says what the exercise works.
+    expect(
+      screen.getByRole('img', { name: /^Músculos principales: Pecho\. También trabaja:/ }),
+    ).toBeOnTheScreen();
   });
 
   it('filters by what the user can train with', async () => {

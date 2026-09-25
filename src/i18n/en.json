@@ -236,7 +236,6 @@
   },
   "exercise": {
     "notFound": "We couldn't find this exercise",
-    "imagePending": "Image coming soon",
     "startPosition": "Start position",
     "endPosition": "End position",
     "primaryMuscles": "Main muscles",
@@ -831,5 +830,15 @@
       "start": "We couldn't start the programme. You need a connection.",
       "leave": "We couldn't save it. Check your connection."
     }
+  },
+  "muscleMap": {
+    "primary": "Main muscles: {{muscles}}.",
+    "secondary": "Also works: {{muscles}}.",
+    "views": {
+      "front": "Front",
+      "back": "Back"
+    },
+    "legendPrimary": "Main",
+    "legendSecondary": "Also works"
   }
 }

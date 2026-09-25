@@ -236,7 +236,6 @@
   },
   "exercise": {
     "notFound": "No encontramos este ejercicio",
-    "imagePending": "Imagen en preparación",
     "startPosition": "Posición inicial",
     "endPosition": "Posición final",
     "primaryMuscles": "Músculos principales",
@@ -831,5 +830,15 @@
       "start": "No hemos podido empezar el programa. Necesitas conexión.",
       "leave": "No hemos podido guardarlo. Comprueba tu conexión."
     }
+  },
+  "muscleMap": {
+    "primary": "Músculos principales: {{muscles}}.",
+    "secondary": "También trabaja: {{muscles}}.",
+    "views": {
+      "front": "Delante",
+      "back": "Detrás"
+    },
+    "legendPrimary": "Principal",
+    "legendSecondary": "También trabaja"
   }
 }

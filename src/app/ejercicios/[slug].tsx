@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import type { ReactNode } from 'react';
 import { Image, StyleSheet, View, type ImageSourcePropType } from 'react-native';
 
+import { MuscleMap } from '@/components/muscle-map/muscle-map';
 import { AppText } from '@/components/ui/app-text';
 import { Card } from '@/components/ui/card';
 import { Chip } from '@/components/ui/chip';
@@ -47,10 +48,10 @@ export default function ExerciseDetailScreen() {
           {images.end ? <Figure source={images.end} caption={t('exercise.endPosition')} /> : null}
         </View>
       ) : (
-        <View style={styles.placeholder}>
-          <ImageOff color={colors.textMuted} size={28} aria-hidden />
-          <AppText tone="muted">{t('exercise.imagePending')}</AppText>
-        </View>
+        // Until its photos exist, every exercise shows exactly which muscles it works.
+        <Card style={styles.map}>
+          <MuscleMap primary={exercise.primaryMuscles} secondary={exercise.secondaryMuscles} />
+        </Card>
       )}
 
       <Section title={t('exercise.primaryMuscles')}>
@@ -164,15 +165,8 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     backgroundColor: colors.surface,
   },
-  placeholder: {
-    aspectRatio: 2,
-    borderRadius: radius.lg,
-    borderWidth: 1,
-    borderStyle: 'dashed',
-    borderColor: colors.border,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: spacing.sm,
+  map: {
+    paddingVertical: spacing.lg,
   },
   section: {
     gap: spacing.sm,
