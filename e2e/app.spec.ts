@@ -42,6 +42,26 @@ test.describe('landing', () => {
   });
 });
 
+test.describe('deep links', () => {
+  test('open an exercise, a workout and a programme directly, as after a reload', async ({
+    page,
+  }) => {
+    await page.goto('/bienvenida');
+    await page.getByRole('button', { name: 'Probar sin cuenta' }).first().click();
+    await expect(page.getByRole('heading', { name: 'Hola, Marcos' })).toBeVisible();
+
+    await page.goto('/ejercicios/press-banca-barra');
+    await expect(page.getByRole('heading', { name: 'Claves de técnica' })).toBeVisible();
+
+    await page.goto('/programas/torso-pierna');
+    await expect(page.getByRole('heading', { name: 'Por qué funciona' })).toBeVisible();
+
+    // Last week's Monday session always exists in the demo, whatever day it is today.
+    await page.goto('/historial/demo-w6-0');
+    await expect(page.getByRole('heading', { name: 'Torso A' }).first()).toBeVisible();
+  });
+});
+
 test.describe('demo without an account', () => {
   test('trains a full session of the programme', async ({ page }) => {
     const errors = collectErrors(page);

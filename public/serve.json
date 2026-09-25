@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/ejercicios/:slug", "destination": "/ejercicios/[slug].html" },
+    { "source": "/historial/:id", "destination": "/historial/[id].html" },
+    { "source": "/programas/:slug", "destination": "/programas/[slug].html" }
+  ]
+}

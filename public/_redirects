@@ -1,0 +1,5 @@
+# Dynamic routes of the static export (Netlify and Cloudflare Pages). Without these, reloading or
+# opening a link to an exercise, a workout or a programme returns a 404.
+/ejercicios/:slug  /ejercicios/[slug].html  200
+/historial/:id     /historial/[id].html     200
+/programas/:slug   /programas/[slug].html   200
