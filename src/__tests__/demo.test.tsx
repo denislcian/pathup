@@ -52,6 +52,9 @@ describe('try without an account', () => {
     expect(
       await screen.findByRole('button', { name: /^Empezar la sesión/ }, ROUTER_TIMEOUT),
     ).toBeOnTheScreen();
+    // Today's numbers: eight weeks in a row, and how far this programme week has got.
+    expect(screen.getByText('semanas de racha')).toBeOnTheScreen();
+    expect(screen.getByText('sesiones de la semana 8')).toBeOnTheScreen();
 
     await user.press(screen.getByRole('button', { name: 'Salir de la demo' }));
 

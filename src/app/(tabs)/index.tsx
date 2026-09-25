@@ -1,4 +1,3 @@
-import { useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
@@ -7,26 +6,26 @@ import { Dumbbell, HeartPulse } from '@/components/icons';
 import { AppText } from '@/components/ui/app-text';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Columns } from '@/components/ui/columns';
+import { Columns, useIsWide } from '@/components/ui/columns';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Screen } from '@/components/ui/screen';
 import { todayIso } from '@/domain/age';
 import { thisWeek, weeklyStreak } from '@/domain/progress';
 import { sessionAdjustment } from '@/domain/wellness';
 import { countCompletedSets } from '@/domain/workout';
-import { exitDemo } from '@/features/account/demo';
+import { DemoBanner } from '@/features/account/demo-banner';
 import { useWorkoutHistory } from '@/features/history/history-api';
-import { StatRow, StatTile, WorkoutCard } from '@/features/history/history-components';
+import { WorkoutCard } from '@/features/history/history-components';
 import { HabitsToday } from '@/features/habits/habits-today';
 import { NextSessionCard, RecommendedProgram } from '@/features/programs/program-components';
 import { useProgramState } from '@/features/programs/programs-api';
 import { startProgramSession } from '@/features/programs/start-session';
 import { useProfile } from '@/features/profile/profile-api';
+import { TodayStats, type TodayStat } from '@/features/today/today-stats';
 import { ReadinessCard } from '@/features/wellness/readiness-card';
 import { useTodayCheckin } from '@/features/wellness/wellness-api';
 import { useActiveWorkout } from '@/features/workout/active-workout-store';
 import { useDemoMode } from '@/lib/demo-mode';
-import { formatKg } from '@/lib/format';
 import { colors, spacing } from '@/theme/tokens';
 
 export default function TodayScreen() {
@@ -36,7 +35,7 @@ export default function TodayScreen() {
   const state = useProgramState();
   const active = useActiveWorkout((store) => store.workout);
   const demo = useDemoMode();
-  const queryClient = useQueryClient();
+  const isWide = useIsWide();
   const today_ = todayIso();
   const { checkin } = useTodayCheckin(today_);
   const adjustment = checkin ? sessionAdjustment(checkin) : null;
@@ -52,27 +51,39 @@ export default function TodayScreen() {
   const streak = weeklyStreak(workouts);
   const last = workouts[0];
 
+  const stats: TodayStat[] = [
+    {
+      key: 'week',
+      value: String(week.workouts),
+      label: t('today.statWorkouts', { count: week.workouts }),
+    },
+    {
+      key: 'streak',
+      value: String(streak),
+      label: t('today.statStreak', { count: streak }),
+      highlight: streak > 0,
+    },
+    state.progress
+      ? {
+          key: 'program',
+          value: `${state.progress.weekDone}/${state.progress.weekTotal}`,
+          label: t('today.statProgram', { week: state.progress.week }),
+        }
+      : {
+          key: 'volume',
+          value: new Intl.NumberFormat(i18n.language, { maximumFractionDigits: 0 }).format(
+            week.volumeKg,
+          ),
+          label: t('today.statVolume'),
+        },
+  ];
+  // On a phone the session of the day goes first and the numbers under it; on a desktop there is
+  // room for the numbers on top.
+  const statsStrip = <TodayStats stats={stats} />;
+
   return (
     <Screen wide title={name ? t('today.greeting', { name }) : t('today.title')} subtitle={today}>
-      {demo ? (
-        <Card style={styles.demo}>
-          <AppText variant="heading" role="heading" tone="calm">
-            {t('demo.bannerTitle')}
-          </AppText>
-          <AppText tone="muted">{t('demo.bannerBody')}</AppText>
-          <View style={styles.demoActions}>
-            <Button
-              label={t('demo.createAccount')}
-              onPress={() => void exitDemo(queryClient, '/registro')}
-            />
-            <Button
-              label={t('demo.exit')}
-              variant="ghost"
-              onPress={() => void exitDemo(queryClient)}
-            />
-          </View>
-        </Card>
-      ) : null}
+      {demo ? <DemoBanner /> : null}
 
       {active ? (
         <Card style={styles.active}>
@@ -89,28 +100,7 @@ export default function TodayScreen() {
         </Card>
       ) : null}
 
-      <StatRow>
-        <StatTile
-          label={t('today.weekSessions')}
-          value={t('progress.workoutsCount', { count: week.workouts })}
-          hint={week.volumeKg > 0 ? formatKg(week.volumeKg, i18n.language) : undefined}
-        />
-        <StatTile
-          label={t('progress.streak')}
-          value={t('progress.weeksCount', { count: streak })}
-          hint={t('progress.streakHint')}
-        />
-        {state.progress ? (
-          <StatTile
-            label={t('today.programWeek')}
-            value={t('programs.week', { week: state.progress.week })}
-            hint={t('today.programSessions', {
-              done: state.progress.weekDone,
-              total: state.progress.weekTotal,
-            })}
-          />
-        ) : null}
-      </StatRow>
+      {isWide ? statsStrip : null}
 
       <Columns>
         {[
@@ -146,6 +136,8 @@ export default function TodayScreen() {
             ) : (
               <RecommendedProgram profile={profile.data ?? null} />
             )}
+
+            {isWide ? null : statsStrip}
 
             {!state.program ? (
               <EmptyState
@@ -198,13 +190,5 @@ const styles = StyleSheet.create({
   },
   done: {
     borderColor: colors.accent,
-  },
-  demo: {
-    borderColor: colors.calm,
-  },
-  demoActions: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: spacing.sm,
   },
 });

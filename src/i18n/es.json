@@ -131,7 +131,13 @@
     "openWorkout": "Ir a Entreno",
     "lastWorkout": "Tu último entreno",
     "doCheckin": "Hacer el check-in",
-    "seeAllPrograms": "Ver el plan completo"
+    "seeAllPrograms": "Ver el plan completo",
+    "statWorkouts_one": "entreno esta semana",
+    "statWorkouts_other": "entrenos esta semana",
+    "statStreak_one": "semana de racha",
+    "statStreak_other": "semanas de racha",
+    "statProgram": "sesiones de la semana {{week}}",
+    "statVolume": "kg levantados esta semana"
   },
   "workout": {
     "title": "Entreno",
@@ -891,9 +897,10 @@
   },
   "demo": {
     "bannerTitle": "Estás probando PathUp",
-    "bannerBody": "Son 8 semanas de entrenos de Marcos, inventadas. Toca lo que quieras: empieza una sesión, cambia una rutina o haz el check-in. Nada sale de este dispositivo.",
+    "bannerBody": "8 semanas de entrenos inventados de Marcos. Toca lo que quieras: nada sale de este dispositivo.",
     "createAccount": "Crear mi cuenta",
-    "exit": "Salir de la demo"
+    "exit": "Salir de la demo",
+    "exitShort": "Salir"
   },
   "habits": {
     "title": "Hábitos de hoy",

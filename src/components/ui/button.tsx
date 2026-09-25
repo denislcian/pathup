@@ -9,9 +9,18 @@ type Variant = 'primary' | 'secondary' | 'ghost';
 export type ButtonProps = Omit<PressableProps, 'children'> & {
   label: string;
   variant?: Variant;
+  /** Less padding at the sides, for two buttons side by side on a phone. Same touch height. */
+  compact?: boolean;
 };
 
-export function Button({ label, variant = 'primary', disabled, style, ...props }: ButtonProps) {
+export function Button({
+  label,
+  variant = 'primary',
+  compact = false,
+  disabled,
+  style,
+  ...props
+}: ButtonProps) {
   const { hovered, hoverProps } = useHover();
 
   return (
@@ -23,6 +32,7 @@ export function Button({ label, variant = 'primary', disabled, style, ...props }
       {...hoverProps}
       style={(state) => [
         styles.base,
+        compact && styles.compact,
         styles[variant],
         hovered && !disabled && styles[`${variant}Hovered`],
         state.pressed && styles.pressed,
@@ -47,6 +57,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     cursor: 'pointer',
+  },
+  compact: {
+    paddingHorizontal: spacing.md,
   },
   primary: {
     backgroundColor: colors.accent,

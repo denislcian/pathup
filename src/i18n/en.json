@@ -131,7 +131,13 @@
     "openWorkout": "Go to Workout",
     "lastWorkout": "Your last workout",
     "doCheckin": "Do the check-in",
-    "seeAllPrograms": "See the full plan"
+    "seeAllPrograms": "See the full plan",
+    "statWorkouts_one": "workout this week",
+    "statWorkouts_other": "workouts this week",
+    "statStreak_one": "week in a row",
+    "statStreak_other": "weeks in a row",
+    "statProgram": "sessions in week {{week}}",
+    "statVolume": "kg lifted this week"
   },
   "workout": {
     "title": "Workout",
@@ -891,9 +897,10 @@
   },
   "demo": {
     "bannerTitle": "You are trying PathUp",
-    "bannerBody": "These are 8 weeks of Marcos's made-up workouts. Try anything: start a session, change a routine or do the check-in. Nothing leaves this device.",
+    "bannerBody": "8 weeks of Marcos's made-up workouts. Try anything: nothing leaves this device.",
     "createAccount": "Create my account",
-    "exit": "Leave the demo"
+    "exit": "Leave the demo",
+    "exitShort": "Leave"
   },
   "habits": {
     "title": "Today's habits",
